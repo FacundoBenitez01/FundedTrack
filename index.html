@@ -14,6 +14,13 @@ body:not(.ft-ready) #app,body:not(.ft-ready) .sidebar,body:not(.ft-ready) .mobil
 #welcome{display:none!important}#ftCloudGate{display:flex}body.ft-ready #ftCloudGate:not(.show){display:none}
 #ftCloudGate .btn{min-height:44px}#ftCloudGate .ft-cloud-box{max-height:92vh;overflow:auto}#ftCloudGate button:disabled{opacity:.55}
 #ftCloudBanner{position:fixed;right:12px;top:8px;z-index:30;background:#151b29;border:1px solid #293149;border-radius:10px;padding:7px 12px;font-size:11px;max-width:80vw}
+</style><style id="ft-settings-navigation-v53">
+@media(max-width:700px){
+ .mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr));gap:2px}
+ .mobile-nav button{min-width:0;min-height:44px;font-size:8px;line-height:1.2}
+ .mobile-nav button[data-page="ftPageSettings"]{color:#b9a8ff}
+ .mobile-nav button.ft-nav-current{color:#fff;background:#7559ff30;border-radius:10px}
+}
 </style></head>
 <style>
 /* FundedTrack — dashboard redesign inspired by the supplied reference */
@@ -402,7 +409,7 @@ renderPA=()=>{oldRenderPA();if($('paGoalLive'))$('paGoalLive').textContent=Numbe
     ['ftPageAccounts','▣','Cuentas'],
     ['ftPageWithdrawals','↗','Retiros'],
     ['ftPageObjectives','◎','Objetivos'],
-    ['ftPageSettings','⚙','Más']
+    ['ftPageSettings','⚙','Configuración']
   ];
   const side=document.querySelector('.sidebar');
   const mobile=document.querySelector('.mobile-nav');
@@ -415,7 +422,7 @@ renderPA=()=>{oldRenderPA();if($('paGoalLive'))$('paGoalLive').textContent=Numbe
       return nav;
     }
     nav.innerHTML='';
-    labels.slice(0,5).forEach(x=>{const b=document.createElement('button');b.type='button';b.dataset.page=x[0];b.innerHTML='<span>'+x[1]+'</span>'+x[2];nav.appendChild(b)});
+    labels.forEach(x=>{const b=document.createElement('button');b.type='button';b.dataset.page=x[0];b.setAttribute('aria-label',x[2]);b.title=x[2];b.innerHTML='<span aria-hidden="true">'+x[1]+'</span>'+(x[0]==='ftPageSettings'?'Ajustes':x[2]);nav.appendChild(b)});
     return nav;
   }
   if(side)side.replaceWith(makeNav('sidebar'));
@@ -673,7 +680,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  const legacy=localStorage.getItem('fundedtrack_v5');
  if(legacy){el('ftLegacyBackup').hidden=false;el('ftLegacyBackup').onclick=()=>{try{download('FundedTrack-respaldo-anterior.json',JSON.parse(legacy));}catch(e){msg('El respaldo anterior no tiene un formato válido.',true);}};}
  const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
- panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v52</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
+ panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v53</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
  el('ftPageSettings')?.appendChild(panel);
  el('ftSync').onclick=flush;el('ftSignOut').onclick=signOut;
  el('ftExportMine').onclick=()=>download('FundedTrack-mis-datos.json',clone(accounts));
