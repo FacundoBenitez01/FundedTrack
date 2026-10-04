@@ -1,0 +1,21 @@
+FUNDEDTRACK v51
+
+Esta carpeta ya está preparada para usar FundedTrack como app web/PWA en celular y PC.
+
+PUBLICAR
+1. Subí TODO el contenido de esta carpeta a un repositorio de GitHub.
+2. El archivo principal debe llamarse index.html.
+3. En GitHub: Settings > Pages > Source: Deploy from a branch > main > / (root) > Save.
+4. Esperá la publicación y abrí la URL HTTPS que te dé GitHub Pages.
+
+CELULAR
+- Android/Chrome: abrí la URL y elegí Instalar aplicación / Agregar a pantalla de inicio.
+- iPhone/Safari: abrí la URL, Compartir > Agregar a pantalla de inicio.
+
+NUBE
+La app usa Supabase. Primero hay que configurar el proyecto y la tabla/RLS dentro de Supabase desde FundedTrack.
+Nunca pongas una service_role/secret key en la app; solo la publishable/anon key.
+
+IMPORTANTE
+La nube guarda tus datos. GitHub Pages solo sirve los archivos de la aplicación.
+La PC no necesita quedar encendida una vez que la app esté publicada y Supabase configurado.
