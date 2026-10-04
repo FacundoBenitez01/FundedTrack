@@ -1,0 +1,27 @@
+FundedTrack v56 — Cuentas y reglas CFD
+
+INSTALACIÓN
+1. Descomprimí este paquete.
+2. En GitHub, FundedTrack → Add file → Upload files, subí index.html y sw.js en la raíz y confirmá el commit. Reemplazan los archivos anteriores.
+3. Esperá a que GitHub Pages termine de publicar.
+4. Cerrá y abrí la aplicación. En Ajustes debe aparecer v56. Si sigue mostrando la versión anterior, recargá la página.
+No borres el almacenamiento del navegador. No requiere SQL nuevo en Supabase.
+
+CATÁLOGO
+FundedNext: Stellar 1-Step, Stellar 2-Step, Stellar Lite y Stellar Instant.
+FundingPips: 1-Step Flex, 2-Step Standard, 2-Step Pro, 2-Step Flex y Zero; además Prime, solo por invitación y con capital asignado manualmente.
+Cada modelo ofrece sus tamaños, fases, objetivos, días y reglas de pérdida. Los modelos instantáneos comienzan como fondeados. Se distinguen condiciones actuales, anteriores y complementos seleccionados.
+
+USO
+Cuentas: elegí empresa, modelo, tamaño, versión y recompensa. Revisá las condiciones y confirmá que coinciden con tu contrato antes de guardar.
+Objetivos: muestra el progreso de la fase activa y los días que califican. La última fase lleva a Fondeada en el diario; esto no sustituye la aprobación de la empresa.
+Retiros: muestra requisitos numéricos de recompensa. Registrá por separado el importe recibido y la deducción real del saldo. Los retiros anteriores sin deducción conocida no se restan automáticamente.
+Operaciones: podés registrar valores de referencia de balance/equity y límite, y ajustar la zona horaria del servidor desde la cuenta.
+Las cuentas anteriores conservan su identificador e historial. Los modelos se agregan como opciones; no se crean cuentas personales duplicadas. Las reglas quedan guardadas con cada cuenta y se sincronizan mediante el almacenamiento JSON existente.
+
+FUENTES Y LÍMITES
+Reglas revisadas el 4 de octubre de 2026 en las páginas oficiales enlazadas dentro de cada ficha. Las reglas contractuales y el panel de la empresa prevalecen. Algunas páginas de FundingPips presentan diferencias entre sus encabezados y explicaciones; las fichas señalan las discrepancias de Pro, Flex y strikes para que confirmes la variante contratada.
+Los cálculos dependen de los datos registrados. No hay conexión de ejecución con un broker ni lectura automática de equity flotante, infracciones de noticias, posiciones de fin de semana o strikes. La comprobación de retiros tampoco garantiza su aprobación. Prime incluye notas de escalado, sin automatizar el escalado real de la firma.
+
+VALIDACIÓN
+82 comprobaciones de catálogo, reglas, fases, compatibilidad e independencia de usuarios; 29 comprobaciones de las funciones anteriores. Pruebas con Supabase simulado, sin modificar cuentas reales. Falta verificar esta versión en tu dispositivo y tu proyecto real después de publicarla.
