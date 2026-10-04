@@ -1,21 +1,29 @@
-FUNDEDTRACK v51
+FundedTrack v52 — acceso personal y Supabase
 
-Esta carpeta ya está preparada para usar FundedTrack como app web/PWA en celular y PC.
+PUBLICACIÓN
+1. Descomprimir este ZIP.
+2. En GitHub: FacundoBenitez01/FundedTrack -> Add file -> Upload files.
+3. Subir index.html, sw.js, manifest.webmanifest, icon-192.png e icon-512.png a la raíz y confirmar con Commit changes.
+4. Esperar la publicación en Pages. Cerrar y volver a abrir la app; recargar una segunda vez si sigue mostrando la versión antigua.
 
-PUBLICAR
-1. Subí TODO el contenido de esta carpeta a un repositorio de GitHub.
-2. El archivo principal debe llamarse index.html.
-3. En GitHub: Settings > Pages > Source: Deploy from a branch > main > / (root) > Save.
-4. Esperá la publicación y abrí la URL HTTPS que te dé GitHub Pages.
+La URL y la clave pública del proyecto ya están incluidas. No se incluye ninguna clave secreta.
 
-CELULAR
-- Android/Chrome: abrí la URL y elegí Instalar aplicación / Agregar a pantalla de inicio.
-- iPhone/Safari: abrí la URL, Compartir > Agregar a pantalla de inicio.
+SUPABASE
+La tabla fundedtrack_workspaces debe tener id como clave primaria, user_id UNIQUE y relación con auth.users, accounts JSONB y updated_at TIMESTAMPTZ.
+RLS debe estar habilitado con las tres políticas de lectura, inserción y actualización de los datos propios. Los permisos SELECT, INSERT y UPDATE se otorgan a authenticated, y anon no tiene acceso.
+Site URL y Redirect URL: https://facundobenitez01.github.io/FundedTrack/
+Email y registro habilitados, confirmación de correo activada.
+Para registros y recuperación de contraseña de usuarios externos, configurar SMTP en Authentication -> Emails. El servicio SMTP de prueba solo envía correos a miembros del equipo del proyecto. Nunca poner las credenciales SMTP en esta app.
 
-NUBE
-La app usa Supabase. Primero hay que configurar el proyecto y la tabla/RLS dentro de Supabase desde FundedTrack.
-Nunca pongas una service_role/secret key en la app; solo la publishable/anon key.
+DATOS ANTERIORES
+Se conserva fundedtrack_v5 como respaldo local, sin subirlo automáticamente a usuarios nuevos. Desde el mismo navegador anterior, descargar el respaldo anterior. Luego entrar con la cuenta correcta e importar ese JSON usando Importar. Hacer antes una exportación de los datos actuales.
 
-IMPORTANTE
-La nube guarda tus datos. GitHub Pages solo sirve los archivos de la aplicación.
-La PC no necesita quedar encendida una vez que la app esté publicada y Supabase configurado.
+PRUEBAS
+Verificados con usuarios simulados: login, aislamiento A/B, cierre de sesión, carga de datos a memoria, guardado, conservación de pendientes y prevención de sobrescritura ante cambios simultáneos. Comprobación real de solo lectura: URL y clave aceptadas por Supabase; lectura anónima de tabla rechazada.
+Pendiente: registro real, recepción de correo, pruebas de permisos con dos usuarios reales y sincronización PC/celular. No se crearon usuarios reales ni se envió correo durante las pruebas.
+
+USO
+En Más/Configuración: Mi cuenta, Sincronizar ahora, Exportar respaldo, Cargar versión de la nube y Cerrar sesión.
+Esperar a ver Sincronizado antes de pasar a otro dispositivo. La consulta automática se repite cada 20 segundos mientras hay sesión.
+Ante conflicto, exportar los datos pendientes antes de cargar la versión de la nube. La app conserva los pendientes por usuario en el navegador; no fusiona automáticamente dos ediciones.
+Se necesita Internet para iniciar sesión y cargar el espacio de trabajo. El Service Worker no convierte esta versión en una app de edición completamente offline.

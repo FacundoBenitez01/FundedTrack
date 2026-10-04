@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#6875f5"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%236875f5'/%3E%3Cpath d='M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z' fill='white'/%3E%3Ccircle cx='94' cy='30' r='10' fill='%2325a66a'/%3E%3C/svg%3E"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%236875f5'/%3E%3Cpath d='M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z' fill='white'/%3E%3Ccircle cx='94' cy='30' r='10' fill='%2325a66a'/%3E%3C/svg%3E"><link rel="manifest" href="manifest.webmanifest">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#6875f5"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%236875f5'/%3E%3Cpath d='M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z' fill='white'/%3E%3Ccircle cx='94' cy='30' r='10' fill='%2325a66a'/%3E%3C/svg%3E"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="manifest" href="manifest.webmanifest">
 <title>FundedTrack — Trading Journal</title>
 <style>
 :root{color-scheme:dark;--bg:#0e1015;--surface:#151821;--surface2:#1d212b;--text:#f4f5f8;--muted:#9da4b2;--border:#2b303c;--green:#32c98a;--red:#ef626c;--amber:#e1ad45;--accent:#7c6cff;--accent2:#a78bfa}
@@ -9,6 +9,11 @@
 .theme-navy{--bg:#0a101b;--surface:#111a29;--surface2:#182337;--text:#f2f5fa;--muted:#91a0b6;--border:#293852;--green:#48d59d;--red:#ef6973;--amber:#e7b65a;--accent:#3f8cff;--accent2:#7ab2ff}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}#app{min-height:100vh;background:var(--bg);padding:28px 30px 42px}.wrap{max-width:1250px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.brand h1{font-size:25px;margin:0 0 5px;letter-spacing:-.5px}.brand p{margin:0;color:var(--muted);font-size:13px}.phase{display:flex;gap:8px;align-items:center}.select,.btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:10px;padding:10px 13px;font-weight:600}.btn{cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:white}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:18px}.label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}.value{font-size:25px;font-weight:750;margin-top:8px;letter-spacing:-.5px}.sub{font-size:12px;color:var(--muted);margin-top:5px}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}.section{margin-top:18px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.section h2{font-size:15px;margin:0}.progress-card{display:grid;grid-template-columns:1.5fr .8fr;gap:20px}.bar{height:13px;background:var(--surface2);border-radius:99px;overflow:hidden;margin:12px 0 8px}.fill{height:100%;background:var(--accent);border-radius:99px;transition:width .25s}.barrow{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.limits{display:grid;gap:10px}.limit{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:var(--surface2);border-radius:10px;font-size:13px}.pill{padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700;background:color-mix(in srgb,var(--green) 14%,transparent);color:var(--green)}.calendar-card{padding:16px}.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.month{font-weight:750}.nav{display:flex;gap:6px}.nav button{border:1px solid var(--border);background:var(--surface);color:var(--text);width:34px;height:32px;border-radius:8px;cursor:pointer}.week,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.week div{text-align:center;font-size:11px;color:var(--muted);padding:7px}.day{min-height:88px;border:1px solid var(--border);background:var(--surface2);border-radius:9px;padding:7px;cursor:pointer;position:relative}.day:hover{border-color:var(--accent)}.day.muted{opacity:.4}.num{font-size:11px;color:var(--muted)}.trade{font-size:11px;border-radius:6px;padding:5px 6px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trade.win{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}.trade.loss{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red)}.trade.be{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)}.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px}.stat .value{font-size:19px}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:20px;z-index:5}.modal.show{display:flex}.modalbox{width:min(520px,100%);background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 20px 70px #0005}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modalhead h3{margin:0}.close{background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:var(--muted);font-weight:650}.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:9px;padding:10px;font:inherit}.field textarea{min-height:75px;resize:vertical}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.footer-note{font-size:11px;color:var(--muted);margin-top:14px}.chart{height:170px;display:flex;align-items:end;gap:5px;padding:15px 5px 0}.barcol{flex:1;display:flex;align-items:end;height:100%;position:relative}.barcol span{width:100%;background:var(--accent);border-radius:5px 5px 0 0;min-height:2px}.barcol small{position:absolute;bottom:-17px;width:100%;text-align:center;color:var(--muted);font-size:9px}.empty{color:var(--muted);font-size:13px;text-align:center;padding:35px}.danger{color:var(--red)}@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.progress-card{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){#app{padding:18px 12px}.top{align-items:flex-start;gap:12px}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:repeat(2,1fr)}.day{min-height:70px}.trade{font-size:10px}.form{grid-template-columns:1fr}.field.full{grid-column:auto}}
 :root{--logo-bg:#7c6cff}.brand{display:flex;align-items:center;gap:12px}.brand-logo{width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:var(--accent);padding:8px;box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 25%,transparent)}.brand-logo svg{width:100%;height:100%;display:block}.theme-switcher{display:flex;align-items:center;gap:6px;padding:4px;border:1px solid var(--border);background:var(--surface2);border-radius:12px}.theme-btn{border:0;background:transparent;color:var(--muted);padding:7px 9px;border-radius:8px;font-size:11px;font-weight:750;cursor:pointer}.theme-btn.active{background:var(--accent);color:white}.theme-label{font-size:10px;color:var(--muted);padding:0 4px 0 6px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+</style><style>
+body:not(.ft-ready) #app,body:not(.ft-ready) .sidebar,body:not(.ft-ready) .mobile-nav,body:not(.ft-ready) .modal,body:not(.ft-ready) .achievement{visibility:hidden!important;pointer-events:none!important}
+#welcome{display:none!important}#ftCloudGate{display:flex}body.ft-ready #ftCloudGate:not(.show){display:none}
+#ftCloudGate .btn{min-height:44px}#ftCloudGate .ft-cloud-box{max-height:92vh;overflow:auto}#ftCloudGate button:disabled{opacity:.55}
+#ftCloudBanner{position:fixed;right:12px;top:8px;z-index:30;background:#151b29;border:1px solid #293149;border-radius:10px;padding:7px 12px;font-size:11px;max-width:80vw}
 </style></head>
 <style>
 /* FundedTrack — dashboard redesign inspired by the supplied reference */
@@ -50,7 +55,7 @@ body{background:#090c14;overflow-x:hidden}
 @media(max-width:1050px){.wrap{padding-left:270px;padding-right:20px}.grid{grid-template-columns:repeat(2,1fr)}.top{flex-direction:column}.phase{justify-content:flex-start}.wrap>.section:nth-child(4),.wrap>.section:nth-child(8){grid-column:1/-1}.wrap>.section:nth-child(8){grid-row:auto}.wrap>.section:nth-child(4){grid-row:auto}}
 @media(max-width:700px){.sidebar{display:none}.wrap{padding:18px 14px 82px}.top{padding-bottom:15px;margin-bottom:14px}.brand h1{font-size:25px}.phase{width:100%;max-width:none;justify-content:flex-start}.phase .select{flex:1;min-width:0}.phase .btn:not(.primary){display:none}.grid{grid-template-columns:1fr 1fr}.grid .card{min-height:110px}.value{font-size:23px}.progress-card{grid-template-columns:1fr}.calendar-card{overflow:auto}.week,.days{min-width:620px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:10px;right:10px;bottom:10px;z-index:12;background:#111625ee;border:1px solid #2a3248;border-radius:16px;padding:7px;backdrop-filter:blur(16px);box-shadow:0 16px 40px #0007}.mobile-nav button{border:0;background:transparent;color:#8d97ac;font:600 9px inherit;padding:5px 2px}.mobile-nav button:first-child{color:#fff}.mobile-nav span{display:block;font-size:16px;margin-bottom:2px}.account-strip{font-size:11px}.wrap>.section:nth-child(4),.wrap>.section:nth-child(8){grid-column:1/-1}}
 </style>
-<body><aside class="sidebar"><div class="side-brand"><div class="side-brand-mark"><svg viewBox="0 0 128 128"><path d="M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z" fill="white"/><circle cx="94" cy="30" r="10" fill="#36d79a"/></svg></div><div class="side-brand-name">Funded<span>Track</span></div></div><nav class="side-nav"><button class="side-btn active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="side-icon">⌂</span>Resumen</button><button class="side-btn" onclick="document.querySelector('.calendar-card').scrollIntoView({behavior:'smooth',block:'start'})"><span class="side-icon">▤</span>Operaciones</button><button class="side-btn" onclick="document.getElementById('account').focus()"><span class="side-icon">▣</span>Cuentas</button><button class="side-btn" onclick="openPA()"><span class="side-icon">↗</span>Retiros</button></nav><div class="side-bottom"><button class="side-btn" onclick="document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth',block:'start'})"><span class="side-icon">⚙</span>Configuración</button></div></aside><div class="mobile-nav"><button onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>⌂</span>Inicio</button><button onclick="document.querySelector('.calendar-card').scrollIntoView({behavior:'smooth'})"><span>▤</span>Operaciones</button><button onclick="document.getElementById('account').focus()"><span>▣</span>Cuentas</button><button onclick="openPA()"><span>↗</span>Retiros</button><button onclick="document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth'})"><span>⚙</span>Más</button></div><div class="welcome" id="welcome"><div class="welcome-box"><div class="welcome-kicker">FUNDEDTRACK</div><div class="welcome-title">Bienvenido, Señor Facundo.</div><div class="welcome-sub">¿Listo para lo de hoy? 🎯</div><div class="welcome-quote">No necesitás ganar hoy. Necesitás ejecutar bien.</div><button class="btn primary" id="startBtn">Vamos</button></div></div><div id="app"><div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);column-gap:16px">
+<body><aside class="sidebar"><div class="side-brand"><div class="side-brand-mark"><svg viewBox="0 0 128 128"><path d="M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z" fill="white"/><circle cx="94" cy="30" r="10" fill="#36d79a"/></svg></div><div class="side-brand-name">Funded<span>Track</span></div></div><nav class="side-nav"><button class="side-btn active" onclick="window.scrollTo({top:0,behavior:'smooth'})"><span class="side-icon">⌂</span>Resumen</button><button class="side-btn" onclick="document.querySelector('.calendar-card').scrollIntoView({behavior:'smooth',block:'start'})"><span class="side-icon">▤</span>Operaciones</button><button class="side-btn" onclick="document.getElementById('account').focus()"><span class="side-icon">▣</span>Cuentas</button><button class="side-btn" onclick="openPA()"><span class="side-icon">↗</span>Retiros</button></nav><div class="side-bottom"><button class="side-btn" onclick="document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth',block:'start'})"><span class="side-icon">⚙</span>Configuración</button></div></aside><div class="mobile-nav"><button onclick="window.scrollTo({top:0,behavior:'smooth'})"><span>⌂</span>Inicio</button><button onclick="document.querySelector('.calendar-card').scrollIntoView({behavior:'smooth'})"><span>▤</span>Operaciones</button><button onclick="document.getElementById('account').focus()"><span>▣</span>Cuentas</button><button onclick="openPA()"><span>↗</span>Retiros</button><button onclick="document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth'})"><span>⚙</span>Más</button></div><div class="welcome" id="welcome"><div class="welcome-box"><div class="welcome-kicker">FUNDEDTRACK</div><div class="welcome-title">Bienvenido a FundedTrack.</div><div class="welcome-sub">¿Listo para lo de hoy? 🎯</div><div class="welcome-quote">No necesitás ganar hoy. Necesitás ejecutar bien.</div><button class="btn primary" id="startBtn">Vamos</button></div></div><div id="app"><div class="wrap" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);column-gap:16px">
 <div class="top"><div class="brand"><div class="brand-logo" aria-label="Logo FundedTrack"><svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><path d="M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z" fill="white"/><circle cx="94" cy="30" r="10" fill="var(--green)"/></svg></div><div><h1>FundedTrack</h1><p>Trading journal · tus cuentas · tu progreso</p></div></div><div class="phase"><div class="theme-switcher"><span class="theme-label">Tema</span><button class="theme-btn active" data-theme="violet">Violet</button><button class="theme-btn" data-theme="emerald">Emerald</button><button class="theme-btn" data-theme="navy">Navy</button></div><select id="account" class="select"></select><select id="phase" class="select"></select><button class="btn" id="paBtn">💎 PA / Retiros</button><button class="btn" id="newAccount">+ Cuenta</button><button class="btn" id="exportBtn">⬇ Respaldo</button><button class="btn" id="importBtn">⬆ Importar</button><button class="btn" id="installBtn" style="display:none">▣ Instalar</button><button class="btn primary" id="addTop">+ Operación</button></div></div>
 <div class="account-strip" id="accountStrip"><strong id="accountName">Cuenta</strong><span class="pill" id="accountStatus">🟢 Activa</span></div>
 <div class="grid"><div class="card"><div class="label">Balance actual</div><div class="value" id="balance">$5,000</div><div class="sub" id="balanceSub">Inicial $5,000</div></div><div class="card"><div class="label">P&L acumulado</div><div class="value" id="pnl">$0</div><div class="sub" id="pnlPct">0.00%</div></div><div class="card"><div class="label">Win rate</div><div class="value" id="winrate">—</div><div class="sub" id="tradesCount">0 operaciones</div></div><div class="card"><div class="label">Días operados</div><div class="value" id="days">0 / 5</div><div class="sub">mínimo de trading days</div></div></div>
@@ -67,14 +72,13 @@ body{background:#090c14;overflow-x:hidden}
 /* FundedTrack official polish — responsive web workspace */
 html{scroll-behavior:smooth}body{background:#080b12}button,input,select,textarea{font-family:inherit}.wrap{grid-template-columns:minmax(0,1fr) 360px!important;column-gap:18px!important;padding:26px 34px 58px 282px!important}.top{grid-column:1/-1!important}.account-strip{grid-column:1/-1!important}.grid{grid-column:1/-1!important}.wrap>.section:nth-child(4){grid-column:2!important;grid-row:4!important}.wrap>.section:nth-child(8){grid-column:1!important;grid-row:4!important}.wrap>.section:nth-child(5),.wrap>.section:nth-child(6),.wrap>.section:nth-child(7),#recentSection{grid-column:1/-1!important}.wrap>.section:nth-child(5){grid-row:5!important}.wrap>.section:nth-child(6){grid-row:6!important}.wrap>.section:nth-child(7){grid-row:7!important}.wrap>.section:nth-child(8){grid-row:4!important}.top{position:sticky;top:0;z-index:8;background:linear-gradient(180deg,#090c14 76%,transparent);backdrop-filter:blur(16px);padding:8px 2px 22px!important}.brand-logo{background:linear-gradient(135deg,#6d55ff,#a277ff)!important}.phase{gap:8px}.phase .select{min-height:42px}.phase .btn{min-height:42px}.account-strip{box-shadow:0 12px 30px #0003}.account-strip .pill{margin-left:auto}.grid .card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.grid .card:hover{transform:translateY(-2px);border-color:#343d58;box-shadow:0 16px 36px #0003}.progress-card{min-height:292px}.chart{height:270px}.barcol span{transition:height .3s ease,filter .2s ease}.barcol span:hover{filter:brightness(1.18)}.calendar-card{box-shadow:inset 0 1px #ffffff03}.day{transition:border-color .15s ease,background .15s ease}.day:has(.trade){background:#151c2b}.mobile-nav{padding-bottom:max(7px,env(safe-area-inset-bottom))}.ft-cloud-btn{display:flex!important;align-items:center;gap:7px}.ft-cloud-dot{width:7px;height:7px;border-radius:50%;background:#e1ad45;box-shadow:0 0 10px #e1ad4540}.ft-cloud-btn.connected .ft-cloud-dot{background:#32c98a;box-shadow:0 0 10px #32c98a66}.ft-cloud-btn span{font-size:11px}.ft-auth{position:fixed;inset:0;z-index:40;background:#05070dcc;backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:20px}.ft-auth.show{display:flex}.ft-auth-box{width:min(520px,100%);background:linear-gradient(180deg,#151b2a,#101521);border:1px solid #2b344b;border-radius:24px;padding:26px;box-shadow:0 30px 100px #0009}.ft-auth-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.ft-auth-brand{display:flex;align-items:center;gap:12px}.ft-auth-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#6d55ff,#a277ff);display:grid;place-items:center}.ft-auth-mark svg{width:25px}.ft-auth-title{font-size:22px;font-weight:800}.ft-auth-sub{font-size:12px;color:#8993aa;margin-top:3px}.ft-auth-close{border:0;background:#1a2030;color:#9aa4b8;width:36px;height:36px;border-radius:10px;font-size:20px;cursor:pointer}.ft-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#0d121d;padding:5px;border-radius:12px;margin-bottom:16px}.ft-auth-tab{border:0;background:transparent;color:#8993aa;padding:9px;border-radius:9px;font-weight:750;cursor:pointer}.ft-auth-tab.active{background:#6d55ff;color:#fff}.ft-auth-form{display:grid;gap:12px}.ft-auth-field{display:grid;gap:6px}.ft-auth-field label{font-size:11px;color:#8d98ad;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.ft-auth-field input{width:100%;background:#0d121d;border:1px solid #293248;color:#f5f7fb;border-radius:10px;padding:12px}.ft-auth-actions{display:flex;gap:8px;margin-top:4px}.ft-auth-actions .btn{flex:1}.ft-auth-status{min-height:20px;font-size:12px;color:#94a0b6;margin-top:10px}.ft-auth-status.ok{color:#43d99d}.ft-auth-status.error{color:#ef6973}.ft-cloud-config{margin-top:18px;border-top:1px solid #252e43;padding-top:16px}.ft-cloud-config summary{cursor:pointer;color:#9ba5b9;font-size:12px;font-weight:700}.ft-cloud-grid{display:grid;gap:9px;margin-top:12px}.ft-cloud-grid input{background:#0d121d;border:1px solid #293248;color:#f5f7fb;border-radius:9px;padding:10px;width:100%}.ft-cloud-note{font-size:10px;color:#707c93;line-height:1.45;margin-top:8px}.ft-profile{display:none}.ft-recent{background:linear-gradient(180deg,#121827,#101522);border:1px solid #222a3e;border-radius:15px;overflow:hidden}.ft-recent-head{display:flex;justify-content:space-between;align-items:center;padding:17px 18px;border-bottom:1px solid #222a3e}.ft-recent-title{font-weight:800}.ft-recent-sub{font-size:11px;color:#7f8aa1}.ft-recent-table{width:100%;border-collapse:collapse}.ft-recent-table th,.ft-recent-table td{text-align:left;padding:12px 15px;border-bottom:1px solid #1f2638;font-size:12px}.ft-recent-table th{font-size:10px;color:#77839a;text-transform:uppercase;letter-spacing:.05em}.ft-recent-table tr:last-child td{border-bottom:0}.ft-result{font-weight:800}.ft-result.win{color:var(--green)}.ft-result.loss{color:var(--red)}.ft-result.be{color:var(--amber)}.ft-empty{padding:30px;text-align:center;color:#7f8aa1;font-size:12px}@media(max-width:1050px){.wrap{padding:24px 20px 52px 270px!important;grid-template-columns:1fr!important}.wrap>.section:nth-child(4),.wrap>.section:nth-child(8){grid-column:1/-1!important;grid-row:auto!important}.top{position:relative}.progress-card{min-height:0}}@media(max-width:700px){#app{padding:0!important}.wrap{display:block!important;padding:14px 12px 88px!important}.top{position:relative;padding:5px 0 15px!important;margin-bottom:12px!important}.brand{gap:9px}.brand-logo{width:40px;height:40px;flex-basis:40px;border-radius:12px;padding:7px}.brand h1{font-size:24px}.brand p{font-size:11px}.phase{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%;gap:7px!important}.phase .select{width:100%;min-width:0}.phase .btn.primary{grid-column:1/-1;width:100%}.phase .btn:not(.primary),.phase .theme-switcher{display:none!important}.account-strip{margin-bottom:10px}.grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:9px!important}.grid .card{min-height:104px;padding:14px}.grid .value{font-size:21px}.grid .label{font-size:9px}.progress-card{padding:16px!important}.progress-card .value{font-size:28px}.chart{height:210px;padding:18px 5px 5px}.barcol small{font-size:8px}.section{margin-top:13px}.section h2{font-size:15px}.section-head{gap:8px}.section-head .sub{display:none}.calendar-card{padding:9px!important}.week,.days{min-width:0!important;gap:3px}.week div{padding:5px 1px;font-size:9px}.day{min-height:61px!important;padding:5px!important;border-radius:7px}.num{font-size:9px}.trade{font-size:8px;padding:3px 4px;margin-top:3px}.stats{grid-template-columns:1fr 1fr!important;gap:7px}.stat{padding:11px}.stat .value{font-size:17px}.ft-recent-table th:nth-child(4),.ft-recent-table td:nth-child(4){display:none}.ft-recent-table th,.ft-recent-table td{padding:10px 9px;font-size:10px}.ft-auth{padding:12px}.ft-auth-box{padding:20px;border-radius:20px}.ft-auth-actions{flex-direction:column}.mobile-nav{left:8px;right:8px;bottom:8px}.mobile-nav button{font-size:8px}.mobile-nav span{font-size:15px}}@media(max-width:390px){.grid{grid-template-columns:1fr!important}.phase{grid-template-columns:1fr!important}.phase .btn.primary{grid-column:auto}}
 </style>
-<div class="ft-auth" id="ftAuth"><div class="ft-auth-box"><div class="ft-auth-head"><div class="ft-auth-brand"><div class="ft-auth-mark"><svg viewBox="0 0 128 128"><path d="M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z" fill="white"/><circle cx="94" cy="30" r="10" fill="#36d79a"/></svg></div><div><div class="ft-auth-title">Tu espacio FundedTrack</div><div class="ft-auth-sub" id="ftAuthMode">Acceso y sincronización en la nube</div></div></div><button class="ft-auth-close" id="ftAuthClose">×</button></div><div class="ft-auth-tabs"><button class="ft-auth-tab active" id="ftLoginTab">Iniciar sesión</button><button class="ft-auth-tab" id="ftSignupTab">Crear cuenta</button></div><form class="ft-auth-form" id="ftAuthForm"><div class="ft-auth-field"><label>Email</label><input id="ftEmail" type="email" autocomplete="email" placeholder="tu@email.com" required></div><div class="ft-auth-field"><label>Contraseña</label><input id="ftPassword" type="password" autocomplete="current-password" placeholder="••••••••" required></div><div class="ft-auth-actions"><button type="submit" class="btn primary" id="ftAuthSubmit">Iniciar sesión</button><button type="button" class="btn" id="ftLocalBtn">Continuar en este dispositivo</button></div></form><div class="ft-auth-status" id="ftAuthStatus">La interfaz está preparada para Supabase. Sin credenciales de proyecto, FundedTrack seguirá funcionando localmente.</div><details class="ft-cloud-config"><summary>Configurar conexión de nube</summary><div class="ft-cloud-grid"><input id="ftSupabaseUrl" placeholder="Project URL · https://tu-proyecto.supabase.co"><input id="ftSupabaseKey" placeholder="Publishable key · sb_publishable_..."><button type="button" class="btn" id="ftCloudSave">Guardar conexión</button></div><div class="ft-cloud-note">Usá únicamente la publishable key en el navegador. La secret/service_role key nunca debe exponerse en una página web.</div></details></div></div>
 <div class="section" id="recentSection"><div class="ft-recent"><div class="ft-recent-head"><div><div class="ft-recent-title">Operaciones recientes</div><div class="ft-recent-sub">Últimos movimientos de la cuenta seleccionada</div></div><button class="btn" id="ftRecentAdd">+ Operación</button></div><div id="ftRecentBody"></div></div></div>
 <div class="modal" id="dayModal"><div class="modalbox"><div class="modalhead"><h3 id="dayModalTitle">Operaciones del día</h3><button class="close" id="dayClose">×</button></div><div id="dayTradeList" class="day-modal-list"></div><div class="actions"><button type="button" class="btn primary" id="dayAdd">+ Nueva operación</button></div></div></div>
 <div class="modal" id="accountModal"><div class="modalbox"><div class="modalhead"><h3>Nueva cuenta</h3><button class="close" id="accountClose">×</button></div><form id="accountForm"><div class="form"><div class="field"><label>Firma</label><input id="afirm" required placeholder="Ej. FundingPips"></div><div class="field"><label>Programa</label><input id="aprogram" required placeholder="Ej. PRO $5K"></div><div class="field"><label>Capital ($)</label><input id="acapital" type="number" min="1" required placeholder="5000"></div><div class="field"><label>Días mínimos</label><input id="adays" type="number" min="0" value="5" required></div><div class="field"><label>Objetivo Fase 1 (%)</label><input id="at1" type="number" step="0.01" value="8" required></div><div class="field"><label>Objetivo Fase 2 (%)</label><input id="at2" type="number" step="0.01" value="5" required></div><div class="field"><label>Pérdida diaria (%)</label><input id="adaily" type="number" step="0.01" value="5" required></div><div class="field"><label>Pérdida máxima (%)</label><input id="amax" type="number" step="0.01" value="10" required></div><div class="field"><label>Riesgo máximo (%)</label><input id="arisk" type="number" step="0.01" value="3"></div></div><div class="actions"><button type="button" class="btn" id="accountCancel">Cancelar</button><button class="btn primary" type="submit">Agregar cuenta</button></div></form></div></div>
 <div class="achievement hide" id="achievement"><div class="achievement-box"><div class="achievement-icon" id="achievementIcon">🏆</div><div class="achievement-title" id="achievementTitle">FundedTrack</div><p class="achievement-text" id="achievementText"></p><button type="button" class="btn primary" id="achievementBtn">Continuar</button></div></div>
 <div class="modal" id="paModal"><div class="modalbox" style="width:min(760px,100%)"><div class="modalhead"><div><h3>💎 PA / Retiros</h3><div class="sub" id="paAccountLabel"></div></div><button class="close" id="paClose">×</button></div><div id="paLocked" class="empty" style="display:none">Esta sección se habilita cuando la cuenta pasa a PA / Funded.</div><div id="paContent"><div class="pa-summary"><div class="pa-stat"><div class="label">Meta mensual</div><div class="value" id="paGoal">10%</div></div><div class="pa-stat"><div class="label">Ganancia del mes</div><div class="value green" id="paProfit">$0</div></div><div class="pa-stat"><div class="label">Retirado</div><div class="value" id="paWithdrawn">$0</div></div><div class="pa-stat"><div class="label">Falta para meta</div><div class="value" id="paRemaining">$0</div></div></div><div class="card" style="padding:15px"><div class="section-head"><h2 id="paMonthLabel">Mes actual</h2><span class="pill" id="paGoalStatus">0%</span></div><div class="pa-progress"><span id="paProgress" style="width:0%"></span></div><div class="barrow"><span id="paProgressText">$0 / $0</span><strong id="paProgressPct">0%</strong></div><div class="pa-note">La meta mide la ganancia generada durante el mes. Los retiros se registran por separado y no reducen el progreso de la meta.</div></div><div class="section"><div class="section-head"><h2>🎯 Objetivo mensual</h2><button type="button" class="btn" id="paGoalEdit">Editar meta</button></div><div class="form"><div class="field"><label>Meta de ganancia (%)</label><input id="paGoalInput" type="number" step="0.1" min="0" value="10"></div><div class="field"><label>Mes</label><input id="paMonthInput" type="month"></div></div></div><div class="section"><div class="section-head"><h2>💸 Retiros de esta cuenta</h2><button type="button" class="btn primary" id="paAddWithdrawal">+ Registrar retiro</button></div><div id="paWithdrawList" class="withdraw-list"></div></div></div><div class="actions"><button type="button" class="btn" id="paDone">Cerrar</button></div></div></div>
 <script>
-const KEY='fundedtrack_v5';const make=(id,firm,program,capital,t1,t2,daily,max,risk,days)=>({id,firm,program,capital,targets:[t1,t2],dailyPct:daily,maxPct:max,riskPct:risk,days,phase:1,status:'Challenge',phases:[{trades:[]},{trades:[]}]});const defaults=[make('fn6','FoundedNext','Challenge $6K',6000,8,5,5,10,3,5),make('fn15','FoundedNext','Challenge $15K',15000,8,5,5,10,3,5),make('fn25','FoundedNext','Challenge $25K',25000,8,5,5,10,3,5),make('fn50','FoundedNext','Challenge $50K',50000,8,5,5,10,3,5),make('fp5','FundingPips','PRO $5K',5000,6,6,3,6,null,2)];const storage={get(k){try{return window.localStorage?window.localStorage.getItem(k):null}catch(e){return null}},set(k,v){try{if(window.localStorage)window.localStorage.setItem(k,v);return true}catch(e){return false}}};let accounts=defaults.slice(),activeId=defaults[0].id;try{const raw=storage.get(KEY);if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length)accounts=parsed}}catch(e){}const savedActive=storage.get(KEY+'_active');if(savedActive&&accounts.some(a=>a&&a.id===savedActive))activeId=savedActive;accounts=accounts.map(a=>{const d=defaults.find(x=>x.id===a.id);return Object.assign(d?JSON.parse(JSON.stringify(d)):make(a.id||('account_'+Date.now()),a.firm||'Firma',a.program||'Cuenta',Number(a.capital)||5000,Number(a.targets?.[0])||8,Number(a.targets?.[1])||5,Number(a.dailyPct)||5,Number(a.maxPct)||10,a.riskPct==null?null:Number(a.riskPct),Number(a.days)||0),a,{capital:Number(a.capital)||5000,targets:Array.isArray(a.targets)&&a.targets.length? a.targets.map(Number):[8,5],phases:Array.isArray(a.phases)&&a.phases.length?a.phases:[{trades:[]},{trades:[]}],phase:Number(a.phase)===2?2:1,status:['Challenge','Funded','Failed','Completed'].includes(a.status)?a.status:'Challenge'})});if(!accounts.length)accounts=defaults.slice();if(!accounts.some(a=>a.id===activeId))activeId=accounts[0].id;let cursor=new Date();cursor.setDate(1);
+const KEY='fundedtrack_v5';const make=(id,firm,program,capital,t1,t2,daily,max,risk,days)=>({id,firm,program,capital,targets:[t1,t2],dailyPct:daily,maxPct:max,riskPct:risk,days,phase:1,status:'Challenge',phases:[{trades:[]},{trades:[]}]});const defaults=[make('fn6','FoundedNext','Challenge $6K',6000,8,5,5,10,3,5),make('fn15','FoundedNext','Challenge $15K',15000,8,5,5,10,3,5),make('fn25','FoundedNext','Challenge $25K',25000,8,5,5,10,3,5),make('fn50','FoundedNext','Challenge $50K',50000,8,5,5,10,3,5),make('fp5','FundingPips','PRO $5K',5000,6,6,3,6,null,2)];const storage={get(k){try{return window.localStorage?window.localStorage.getItem(k):null}catch(e){return null}},set(k,v){try{if(window.localStorage)window.localStorage.setItem(k,v);return true}catch(e){return false}}};let accounts=JSON.parse(JSON.stringify(defaults)),activeId=defaults[0].id;try{const raw=null;if(raw){const parsed=JSON.parse(raw);if(Array.isArray(parsed)&&parsed.length)accounts=parsed}}catch(e){}const savedActive=null;if(savedActive&&accounts.some(a=>a&&a.id===savedActive))activeId=savedActive;accounts=accounts.map(a=>{const d=defaults.find(x=>x.id===a.id);return Object.assign(d?JSON.parse(JSON.stringify(d)):make(a.id||('account_'+Date.now()),a.firm||'Firma',a.program||'Cuenta',Number(a.capital)||5000,Number(a.targets?.[0])||8,Number(a.targets?.[1])||5,Number(a.dailyPct)||5,Number(a.maxPct)||10,a.riskPct==null?null:Number(a.riskPct),Number(a.days)||0),a,{capital:Number(a.capital)||5000,targets:Array.isArray(a.targets)&&a.targets.length? a.targets.map(Number):[8,5],phases:Array.isArray(a.phases)&&a.phases.length?a.phases:[{trades:[]},{trades:[]}],phase:Number(a.phase)===2?2:1,status:['Challenge','Funded','Failed','Completed'].includes(a.status)?a.status:'Challenge'})});if(!accounts.length)accounts=defaults.slice();if(!accounts.some(a=>a.id===activeId))activeId=accounts[0].id;let cursor=new Date();cursor.setDate(1);
 const themeKey='fundedtrack_theme';const themes={violet:'',emerald:'theme-emerald',navy:'theme-navy'};function applyTheme(name){const theme=themes[name]?' '+themes[name]:'';document.documentElement.className=theme.trim();document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===name));try{storage.set(themeKey,name)}catch(e){}} 
 const $=id=>document.getElementById(id);const money=n=>(n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
 function ensurePA(a){if(!a.pa)a.pa={goalPct:10,withdrawals:[],trades:[]};if(!Array.isArray(a.pa.withdrawals))a.pa.withdrawals=[];if(!Array.isArray(a.pa.trades))a.pa.trades=[];if(!Number.isFinite(Number(a.pa.goalPct)))a.pa.goalPct=10;return a.pa}
@@ -150,14 +154,14 @@ renderPA=()=>{oldRenderPA();if($('paGoalLive'))$('paGoalLive').textContent=Numbe
   }
   const originalRender=render;
   window.render=function(){originalRender();installRecent();renderRecent()};
-  setupManifest();
+  // Use the external manifest with PNG icons.
   installRecent();
   renderRecent();
   const cloudBtn=$('ftCloudBtn');
   if(cloudBtn)cloudBtn.remove();
   if($('ftRecentAdd'))$('ftRecentAdd').onclick=()=>openModal();
   document.querySelectorAll('.side-btn').forEach((b,i)=>{
-    if(i===4)b.onclick=()=>{$('ftAuth').classList.add('show');$('ftAuthStatus').textContent='La nube se configurará en el siguiente paso. Por ahora, FundedTrack funciona completamente en este dispositivo.'};
+    if(i===4)b.onclick=()=>{window.ftCloudLogin?.()};
   });
 })();
 </script>
@@ -290,9 +294,9 @@ renderPA=()=>{oldRenderPA();if($('paGoalLive'))$('paGoalLive').textContent=Numbe
 
   const settingsGrid=document.createElement('div'); settingsGrid.className='ft-settings-grid';
   settingsGrid.innerHTML='<div class="ft-quick-card"><div class="label">Tema visual</div><div class="ft-action-row"><button class="theme-btn active" data-theme="violet">Violet</button><button class="theme-btn" data-theme="emerald">Emerald</button><button class="theme-btn" data-theme="navy">Navy</button></div></div>'+
-    '<div class="ft-quick-card"><div class="label">Nube</div><div class="sub">La conexión Supabase se configura después de aprobar esta maqueta. Por ahora los datos funcionan localmente en este dispositivo.</div><div class="ft-action-row"><button class="btn" id="ftCloudSettings">Configurar nube</button></div></div>';
+    '<div class="ft-quick-card"><div class="label">Nube</div><div class="sub">Tus datos se guardan en tu cuenta personal. Revisá el estado de sincronización antes de cambiar de dispositivo.</div><div class="ft-action-row"><button class="btn" id="ftCloudSettings">Mi cuenta</button></div></div>';
   settings.appendChild(settingsGrid);
-  $('ftCloudSettings').onclick=()=>{$('ftAuth')?.classList.add('show')};
+  $('ftCloudSettings').onclick=()=>{window.ftCloudLogin?.()};
   settingsGrid.querySelectorAll('.theme-btn').forEach(b=>b.onclick=()=>applyTheme(b.dataset.theme));
 
   // Hide the original top-level content; the same live DOM nodes now live inside their pages.
@@ -476,156 +480,6 @@ renderPA=()=>{oldRenderPA();if($('paGoalLive'))$('paGoalLive').textContent=Numbe
 .ft-cloud-brand{display:flex;align-items:center;gap:11px;margin-bottom:20px}.ft-cloud-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#7559ff,#a27bff);display:grid;place-items:center}.ft-cloud-mark svg{width:25px}
 .ft-cloud-box h2{margin:0;font-size:23px}.ft-cloud-box p{color:#8b95aa;font-size:13px;line-height:1.55}.ft-cloud-tabs{display:flex;gap:6px;background:#0b0f18;border:1px solid #222a3e;padding:4px;border-radius:11px;margin:16px 0}.ft-cloud-tabs button{flex:1;border:0;background:transparent;color:#8993aa;padding:9px;border-radius:8px;font-weight:700;cursor:pointer}.ft-cloud-tabs button.active{background:#7559ff;color:white}.ft-cloud-form{display:grid;gap:10px}.ft-cloud-form label{font-size:11px;color:#9da6b8;font-weight:700}.ft-cloud-form input{width:100%;box-sizing:border-box;border:1px solid #293149;background:#151b29;color:#f4f5f8;border-radius:9px;padding:11px;font:inherit}.ft-cloud-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}.ft-cloud-msg{font-size:12px;min-height:18px;margin-top:10px}.ft-cloud-msg.ok{color:#45dda1}.ft-cloud-msg.err{color:#ef737c}.ft-cloud-divider{height:1px;background:#20263a;margin:18px 0}.ft-cloud-small{font-size:11px!important;color:#707b91!important}.ft-cloud-code{background:#090d15;border:1px solid #252d42;border-radius:10px;padding:12px;font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#b9c1d0;white-space:pre-wrap;max-height:180px;overflow:auto}.ft-cloud-status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;background:#151c2a;border:1px solid #252d42;font-size:11px;color:#9da6b8}.ft-cloud-dot{width:7px;height:7px;border-radius:50%;background:#ef626c}.ft-cloud-dot.on{background:#36d79a;box-shadow:0 0 10px #36d79a}.ft-cloud-panel{margin-top:12px}.ft-cloud-panel .ft-quick-card{min-height:0}.ft-cloud-panel-row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.ft-cloud-hidden{display:none!important}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<div id="ftCloudGate">
-  <div class="ft-cloud-box">
-    <div class="ft-cloud-brand"><div class="ft-cloud-mark"><svg viewBox="0 0 128 128"><path d="M25 91V67l18-18 15 14 28-34v25L59 83 43 68 25 86z" fill="white"/><circle cx="94" cy="30" r="10" fill="#36d79a"/></svg></div><div><div style="font-weight:800;font-size:19px">Funded<span style="color:#8e6cff">Track</span></div><div style="font-size:11px;color:#7f8aa1">Tu journal, en cualquier dispositivo</div></div></div>
-    <div id="ftCloudLoginView">
-      <h2>Entrá a FundedTrack</h2><p>Con la nube activada, tus cuentas, operaciones y retiros se sincronizan entre PC y celular. La PC puede estar completamente apagada.</p>
-      <div class="ft-cloud-tabs"><button type="button" class="active" id="ftLoginTab">Iniciar sesión</button><button type="button" id="ftSignupTab">Crear cuenta</button></div>
-      <form class="ft-cloud-form" id="ftAuthForm"><div><label>Email</label><input id="ftAuthEmail" type="email" autocomplete="email" required></div><div><label>Contraseña</label><input id="ftAuthPassword" type="password" autocomplete="current-password" minlength="6" required></div><div class="ft-cloud-actions"><button type="submit" class="btn primary" id="ftAuthSubmit">Entrar</button></div></form>
-      <div id="ftAuthMsg" class="ft-cloud-msg"></div>
-      <div class="ft-cloud-divider"></div><p class="ft-cloud-small">La clave utilizada aquí es la clave pública/publishable de Supabase. Nunca pongas una <b>service_role</b> en FundedTrack.</p>
-    </div>
-    <div id="ftCloudSetupView" class="ft-cloud-hidden">
-      <h2>Activar la nube</h2><p>Primero conectá tu proyecto Supabase. Solo necesitás hacerlo una vez; después podrás usar FundedTrack desde cualquier navegador.</p>
-      <form class="ft-cloud-form" id="ftSetupForm"><div><label>Supabase Project URL</label><input id="ftSupabaseUrl" type="url" placeholder="https://tu-proyecto.supabase.co" required></div><div><label>Publishable / anon key</label><input id="ftSupabaseKey" type="text" placeholder="sb_publishable_... o eyJ..." required></div><div class="ft-cloud-actions"><button type="submit" class="btn primary">Conectar nube</button></div></form>
-      <div id="ftSetupMsg" class="ft-cloud-msg"></div>
-      <div class="ft-cloud-divider"></div><div class="label">SQL para crear la tabla</div><p class="ft-cloud-small">Pegá esto una sola vez en el SQL Editor de Supabase:</p>
-      <div class="ft-cloud-code">create table if not exists public.fundedtrack_workspaces (
-  user_id uuid primary key references auth.users(id) on delete cascade,
-  accounts jsonb not null default '[]'::jsonb,
-  updated_at timestamptz not null default now()
-);
-alter table public.fundedtrack_workspaces enable row level security;
-create policy "Users can read own workspace" on public.fundedtrack_workspaces for select using (auth.uid() = user_id);
-create policy "Users can insert own workspace" on public.fundedtrack_workspaces for insert with check (auth.uid() = user_id);
-create policy "Users can update own workspace" on public.fundedtrack_workspaces for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
-grant select, insert, update on public.fundedtrack_workspaces to authenticated;</div>
-    </div>
-  </div>
-</div>
-<script id="ft-cloud-v1-script">
-(function(){
-  const CFG='fundedtrack_cloud_config_v1', SESSION='fundedtrack_cloud_user_v1';
-  const $c=id=>document.getElementById(id);
-  let cloud=null, mode='login', syncing=false, saveTimer=null;
-  const getCfg=()=>{try{return JSON.parse(localStorage.getItem(CFG)||'null')}catch(e){return null}};
-  const setCfg=c=>localStorage.setItem(CFG,JSON.stringify(c));
-  const setMsg=(id,msg,type)=>{const e=$c(id);if(e){e.textContent=msg;e.className='ft-cloud-msg '+(type||'')}};
-  const hasCfg=()=>{const c=getCfg();return !!(c&&c.url&&c.key)};
-  const accountsSnapshot=()=>{try{return JSON.parse(localStorage.getItem('fundedtrack_v5')||'[]')}catch(e){return []}};
-  const localUpdatedKey='fundedtrack_cloud_local_updated';
-  const touchLocal=()=>localStorage.setItem(localUpdatedKey,String(Date.now()));
-  const localUpdated=()=>Number(localStorage.getItem(localUpdatedKey)||0);
-  const currentUser=async()=>cloud?(await cloud.auth.getUser()).data.user:null;
-  async function init(){
-    if(!window.supabase)return;
-    const cfg=getCfg();
-    if(cfg?.url&&cfg?.key){
-      try{cloud=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});window.ftCloud=cloud;
-        cloud.auth.onAuthStateChange((event,session)=>{window.ftCloudSession=session||null;updateCloudUI(session);if(session&&event!=='SIGNED_OUT')scheduleSync(150)});
-        const s=await cloud.auth.getSession();window.ftCloudSession=s.data.session||null;updateCloudUI(window.ftCloudSession);
-      }catch(e){console.error('FundedTrack cloud init',e);setMsg('ftSetupMsg','No se pudo iniciar la conexión: '+e.message,'err')}
-    }
-  }
-  function updateCloudUI(session){
-    const status=$c('ftCloudStatusDot'); if(status)status.classList.toggle('on',!!session);
-    const label=$c('ftCloudStatusText'); if(label)label.textContent=session?'Nube conectada':'Nube sin sesión';
-    const user=$c('ftCloudUser'); if(user)user.textContent=session?.user?.email||'Sin sesión';
-    const loginBtn=$c('ftCloudLoginButton'); if(loginBtn)loginBtn.textContent=session?'Cerrar sesión':'Iniciar sesión';
-  }
-  async function ensureClient(){
-    if(cloud)return true;
-    const cfg=getCfg();
-    if(!cfg?.url||!cfg?.key){showSetup();return false}
-    await init(); return !!cloud;
-  }
-  function showGate(which){
-    const g=$c('ftCloudGate');if(!g)return;g.classList.add('show');
-    $c('ftCloudLoginView').classList.toggle('ft-cloud-hidden',which!=='login');
-    $c('ftCloudSetupView').classList.toggle('ft-cloud-hidden',which!=='setup');
-  }
-  function hideGate(){$c('ftCloudGate')?.classList.remove('show')}
-  function showSetup(){showGate('setup')}
-  function showLogin(){showGate('login')}
-  $c('ftLoginTab')?.addEventListener('click',()=>{mode='login';$c('ftLoginTab').classList.add('active');$c('ftSignupTab').classList.remove('active');$c('ftAuthSubmit').textContent='Entrar';setMsg('ftAuthMsg','')});
-  $c('ftSignupTab')?.addEventListener('click',()=>{mode='signup';$c('ftSignupTab').classList.add('active');$c('ftLoginTab').classList.remove('active');$c('ftAuthSubmit').textContent='Crear cuenta';setMsg('ftAuthMsg','')});
-  $c('ftSetupForm')?.addEventListener('submit',async e=>{
-    e.preventDefault();const url=$c('ftSupabaseUrl').value.trim().replace(/\/$/,'');const key=$c('ftSupabaseKey').value.trim();
-    if(!/^https:\/\/[^\s]+$/.test(url)){setMsg('ftSetupMsg','La URL de Supabase no parece válida.','err');return}
-    setCfg({url,key});setMsg('ftSetupMsg','Conectando…');
-    try{await init();if(!cloud)throw new Error('No se pudo crear el cliente');setMsg('ftSetupMsg','Conexión lista. Ahora podés iniciar sesión.','ok');setTimeout(showLogin,350)}catch(err){localStorage.removeItem(CFG);cloud=null;setMsg('ftSetupMsg','Error: '+err.message,'err')}
-  });
-  $c('ftAuthForm')?.addEventListener('submit',async e=>{
-    e.preventDefault();if(!(await ensureClient()))return;
-    const email=$c('ftAuthEmail').value.trim(),password=$c('ftAuthPassword').value;
-    setMsg('ftAuthMsg','Conectando…');
-    try{
-      const r=mode==='signup'?await cloud.auth.signUp({email,password}):await cloud.auth.signInWithPassword({email,password});
-      if(r.error)throw r.error;
-      if(mode==='signup'&&!r.data.session){setMsg('ftAuthMsg','Cuenta creada. Revisá tu correo si Supabase pide confirmación antes de entrar.','ok');return}
-      setMsg('ftAuthMsg','Sesión iniciada. Sincronizando…','ok');await syncFromCloud(true);hideGate();
-    }catch(err){setMsg('ftAuthMsg',err.message||'No se pudo iniciar sesión.','err')}
-  });
-  async function pull(){
-    const u=await currentUser();if(!u||!cloud)return false;
-    const {data,error}=await cloud.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',u.id).maybeSingle();
-    if(error)throw error;
-    if(data?.accounts&&Array.isArray(data.accounts)){
-      localStorage.setItem('fundedtrack_v5',JSON.stringify(data.accounts));localStorage.setItem('fundedtrack_cloud_remote_updated',String(new Date(data.updated_at).getTime()||Date.now()));
-      try{localStorage.setItem('fundedtrack_v5_active',JSON.parse(localStorage.getItem('fundedtrack_v5_active')||'null')||data.accounts[0]?.id||'')}catch(e){}
-      if(window.render)window.render();touchLocal();return true;
-    }
-    return false;
-  }
-  async function push(){
-    const u=await currentUser();if(!u||!cloud)return false;
-    const accounts=accountsSnapshot();if(!Array.isArray(accounts))return false;
-    const payload={user_id:u.id,accounts,updated_at:new Date().toISOString()};
-    const {error}=await cloud.from('fundedtrack_workspaces').upsert(payload,{onConflict:'user_id'});if(error)throw error;
-    localStorage.setItem('fundedtrack_cloud_remote_updated',String(Date.now()));return true;
-  }
-  async function syncFromCloud(preferCloud){
-    if(syncing)return;syncing=true;
-    try{
-      const u=await currentUser();if(!u||!cloud)return;
-      const {data,error}=await cloud.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',u.id).maybeSingle();if(error)throw error;
-      if(!data){await push();return}
-      const remoteTime=new Date(data.updated_at).getTime()||0;
-      if(preferCloud||remoteTime>localUpdated()+1500){if(Array.isArray(data.accounts)){localStorage.setItem('fundedtrack_v5',JSON.stringify(data.accounts));if(window.render)window.render()}}
-      else if(localUpdated()>remoteTime+1500)await push();
-      localStorage.setItem('fundedtrack_cloud_remote_updated',String(remoteTime));
-    }catch(err){console.warn('FundedTrack sync',err);if($c('ftCloudSyncMsg'))setMsg('ftCloudSyncMsg','Sincronización pendiente: '+err.message,'err')}finally{syncing=false}
-  }
-  function scheduleSync(delay){clearTimeout(saveTimer);saveTimer=setTimeout(()=>syncFromCloud(false),delay||600)}
-  window.ftCloudSync=()=>syncFromCloud(true);
-  window.ftCloudSignOut=async()=>{if(cloud)await cloud.auth.signOut();};
-  window.ftCloudSetup=showSetup;window.ftCloudLogin=showLogin;
-  const originalSave=window.save;
-  if(typeof originalSave==='function'){
-    window.save=function(){originalSave();touchLocal();if(window.ftCloudSession)scheduleSync(500)}
-  }
-  /* Configuración de nube: se inserta en la página existente sin romper la navegación */
-  function installPanel(){
-    const settings=document.getElementById('ftPageSettings');if(!settings||document.getElementById('ftCloudPanel'))return;
-    const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
-    panel.innerHTML='<div class="ft-cloud-panel-row"><div><div class="label">Nube y cuenta</div><div class="ft-cloud-status"><span id="ftCloudStatusDot" class="ft-cloud-dot"></span><span id="ftCloudStatusText">Nube sin sesión</span></div></div><button class="btn" id="ftCloudLoginButton">Iniciar sesión</button></div><div class="sub" id="ftCloudUser" style="margin-top:9px">Sin sesión</div><div id="ftCloudSyncMsg" class="ft-cloud-msg"></div><div class="ft-action-row"><button class="btn" id="ftCloudSyncNow">↻ Sincronizar ahora</button><button class="btn" id="ftCloudReconfigure">⚙ Reconfigurar nube</button></div>';
-    settings.appendChild(panel);
-    $c('ftCloudLoginButton').onclick=async()=>{if(window.ftCloudSession)await window.ftCloudSignOut();else{if(hasCfg())showLogin();else showSetup()}};
-    $c('ftCloudSyncNow').onclick=()=>syncFromCloud(true);
-    $c('ftCloudReconfigure').onclick=showSetup;updateCloudUI(window.ftCloudSession);
-  }
-  async function boot(){
-    installPanel();await init();
-    /* Primera visita: si ya hay nube configurada pero no hay sesión, pedimos login. Si aún no hay configuración, dejamos el modo local y mostramos la opción en Más. */
-    if(hasCfg()&&!(await currentUser()))showLogin();
-    if(window.ftCloudSession)scheduleSync(250);
-  }
-  setTimeout(boot,0);
-  setInterval(()=>{if(window.ftCloudSession&&!document.hidden)scheduleSync(100)},20000);
-})();
-</script>
 <style id="ft-home-repair-v51">
 /* FundedTrack v51 — Inicio limpio, estable y responsive */
 .ft-home-grid{display:grid!important;grid-template-columns:minmax(0,1.55fr) minmax(280px,.75fr)!important;gap:16px!important;margin-bottom:16px}
@@ -669,4 +523,174 @@ grant select, insert, update on public.fundedtrack_workspaces to authenticated;<
 <script id="ft-pwa-v1">
 if('serviceWorker' in navigator && location.protocol==='https:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
 </script>
+<div id="ftCloudBanner" hidden role="status"></div>
+<div id="ftCloudGate" class="show" role="dialog" aria-modal="true" aria-label="Acceso a FundedTrack">
+ <div class="ft-cloud-box">
+  <h2>FundedTrack</h2><p id="ftGateIntro">Iniciá sesión para acceder a tus cuentas y operaciones.</p>
+  <div class="ft-cloud-tabs"><button id="ftLoginTab" type="button" class="active">Iniciar sesión</button><button id="ftSignupTab" type="button">Crear cuenta</button></div>
+  <form id="ftAuthForm" class="ft-cloud-form">
+   <label for="ftAuthEmail">Correo electrónico</label><input id="ftAuthEmail" type="email" autocomplete="email" required>
+   <label for="ftAuthPassword">Contraseña</label><input id="ftAuthPassword" type="password" autocomplete="current-password" minlength="8" required>
+   <div class="ft-cloud-actions"><button class="btn primary" id="ftAuthSubmit" type="submit">Entrar</button></div>
+  </form>
+  <div class="ft-cloud-actions"><button id="ftForgot" class="btn" type="button">Olvidé mi contraseña</button><button id="ftLoadRetry" class="btn" type="button" hidden>Reintentar carga</button><button id="ftGateSignOut" class="btn" type="button" hidden>Cerrar sesión</button></div>
+  <p id="ftAuthMsg" class="ft-cloud-msg" role="status" aria-live="polite">Conectando…</p>
+  <button id="ftLegacyBackup" class="btn" type="button" hidden>Descargar respaldo anterior</button>
+ </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.js"></script>
+<script id="ft-auth-v52">
+(function(){
+ 'use strict';
+ const URL='https://ztkthcqjxptsxgtwfcfx.supabase.co';
+ const PUBLIC_KEY='sb_publishable_fqjPJfR-EiAlDwk83M4oPg_A8wnDaSR';
+ const SITE='https://facundobenitez01.github.io/FundedTrack/';
+ const el=id=>document.getElementById(id), clone=v=>JSON.parse(JSON.stringify(v));
+ let client,user=null,epoch=0,ready=false,mode='login',revision=0,dirty=false,version=null,busy=false,timer=null,conflict=false,recovery=location.hash.includes('type=recovery');
+ const template=clone(defaults);
+ const fresh=()=>clone(template).map(a=>({...a,phases:[{trades:[]},{trades:[]}],phase:1,status:'Challenge',pa:{goalPct:10,withdrawals:[],trades:[]}}));
+ const key=uid=>'fundedtrack_v52_user_'+uid;
+ const msg=(s,bad=false)=>{el('ftAuthMsg').textContent=s;el('ftAuthMsg').className='ft-cloud-msg '+(bad?'err':'ok')};
+ function status(s,bad=false){el('ftCloudBanner').textContent=s;el('ftCloudBanner').hidden=!user;el('ftCloudBanner').style.color=bad?'#ef737c':'#b9c1d0';if(el('ftCloudSyncMsg'))el('ftCloudSyncMsg').textContent=s;}
+ function gate(){document.body.classList.remove('ft-ready');el('ftCloudGate').classList.add('show');ready=false;document.querySelectorAll('.modal.show').forEach(e=>e.classList.remove('show'));el('achievement')?.classList.add('hide');}
+ function reveal(){ready=true;document.body.classList.add('ft-ready');el('ftCloudGate').classList.remove('show');el('app').style.display='block';el('app').classList.remove('hide');}
+ function applyData(list,selected){
+  if(!Array.isArray(list))throw Error('Formato de datos inválido.');
+  accounts=list.length?clone(list):fresh();
+  activeId=accounts.some(a=>a.id===selected)?selected:accounts[0].id;
+  window.render();
+ }
+ function persist(){
+  if(!user)return;
+  localStorage.setItem(key(user.id),JSON.stringify({accounts:clone(accounts),activeId,dirty,version}));
+ }
+ function download(name,data){const url=window.URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>window.URL.revokeObjectURL(url),1000);}
+ function errorText(e){const s=e?.message||String(e);if(/Email address not authorized|email.*sending|sending.*email/i.test(s))return 'El proyecto necesita configurar el envío de correos (SMTP). '+s;return s;}
+ function authUI(){
+  el('ftAuthEmail').parentElement.hidden=!!user&&!recovery;
+  el('ftLoginTab').parentElement.hidden=!!user||recovery;
+  el('ftForgot').hidden=!!user||recovery;
+  el('ftLoadRetry').hidden=!user||recovery;
+  el('ftGateSignOut').hidden=!user;
+  if(el('ftCloudUser'))el('ftCloudUser').textContent=user?.email||'Sin sesión';
+  el('ftAuthEmail').required=!recovery;
+  el('ftAuthEmail').hidden=recovery;
+  document.querySelector('label[for="ftAuthEmail"]').hidden=recovery;
+  el('ftAuthPassword').autocomplete=recovery||mode==='signup'?'new-password':'current-password';
+  el('ftAuthPassword').minLength=mode==='login'&&!recovery?1:8;
+  el('ftAuthSubmit').textContent=recovery?'Guardar nueva contraseña':mode==='signup'?'Crear cuenta':'Entrar';
+  el('ftGateIntro').textContent=recovery?'Elegí una nueva contraseña de al menos 8 caracteres.':'Iniciá sesión para acceder a tus cuentas y operaciones.';
+ }
+ async function loadWorkspace(){
+  if(!user)return;
+  const uid=user.id,token=epoch;
+  gate();msg('Cargando tus datos…');
+  try{
+   const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',uid).maybeSingle();
+   if(error)throw error;if(token!==epoch||user?.id!==uid)return;
+   let pending=null;try{pending=JSON.parse(localStorage.getItem(key(uid))||'null')}catch(e){}
+   version=data?.updated_at||null;revision=0;conflict=false;
+   if(pending?.dirty){
+    const remoteVersion=version;version=pending.version||null;
+    applyData(pending.accounts,pending.activeId);dirty=true;
+    if(pending.version!==remoteVersion){conflict=true;status('Hay cambios en otro dispositivo. Exportá los pendientes antes de cargar la nube.',true);}
+   }else{applyData(data?.accounts||fresh(),pending?.activeId);dirty=!data;}
+   persist();window.ftCloudSession={user};authUI();reveal();
+   if(!conflict){status(dirty?'Guardando…':'Sincronizado');if(dirty)schedule();}
+  }catch(e){if(token!==epoch)return;msg('No se pudieron cargar tus datos: '+errorText(e),true);authUI();}
+ }
+ function schedule(){clearTimeout(timer);timer=setTimeout(flush,500);}
+ async function flush(){
+  if(busy||!user||!ready||conflict)return;
+  const uid=user.id,token=epoch,rev=revision,wasDirty=dirty;
+  busy=true;
+  try{
+   if(dirty){
+    status('Guardando…');
+    const payload={accounts:clone(accounts),updated_at:new Date().toISOString()};
+    let response;
+    if(version){response=await client.from('fundedtrack_workspaces').update(payload).eq('user_id',uid).eq('updated_at',version).select('updated_at').maybeSingle();}
+    else{response=await client.from('fundedtrack_workspaces').insert({...payload,user_id:uid}).select('updated_at').single();}
+    if(token!==epoch)return;
+    if(response.error){if(response.error.code==='23505'){conflict=true;throw Error('Se creó una versión en otro dispositivo. Exportá tus cambios pendientes y cargá la nube.');}throw response.error;}
+    if(!response.data){conflict=true;throw Error('Hay cambios en otro dispositivo. Exportá tus cambios pendientes y cargá la nube.');}
+    version=response.data.updated_at;if(revision===rev)dirty=false;persist();status(dirty?'Guardando…':'Sincronizado');
+   }else{
+    const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',uid).maybeSingle();
+    if(error)throw error;if(token!==epoch||dirty||revision!==rev)return;
+    if(data&&data.updated_at!==version){applyData(data.accounts,activeId);version=data.updated_at;persist();}
+    status('Sincronizado');
+   }
+  }catch(e){if(token===epoch)status('Sincronización pendiente: '+errorText(e),true);}
+  finally{busy=false;if(token===epoch&&dirty&&!conflict&&wasDirty&&revision!==rev)schedule();}
+ }
+ window.save=function(){
+  if(!user||!ready)throw Error('Iniciá sesión y esperá a que se carguen tus datos.');
+  revision++;dirty=true;
+  try{persist();status('Guardando…');schedule();}catch(e){status('No se pudo guardar en este dispositivo. Exportá tus datos y no cierres esta página.',true);}
+ };
+ async function signOut(){
+  if(dirty&&!window.confirm('Tenés cambios pendientes. Quedarán guardados solo en este navegador para tu usuario. ¿Cerrar sesión?'))return;
+  try{const {error}=await client.auth.signOut();if(error)throw error;acceptSession(null);}catch(e){status('No se pudo cerrar sesión: '+errorText(e),true);}
+ }
+ function acceptSession(session){
+  const next=session?.user||null;window.ftCloudSession=session;
+  if(next?.id===user?.id){authUI();if(!next)msg('Ingresá con tu correo y contraseña.');return;}
+  epoch++;clearTimeout(timer);user=next;dirty=false;version=null;conflict=false;revision=0;
+  gate();applyData(fresh());authUI();el('ftAuthPassword').value='';
+  if(!user){el('ftCloudBanner').hidden=true;msg('Ingresá con tu correo y contraseña.');}
+  else if(recovery){msg('Ingresá tu nueva contraseña.');el('ftAuthForm').hidden=false;}
+  else loadWorkspace();
+ }
+ window.ftCloudSignOut=signOut;
+ window.ftCloudLogin=()=>{if(user){window.ftGo?.('ftPageSettings');}else{gate();authUI();}};
+ window.ftCloudSetup=window.ftCloudLogin;
+ window.ftCloudSync=flush;
+ el('ftLoginTab').onclick=()=>{mode='login';el('ftLoginTab').classList.add('active');el('ftSignupTab').classList.remove('active');authUI();msg('Ingresá con tu correo y contraseña.');};
+ el('ftSignupTab').onclick=()=>{mode='signup';el('ftSignupTab').classList.add('active');el('ftLoginTab').classList.remove('active');authUI();msg('Creá tu cuenta personal con una contraseña de al menos 8 caracteres.');};
+ el('ftAuthForm').onsubmit=async e=>{
+  e.preventDefault();if(!client){msg('No se pudo cargar el servicio de acceso. Revisá tu conexión y recargá la página.',true);return;}
+  const email=el('ftAuthEmail').value.trim(),password=el('ftAuthPassword').value;
+  el('ftAuthSubmit').disabled=true;msg('Conectando…');
+  try{
+   if(recovery){if(!user)throw Error('Abrí el enlace de recuperación recibido por correo.');const {error}=await client.auth.updateUser({password});if(error)throw error;recovery=false;history.replaceState(null,'',location.pathname);authUI();await loadWorkspace();}
+   else{
+    const r=mode==='signup'?await client.auth.signUp({email,password,options:{emailRedirectTo:SITE}}):await client.auth.signInWithPassword({email,password});
+    if(r.error)throw r.error;
+    el('ftAuthPassword').value='';
+    if(!r.data.session)msg('Si el registro es válido, recibirás un correo para confirmar tu cuenta. Revisá también spam.');
+    else acceptSession(r.data.session);
+   }
+  }catch(e){msg(errorText(e),true);}finally{el('ftAuthSubmit').disabled=false;}
+ };
+ el('ftForgot').onclick=async()=>{
+  if(!client)return;const email=el('ftAuthEmail').value.trim();
+  if(!el('ftAuthEmail').checkValidity()||!email){msg('Escribí primero un correo válido.',true);el('ftAuthEmail').focus();return;}
+  el('ftForgot').disabled=true;
+  try{const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:SITE});if(error)throw error;msg('Si existe una cuenta para ese correo, recibirás un enlace para cambiar la contraseña.');}catch(e){msg(errorText(e),true);}finally{el('ftForgot').disabled=false;}
+ };
+ el('ftLoadRetry').onclick=loadWorkspace;el('ftGateSignOut').onclick=signOut;
+ const legacy=localStorage.getItem('fundedtrack_v5');
+ if(legacy){el('ftLegacyBackup').hidden=false;el('ftLegacyBackup').onclick=()=>{try{download('FundedTrack-respaldo-anterior.json',JSON.parse(legacy));}catch(e){msg('El respaldo anterior no tiene un formato válido.',true);}};}
+ const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
+ panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v52</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
+ el('ftPageSettings')?.appendChild(panel);
+ el('ftSync').onclick=flush;el('ftSignOut').onclick=signOut;
+ el('ftExportMine').onclick=()=>download('FundedTrack-mis-datos.json',clone(accounts));
+ el('ftReload').onclick=()=>{if(dirty&&!window.confirm('Exportá primero un respaldo. Cargar la nube descartará los cambios pendientes de este dispositivo. ¿Continuar?'))return;if(busy){status('Esperá a que termine la sincronización.',true);return;}dirty=false;persist();loadWorkspace();};
+ if(legacy){const b=document.createElement('button');b.className='btn';b.textContent='Descargar respaldo anterior';b.onclick=el('ftLegacyBackup').onclick;panel.appendChild(b);}
+ if(el('ftCloudSettings'))el('ftCloudSettings').onclick=()=>window.ftGo?.('ftPageSettings');
+ // UI mutations require a loaded workspace even when another script triggers save.
+ authUI();gate();
+ if(!window.supabase){msg('No se pudo cargar el servicio de acceso. Revisá Internet y recargá la página.',true);return;}
+ client=window.supabase.createClient(URL,PUBLIC_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});window.ftCloud=client;
+ client.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY')recovery=true;setTimeout(()=>{acceptSession(session);if(event==='PASSWORD_RECOVERY'){gate();authUI();el('ftAuthForm').hidden=false;}},0);});
+ client.auth.getSession().then(({data,error})=>{if(error)msg(errorText(error),true);else acceptSession(data.session);}).catch(e=>msg(errorText(e),true));
+ window.addEventListener('online',flush);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)flush();});
+ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+ setInterval(flush,20000);
+})();
+</script>
+
 </body></html>
