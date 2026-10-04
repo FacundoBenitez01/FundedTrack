@@ -101,10 +101,10 @@ function render(){
 function renderCalendar(){const y=cursor.getFullYear(),m=cursor.getMonth(),ts=trades();$('month').textContent=cursor.toLocaleDateString('es-ES',{month:'long',year:'numeric'});$('week').innerHTML=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(x=>'<div>'+x+'</div>').join('');const first=(new Date(y,m,1).getDay()+6)%7,last=new Date(y,m+1,0).getDate(),prev=new Date(y,m,0).getDate();let html='';for(let i=0;i<first;i++)html+='<div class="day muted"><div class="num">'+(prev-first+i+1)+'</div></div>';for(let d=1;d<=last;d++){const date=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),dayTrades=ts.filter(t=>t.date===date);html+='<div class="day" data-date="'+date+'"><div class="num">'+d+'</div>'+dayTrades.map(t=>{const i=ts.indexOf(t);return '<div class="trade '+t.result.toLowerCase()+(t.starred?' starred':'')+'" data-trade="'+i+'">'+(t.starred?'⭐ ':t.result==='Win'?'🟢':t.result==='Loss'?'🔴':'⚪')+' '+t.asset+' '+money(Number(t.pnl))+'</div>'}).join('')+'</div>'}const pad=(7-(first+last)%7)%7;for(let i=1;i<=pad;i++)html+='<div class="day muted"><div class="num">'+i+'</div></div>';$('daysGrid').innerHTML=html;$('daysGrid').onclick=e=>{const day=e.target.closest('.day[data-date]');if(day)openDayModal(day.dataset.date)}}
 function openDayModal(date){const ts=trades(),items=ts.map((t,i)=>({t,i})).filter(x=>x.t.date===date);$('dayModalTitle').textContent='Operaciones · '+new Date(date+'T12:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});$('dayTradeList').innerHTML=items.length?items.map(({t,i})=>'<div class="day-trade'+(t.starred?' starred':'')+'"><div class="day-trade-main"><div class="day-trade-title">'+(t.starred?'⭐ ':'')+(t.result==='Win'?'🟢':t.result==='Loss'?'🔴':'⚪')+' '+t.asset+' · '+money(Number(t.pnl))+'</div><div class="day-trade-meta">Riesgo '+Number(t.risk||0).toFixed(2)+'% · '+t.rr+' · '+t.state+(t.note?' · '+t.note:'')+'</div></div><div class="day-trade-actions"><button type="button" class="icon-btn" data-star="'+i+'" title="Destacar">⭐</button><button type="button" class="icon-btn" data-delete="'+i+'" title="Eliminar">🗑</button></div></div>').join(''):'<div class="empty">No hay operaciones registradas en este día.</div>';$('dayModal').dataset.date=date;$('dayModal').classList.add('show')}
 function renderChart(){const c=$('chart'),ts=trades();if(!ts.length){c.innerHTML='<div class="empty">Registra operaciones para ver la evolución.</div>';return}let bal=acc().capital;const vals=ts.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(t=>{bal+=Number(t.pnl);return{bal:bal,date:t.date}}),all=[acc().capital].concat(vals.map(x=>x.bal)),min=Math.min.apply(null,all),max=Math.max.apply(null,all),range=Math.max(1,max-min);c.innerHTML=vals.slice(-24).map(x=>'<div class="barcol"><span style="height:'+Math.max(4,((x.bal-min)/range)*100)+'%" title="'+x.date+': '+money(x.bal)+'"></span><small>'+x.date.slice(8)+'</small></div>').join('')}
-function openModal(date){const a=acc(),L=limits(),d=date||new Date().toISOString().slice(0,10);if(a.status==='Failed'){achievement('💔','Cuenta quemada','Esta cuenta terminó. No se pueden registrar más operaciones aquí. Revisá qué pasó y prepará la siguiente. 🚀');return}if(dailyLoss(d)>=L.daily){achievement('🛑','Volvé mañana','Llegaste al límite de pérdida diaria. Cerrá el día, no persigas la pérdida y volvé mañana con la cabeza limpia. 💪');return}const totalLoss=trades().reduce((s,t)=>s+Math.min(0,Number(t.pnl)),0);if(-totalLoss>=L.max){a.status='Failed';save();render();achievement('💔','Quemaste la cuenta','No pasa nada. Esta cuenta terminó, pero no define tu trading. Aprendé de los errores y prepará la siguiente. 🚀');return}$('date').value=d;$('modal').classList.add('show');setTimeout(()=>$('pnlInput').focus(),50)}
+function openModal(date){const a=acc(),L=limits(),d=date||new Date().toISOString().slice(0,10);if(a.status==='Failed'){achievement('💔','Cuenta quemada','Esta cuenta terminó. No se pueden registrar más operaciones aquí. Revisá qué pasó y prepará la siguiente. 🚀');return}if(dailyLoss(d)>=L.daily){achievement('🛑','Volvé mañana','Llegaste al límite de pérdida diaria. Cerrá el día, no persigas la pérdida y volvé mañana con la cabeza limpia. 💪');return}const totalLoss=trades().reduce((s,t)=>s+Math.min(0,Number(t.pnl)),0);if(-totalLoss>=L.max){a.status='Failed';save();render();achievement('💔','Quemaste la cuenta','No pasa nada. Esta cuenta terminó, pero no define tu trading. Aprendé de los errores y prepará la siguiente. 🚀');return}$('date').value=d;$('modal').classList.add('show');if(window.matchMedia('(min-width:701px)').matches)setTimeout(()=>$('pnlInput').focus(),50)}
 function closeModal(){$('modal').classList.remove('show');$('form').reset();$('risk').value='0.50';$('rr').value='1:3'}
 $('form').onsubmit=e=>{e.preventDefault();const a=acc(),L=limits(),t={date:$('date').value,asset:$('asset').value,result:$('result').value,pnl:Number($('pnlInput').value),risk:Number($('risk').value),rr:$('rr').value,state:$('state').value,note:$('note').value},wasFunded=a.status==='Funded';const pa=ensurePA(a),month=t.date.slice(0,7),beforePA=pa.trades.filter(x=>String(x.date||'').slice(0,7)===month).reduce((s,x)=>s+Number(x.pnl||0),0);if(wasFunded)pa.trades.push(t);else pd().trades.push(t);const phasePnl=trades().reduce((s,x)=>s+Number(x.pnl),0),dLoss=dailyLoss(),maxLoss=-trades().reduce((s,x)=>s+Math.min(0,Number(x.pnl)),0);save();render();closeModal();if(wasFunded){const goal=a.capital*Number(pa.goalPct||0)/100,afterPA=beforePA+Number(t.pnl);if(goal>0&&beforePA<goal*.5&&afterPA>=goal*.5&&afterPA<goal)achievement('🎯','¡Ya estás a la mitad!','Ya estás a la mitad de tu objetivo mensual. Vamos por más, pero sin perder la disciplina. 💪');else if(goal>0&&beforePA<goal&&afterPA>=goal)achievement('🏆','¡OBJETIVO MENSUAL ALCANZADO!','Llegaste al objetivo que te propusiste. Excelente ejecución. Ahora cuidá lo ganado y seguí operando con cabeza fría. 🚀');return}if(dLoss>=L.daily){achievement('🛑','Límite diario alcanzado','Hoy no salió como queríamos. Cerrá el día. No intentes recuperarlo a la fuerza. Mañana es otra sesión. 💪');return}if(maxLoss>=L.max){a.status='Failed';save();render();achievement('💔','Quemaste la cuenta','No pasa nada. Esta cuenta terminó. Revisá qué pasó, aprendé de los errores y prepará la siguiente. 🚀');return}const target=a.capital*a.targets[a.phase-1]/100,days=[...new Set(trades().map(x=>x.date))].length;if(a.status==='Challenge'&&phasePnl>=target&&days>=a.days){if(a.phase===1){a.phase=2;a.phases[1]={trades:[]};save();render();achievement('🏆','¡FASE 1 SUPERADA!','Lo hiciste. El resultado de la Fase 1 queda cerrado y la Fase 2 empieza nuevamente desde '+money(a.capital)+'. Un paso más cerca.');return}a.status='Funded';pa.trades=[];save();render();achievement('💎','¡FELICITACIONES, ESTÁS EN PA!','Completaste las dos fases. Ahora empieza la etapa financiada y podés gestionar tus futuros retiros según las reglas de tu firma. La cuenta vuelve a '+money(a.capital)+' y desde ahí empieza tu nuevo objetivo. 🚀');return}if(a.status==='Challenge'&&phasePnl>=target&&days<a.days)achievement('🎯','Objetivo alcanzado','Llegaste al objetivo, pero todavía faltan '+(a.days-days)+' día'+(a.days-days===1?'':'s')+' de trading para completar la fase.')};
-$('addTop').onclick=()=>openModal();$('close').onclick=closeModal;$('cancel').onclick=closeModal;$('achievementBtn').onclick=()=>{$('achievement').classList.add('hide')};$('prev').onclick=()=>{cursor.setMonth(cursor.getMonth()-1);renderCalendar()};$('next').onclick=()=>{cursor.setMonth(cursor.getMonth()+1);renderCalendar()};$('account').onchange=()=>{activeId=$('account').value;save();render()};$('phase').onchange=()=>{const p=Number($('phase').value),a=acc();if(p===a.phase)return;if(p===2&&a.phase===1){achievement('🎯','Fase 2 bloqueada','Primero completá el objetivo y los días mínimos de la Fase 1. Cuando la superes, FundedTrack te pasará automáticamente a Fase 2.');$('phase').value='1';return}if(p<a.phase){a.phase=p;save();render()}};$('newAccount').onclick=()=>{$('accountModal').classList.add('show');$('afirm').focus()};$('accountClose').onclick=()=>$('accountModal').classList.remove('show');$('accountCancel').onclick=()=>$('accountModal').classList.remove('show');$('accountForm').onsubmit=e=>{e.preventDefault();const id='custom_'+Date.now(),a=make(id,$('afirm').value.trim(),$('aprogram').value.trim(),Number($('acapital').value),Number($('at1').value),Number($('at2').value),Number($('adaily').value),Number($('amax').value),Number($('arisk').value)||null,Number($('adays').value));accounts.push(a);activeId=id;save();$('accountModal').classList.remove('show');e.target.reset();$('adays').value=5;$('at1').value=8;$('at2').value=5;$('adaily').value=5;$('amax').value=10;$('arisk').value=3;render()};
+$('addTop').onclick=()=>openModal();$('close').onclick=closeModal;$('cancel').onclick=closeModal;$('achievementBtn').onclick=()=>{$('achievement').classList.add('hide')};$('prev').onclick=()=>{cursor.setMonth(cursor.getMonth()-1);renderCalendar()};$('next').onclick=()=>{cursor.setMonth(cursor.getMonth()+1);renderCalendar()};$('account').onchange=()=>{activeId=$('account').value;save();render()};$('phase').onchange=()=>{const p=Number($('phase').value),a=acc();if(p===a.phase)return;if(p===2&&a.phase===1){achievement('🎯','Fase 2 bloqueada','Primero completá el objetivo y los días mínimos de la Fase 1. Cuando la superes, FundedTrack te pasará automáticamente a Fase 2.');$('phase').value='1';return}if(p<a.phase){a.phase=p;save();render()}};$('newAccount').onclick=()=>{$('accountModal').classList.add('show');if(window.matchMedia('(min-width:701px)').matches)$('afirm').focus()};$('accountClose').onclick=()=>$('accountModal').classList.remove('show');$('accountCancel').onclick=()=>$('accountModal').classList.remove('show');$('accountForm').onsubmit=e=>{e.preventDefault();const id='custom_'+Date.now(),a=make(id,$('afirm').value.trim(),$('aprogram').value.trim(),Number($('acapital').value),Number($('at1').value),Number($('at2').value),Number($('adaily').value),Number($('amax').value),Number($('arisk').value)||null,Number($('adays').value));accounts.push(a);activeId=id;save();$('accountModal').classList.remove('show');e.target.reset();$('adays').value=5;$('at1').value=8;$('at2').value=5;$('adaily').value=5;$('amax').value=10;$('arisk').value=3;render()};
 try{render()}catch(err){document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#101114;color:#f2f4f7;font-family:system-ui"><div style="max-width:620px;text-align:center"><h2 style="margin:0 0 10px">FundedTrack no pudo iniciar</h2><p style="color:#9ba2ad">La aplicación encontró un dato incompatible y lo aisló para evitar que vuelva a bloquearse.</p><button onclick="location.reload()" style="padding:10px 16px;border:0;border-radius:10px;background:#6875f5;color:white;font-weight:700;cursor:pointer">Reintentar</button></div></div>';console.error('FundedTrack startup error',err)}if(!storage.get('fundedtrack_welcome'))$('welcome').classList.remove('hide');else $('welcome').classList.add('hide');$('startBtn').onclick=()=>{$('welcome').classList.add('hide');storage.set('fundedtrack_welcome','1')};
 const installBtn=$('installBtn'),importFile=$('importFile');let deferredInstall=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;installBtn.style.display='inline-block'});installBtn.onclick=async()=>{if(deferredInstall){deferredInstall.prompt();deferredInstall=null}else alert('Abrí el menú del navegador y elegí “Instalar” o “Crear acceso directo”.')};
 $('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify({app:'FundedTrack',version:5,accounts:accounts},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fundedtrack-backup.json';a.click();URL.revokeObjectURL(a.href)};$('importBtn').onclick=()=>importFile.click();importFile.onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d.accounts))throw 0;if(confirm('Esto reemplazará las cuentas y operaciones actuales. ¿Continuar?')){accounts=d.accounts;activeId=accounts[0].id;save();render();alert('Respaldo importado correctamente.')}}catch(err){alert('El archivo no es un respaldo válido de FundedTrack.')}e.target.value=''};
@@ -129,7 +129,7 @@ withdrawModal.id='withdrawModal';
 withdrawModal.innerHTML='<div class="modalbox"><div class="modalhead"><h3>💸 Registrar retiro</h3><button type="button" class="close" id="withdrawClose">×</button></div><form id="withdrawForm"><div class="form"><div class="field"><label>Monto del retiro (USD)</label><input id="withdrawAmount" type="number" min="0.01" step="0.01" required placeholder="500"></div><div class="field"><label>Fecha</label><input id="withdrawDate" type="date" required></div><div class="field full"><label>Nota opcional</label><input id="withdrawNote" placeholder="Ej. Primer payout"></div></div><div class="actions"><button type="button" class="btn" id="withdrawCancel">Cancelar</button><button class="btn primary" type="submit">Guardar retiro</button></div></form></div>';
 document.body.appendChild(withdrawModal);
 paGoalInput.oninput=()=>{const a=acc(),pa=ensurePA(a);pa.goalPct=Math.max(0,Number(paGoalInput.value)||0);save();renderPA()};
-paAddWithdrawal.onclick=()=>{if(acc().status!=='Funded')return;$('withdrawAmount').value='';$('withdrawDate').value=new Date().toISOString().slice(0,10);$('withdrawNote').value='';withdrawModal.classList.add('show');setTimeout(()=>$('withdrawAmount').focus(),30)};
+paAddWithdrawal.onclick=()=>{if(acc().status!=='Funded')return;$('withdrawAmount').value='';$('withdrawDate').value=new Date().toISOString().slice(0,10);$('withdrawNote').value='';withdrawModal.classList.add('show');if(window.matchMedia('(min-width:701px)').matches)setTimeout(()=>$('withdrawAmount').focus(),30)};
 $('withdrawClose').onclick=() => withdrawModal.classList.remove('show');
 $('withdrawCancel').onclick=() => withdrawModal.classList.remove('show');
 $('withdrawForm').onsubmit=e=>{e.preventDefault();const a=acc(),pa=ensurePA(a),amount=Number($('withdrawAmount').value),date=$('withdrawDate').value,note=$('withdrawNote').value.trim();if(a.status!=='Funded'||amount<=0||!date)return;pa.withdrawals.push({id:'w_'+Date.now(),amount,date,note});save();withdrawModal.classList.remove('show');renderPA();achievement('💸','Retiro registrado','El retiro quedó guardado en '+a.firm+' · '+a.program+'.')};
@@ -680,7 +680,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  const legacy=localStorage.getItem('fundedtrack_v5');
  if(legacy){el('ftLegacyBackup').hidden=false;el('ftLegacyBackup').onclick=()=>{try{download('FundedTrack-respaldo-anterior.json',JSON.parse(legacy));}catch(e){msg('El respaldo anterior no tiene un formato válido.',true);}};}
  const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
- panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v53</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
+ panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v54</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
  el('ftPageSettings')?.appendChild(panel);
  el('ftSync').onclick=flush;el('ftSignOut').onclick=signOut;
  el('ftExportMine').onclick=()=>download('FundedTrack-mis-datos.json',clone(accounts));
@@ -697,6 +697,88 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)flush();});
  window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
  setInterval(flush,20000);
+})();
+</script>
+
+<style id="ft-mobile-repair-v54">
+/* These overrides follow every legacy stylesheet. */
+:root{--ft-vv-height:100dvh;--ft-vv-top:0px}
+html,body{max-width:100%;overflow-x:hidden}
+.modal{z-index:1000!important;top:var(--ft-vv-top);left:0;right:0;bottom:auto;height:var(--ft-vv-height);padding:16px;box-sizing:border-box;background:#030610bd;overscroll-behavior:contain}
+.modalbox{display:flex;flex-direction:column;max-width:100%;max-height:100%;min-height:0;overflow:hidden;padding:0!important;box-sizing:border-box}
+.modalhead{flex:0 0 auto;margin:0;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface);gap:12px}
+.modalhead h3{font-size:18px;line-height:1.3}
+.modalhead .close{flex:0 0 44px;width:44px;height:44px;border-radius:10px;background:var(--surface2);touch-action:manipulation}
+.modalbox>form{display:flex!important;flex-direction:column;flex:1 1 auto;min-height:0;overflow:hidden;margin:0}
+.ft-dialog-scroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:16px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-padding-block:16px}
+.ft-dialog-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ft-dialog-scroll .field{min-width:0}
+.modalbox .actions{flex:0 0 auto;display:flex;gap:10px;margin:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--border);background:var(--surface);position:relative;z-index:2}
+.modalbox .actions .btn{min-height:44px;touch-action:manipulation}
+.modal input,.modal select,.modal textarea{box-sizing:border-box;min-width:0;max-width:100%}
+.modal input[type="date"],.modal input[type="month"]{width:100%;min-height:44px}
+.modal .day-modal-list{max-height:none;overflow:visible}
+.achievement{z-index:10500!important;overflow-y:auto;overscroll-behavior:contain}
+.achievement-box{max-height:90dvh;overflow:auto}
+#ftCloudGate{z-index:11000}
+#ftCloudBanner{pointer-events:none;max-width:min(75vw,420px);max-height:64px;overflow:auto;font-size:10px}
+@media(max-width:700px){
+ .modal{padding:8px}
+ .modalbox{width:100%!important;border-radius:16px}
+ .modalhead{padding:8px 12px}
+ .modalhead h3{font-size:17px}
+ .ft-dialog-scroll{padding:12px}
+ .ft-dialog-fields,.ft-dialog-scroll>.form{grid-template-columns:1fr!important}
+ .modal input,.modal select,.modal textarea{font-size:16px!important;min-height:44px}
+ .modal textarea{min-height:88px}
+ .modalbox .actions{padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px))}
+ .modalbox .actions .btn{flex:1;min-width:0;white-space:normal;font-size:13px}
+ .mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:2px!important;box-sizing:border-box}
+ .mobile-nav button{min-width:0;min-height:44px;font-size:8px;line-height:1.2;overflow-wrap:normal}
+ body.ft-dialog-open .mobile-nav{visibility:hidden!important;pointer-events:none!important}
+ .ft-settings-grid,.ft-action-row{min-width:0}
+ .ft-action-row{flex-wrap:wrap}
+ .ft-action-row .btn{min-height:44px;max-width:100%;white-space:normal}
+ .ft-recent{overflow-x:auto}
+ .ft-page,.ft-page-body,.card,.ft-quick-card{min-width:0;box-sizing:border-box}
+}
+</style>
+<script id="ft-dialog-repair-v54">
+(function(){
+ const dialogs=[...document.querySelectorAll('.modal')];
+ for(const dialog of dialogs){
+  const box=dialog.querySelector('.modalbox');if(!box)continue;
+  dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');
+  const title=box.querySelector('h3');if(title){if(!title.id)title.id=dialog.id+'TitleV54';dialog.setAttribute('aria-labelledby',title.id);}
+  box.tabIndex=-1;
+  const form=box.querySelector(':scope > form');
+  const host=form||box;
+  const children=[...host.children].filter(c=>!c.classList.contains('modalhead')&&!c.classList.contains('actions'));
+  const scroll=document.createElement('div');scroll.className='ft-dialog-scroll';
+  if(form&&!children.some(c=>c.classList.contains('form')))scroll.classList.add('ft-dialog-fields');
+  for(const child of children)scroll.appendChild(child);
+  const actions=host.querySelector(':scope > .actions');host.insertBefore(scroll,actions||null);
+  dialog.querySelectorAll('input[type="number"]').forEach(input=>{input.inputMode=input.step==='1'?'numeric':'decimal';});
+  dialog.querySelectorAll('.close').forEach(button=>{button.type='button';button.setAttribute('aria-label','Cerrar ventana');});
+ }
+ let open=new Set(),locked=false,scrollY=0,order=1000,returnFocus=null;
+ function updateViewport(){const v=window.visualViewport;document.documentElement.style.setProperty('--ft-vv-height',(v?v.height:window.innerHeight)+'px');document.documentElement.style.setProperty('--ft-vv-top',(v?v.offsetTop:0)+'px');}
+ function update(){
+  const visible=dialogs.filter(d=>d.classList.contains('show'));
+  for(const d of visible){if(!open.has(d)){d.style.setProperty('z-index',String(++order),'important');d.querySelector('.ft-dialog-scroll').scrollTop=0;if(document.activeElement?.tagName!=='INPUT')d.querySelector('.modalbox').focus({preventScroll:true});}}
+  const isOpen=visible.length>0;
+  if(isOpen&&!locked){scrollY=window.scrollY;returnFocus=document.activeElement;document.body.style.position='fixed';document.body.style.top=-scrollY+'px';document.body.style.width='100%';locked=true;}
+  if(!isOpen&&locked){document.body.style.position='';document.body.style.top='';document.body.style.width='';locked=false;window.scrollTo(0,scrollY);if(returnFocus?.isConnected&&returnFocus.tagName==='BUTTON')returnFocus.focus({preventScroll:true});}
+  document.body.classList.toggle('ft-dialog-open',isOpen);
+  document.querySelectorAll('.sidebar,.mobile-nav').forEach(n=>{n.inert=isOpen;});
+  open=new Set(visible);updateViewport();
+ }
+ const observer=new MutationObserver(update);dialogs.forEach(d=>observer.observe(d,{attributes:true,attributeFilter:['class']}));
+ window.addEventListener('resize',updateViewport);
+ window.visualViewport?.addEventListener('resize',updateViewport);
+ window.visualViewport?.addEventListener('scroll',updateViewport);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&open.size){const d=[...open].sort((a,b)=>Number(b.style.zIndex)-Number(a.style.zIndex))[0];d.querySelector('.close')?.click();}});
+ update();
 })();
 </script>
 
