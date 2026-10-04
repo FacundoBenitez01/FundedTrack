@@ -680,7 +680,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  const legacy=localStorage.getItem('fundedtrack_v5');
  if(legacy){el('ftLegacyBackup').hidden=false;el('ftLegacyBackup').onclick=()=>{try{download('FundedTrack-respaldo-anterior.json',JSON.parse(legacy));}catch(e){msg('El respaldo anterior no tiene un formato válido.',true);}};}
  const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
- panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v54</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
+ panel.innerHTML='<div class="label">Mi cuenta · FundedTrack v55</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
  el('ftPageSettings')?.appendChild(panel);
  el('ftSync').onclick=flush;el('ftSignOut').onclick=signOut;
  el('ftExportMine').onclick=()=>download('FundedTrack-mis-datos.json',clone(accounts));
@@ -779,6 +779,81 @@ html,body{max-width:100%;overflow-x:hidden}
  window.visualViewport?.addEventListener('scroll',updateViewport);
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&open.size){const d=[...open].sort((a,b)=>Number(b.style.zIndex)-Number(a.style.zIndex))[0];d.querySelector('.close')?.click();}});
  update();
+})();
+</script>
+
+<style id="ft-professional-v55">
+body{background:#090d16;color:#edf0f8}
+.ft-page-head h2{letter-spacing:-.04em}.ft-page-head p{line-height:1.5}
+#ftPageHome .ft-page-head{margin-bottom:20px}#ftPageHome .ft-page-head h2{font-size:30px}
+#ftPageHome .ft-page-tag{letter-spacing:.16em;font-size:10px}
+#ftPageHome .ft-home-overview{margin:0 0 20px;gap:10px}
+.ft-home-overview-main,.ft-home-mini,.ft-home-action{background:linear-gradient(145deg,#161d30,#101624);border-color:#27304a;border-radius:18px}
+.ft-home-overview-main{border-left:3px solid #8d70ff}.ft-home-mini strong{font-size:25px;font-variant-numeric:tabular-nums}
+.ft-home-grid{grid-template-columns:minmax(0,1.5fr) minmax(310px,1fr)!important;align-items:start;gap:18px!important}
+.ft-market-card,.ft-news-card{padding:20px;border:1px solid #252f45;border-radius:22px;background:linear-gradient(145deg,#121929,#0e1421);box-shadow:0 16px 40px #0002}
+.ft-market-head strong{font-size:19px;letter-spacing:-.02em}.ft-provider{font-size:11px;color:#aab4cc}
+.ft-market-tabs,.ft-time-tabs{display:flex;gap:6px;margin:14px 0;flex-wrap:wrap}
+.ft-market-tabs button{flex:1;min-width:0;text-align:left;padding:12px;border:1px solid #283148;border-radius:12px;background:#151d2e;color:#e4e9f5;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.ft-market-tabs small{display:block;font-size:10px;font-weight:400;color:#9ba7bd;margin-top:5px}
+.ft-market-tabs button[aria-pressed=true]{background:#221c3e;border-color:#8f74ff}
+.ft-time-tabs button{border:1px solid #273149;border-radius:8px;padding:8px 12px;color:#a9b4cc;background:#151c2b;cursor:pointer;min-height:36px}
+.ft-time-tabs button[aria-pressed=true]{color:#fff;background:#7154d2;border-color:#997dff}
+.ft-widget-shell{height:430px;min-width:0;position:relative;overflow:hidden;border:1px solid #232c41;border-radius:14px;background:#0f1420}
+.ft-calendar-shell{height:530px}.ft-widget-host{height:100%;width:100%}.ft-widget-host .tradingview-widget-container{height:100%;width:100%}
+.ft-widget-status{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:20px;color:#9ba8c2;font-size:13px;pointer-events:none;background:#0f1420;z-index:1}
+.ft-widget-status[hidden]{display:none}.ft-widget-status b{color:#e4e8f3;margin-bottom:7px}
+.ft-widget-credit{font-size:11px;color:#97a3bc;padding:10px 0 4px;line-height:1.5}.ft-widget-credit a{color:#aa91ff;text-decoration:none}
+.ft-external{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid #3a365d;border-radius:11px;background:#211c39;color:#e4dcff;text-decoration:none;font-weight:600;font-size:12px}
+.ft-external:hover{background:#30264c}.ft-market-actions{display:flex;gap:8px;margin-top:14px}.ft-market-actions a{flex:1}.ft-retry{background:transparent;color:#aeb9d0;border:1px solid #313b52;border-radius:10px;padding:10px;cursor:pointer;min-height:44px}
+.ft-calendar-note{font-size:12px;line-height:1.6;color:#96a3bc;margin:12px 0}.ft-local-clock{font-size:11px;color:#9ba9c2;margin-bottom:12px}
+.mobile-nav button.active{color:#e6dcff!important;background:#251d40!important;border-radius:11px}
+button:focus-visible,a:focus-visible{outline:2px solid #af96ff;outline-offset:3px}
+@media(max-width:1050px){.ft-home-grid{grid-template-columns:1fr!important}}
+@media(max-width:700px){.wrap{padding-bottom:calc(105px + env(safe-area-inset-bottom))!important;padding-top:max(18px,env(safe-area-inset-top))!important}.top{position:relative!important;top:auto!important}#ftPageHome .ft-page-head h2{font-size:26px}.ft-page-head p{font-size:12px!important}.ft-market-card,.ft-news-card{padding:15px;border-radius:18px}.ft-home-mini strong{font-size:23px}.ft-widget-shell{height:360px}.ft-calendar-shell{height:470px}.ft-market-tabs button{padding:11px 8px;font-size:12px}.ft-market-tabs small{font-size:9px}.ft-market-head strong{font-size:18px}.mobile-nav{bottom:calc(8px + env(safe-area-inset-bottom))!important;border-radius:20px!important}.mobile-nav button{font-size:9px!important}.mobile-nav span{font-size:19px!important}.ft-home-grid{gap:16px!important}.ft-home-overview{grid-template-columns:1fr 1fr!important}.ft-home-mini:last-of-type{grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+<script id="ft-integrations-v55">
+(function(){
+ const home=document.querySelector('#ftPageHome .ft-page-body');if(!home)return;
+ const icons=["<path d=\"m3 10 9-7 9 7v10H5V10m4 10v-7h6v7\"/>", "<path d=\"M7 3h10v3H7zM5 5v16h14V5M8 10h8M8 14h8M8 18h5\"/>", "<rect x=\"3\" y=\"5\" width=\"18\" height=\"15\" rx=\"3\"/><path d=\"M3 9h18m-5 5h3\"/>", "<path d=\"M5 17 19 3M9 3h10v10M4 12v8h16v-6\"/>", "<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/>", "<path d=\"M9 4V2h6v2l2 1 2-1 3 5-2 2v2l2 2-3 5-2-1-2 1v2H9v-2l-2-1-2 1-3-5 2-2v-2L2 9l3-5 2 1z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>"];document.querySelectorAll('.mobile-nav button').forEach((b,i)=>{const span=b.querySelector('span');if(span)span.innerHTML='<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+icons[i]+'</svg>';});
+ const market=home.querySelector('.ft-market-card'),news=home.querySelector('.ft-news-card');
+ const overview=home.querySelector('.ft-home-overview');if(overview)home.prepend(overview);
+ market.innerHTML=`<div class="ft-market-head"><strong>Mercados</strong><span class="ft-provider">TradingView</span></div>
+ <div class="ft-market-tabs" aria-label="Mercado"><button type="button" data-symbol="OANDA:XAUUSD" aria-pressed="true">XAUUSD<small>Oro / Dólar</small></button><button type="button" data-symbol="OANDA:EURUSD" aria-pressed="false">EURUSD<small>Euro / Dólar</small></button><button type="button" data-symbol="BITSTAMP:BTCUSD" aria-pressed="false">BTCUSD<small>Bitcoin / Dólar</small></button></div>
+ <div class="ft-time-tabs" aria-label="Intervalo del gráfico"><button type="button" data-interval="15" aria-pressed="false">15m</button><button type="button" data-interval="60" aria-pressed="true">1h</button><button type="button" data-interval="240" aria-pressed="false">4h</button><button type="button" data-interval="D" aria-pressed="false">1D</button></div>
+ <div class="ft-widget-shell"><div class="ft-widget-status" id="ftChartStatus" role="status"><b>Gráfico de mercado</b><span>Cargando TradingView…</span></div><div class="ft-widget-host" id="ftChartHost"></div></div>
+ <div class="ft-widget-credit">Gráfico y cotizaciones por <a href="https://www.tradingview.com/" target="_blank" rel="noopener noreferrer">TradingView</a>. La disponibilidad y los retrasos dependen del mercado.</div>
+ <div class="ft-market-actions"><a class="ft-external" id="ftTradingViewLink" href="https://www.tradingview.com/chart/?symbol=OANDA%3AXAUUSD" target="_blank" rel="noopener noreferrer">Abrir TradingView ↗</a><button class="ft-retry" type="button" id="ftChartRetry">Recargar</button></div>`;
+ news.innerHTML=`<div class="ft-market-head"><strong>Calendario económico</strong><span class="ft-provider">TradingView</span></div><div class="ft-local-clock" id="ftLocalClock"></div>
+ <div class="ft-widget-shell ft-calendar-shell"><div class="ft-widget-status" id="ftCalendarStatus" role="status"><b>Eventos económicos</b><span>Cargando calendario…</span></div><div class="ft-widget-host" id="ftCalendarHost"></div></div>
+ <div class="ft-widget-credit">Calendario por <a href="https://www.tradingview.com/economic-calendar/" target="_blank" rel="noopener noreferrer">TradingView</a>.</div>
+ <p class="ft-calendar-note">Consultá también el calendario y las noticias de Forex Factory. Revisá la zona horaria indicada por cada proveedor.</p><div class="ft-market-actions"><a class="ft-external" href="https://www.forexfactory.com/calendar" target="_blank" rel="noopener noreferrer">Forex Factory ↗</a><button class="ft-retry" type="button" id="ftCalendarRetry">Recargar</button></div>`;
+ let symbol='OANDA:XAUUSD',interval='60',initialized=false;
+ const timers=new Map(),observers=new Map();
+ function status(id,text){const el=document.getElementById(id);el.hidden=false;el.querySelector('span').textContent=text;}
+ function embed(hostId,statusId,url,config){
+  const host=document.getElementById(hostId);clearTimeout(timers.get(hostId));observers.get(hostId)?.disconnect();host.replaceChildren();
+  if(!navigator.onLine){status(statusId,'Sin conexión. Podés seguir usando tu diario de operaciones.');return;}
+  status(statusId,'Cargando contenido de TradingView…');
+  const container=document.createElement('div');container.className='tradingview-widget-container';
+  const widget=document.createElement('div');widget.className='tradingview-widget-container__widget';widget.style.height='100%';widget.style.width='100%';container.append(widget);host.append(container);
+  const observer=new MutationObserver(()=>{const iframe=container.querySelector('iframe');if(iframe){iframe.title=hostId==='ftChartHost'?'Gráfico de TradingView':'Calendario económico de TradingView';document.getElementById(statusId).hidden=true;clearTimeout(timers.get(hostId));observer.disconnect();}});
+  observer.observe(container,{childList:true,subtree:true});observers.set(hostId,observer);
+  const script=document.createElement('script');script.src=url;script.async=true;script.textContent=JSON.stringify(config);script.onerror=()=>{clearTimeout(timers.get(hostId));status(statusId,'No se pudo cargar. Tocá Recargar o abrí el proveedor.');};container.append(script);
+  timers.set(hostId,setTimeout(()=>status(statusId,'Está tardando en cargar. Tocá Recargar o abrí el proveedor.'),15000));
+ }
+ function chart(){document.getElementById('ftTradingViewLink').href='https://www.tradingview.com/chart/?symbol='+encodeURIComponent(symbol);
+ embed('ftChartHost','ftChartStatus','https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js',{autosize:true,symbol,interval,timezone:'America/Asuncion',theme:'dark',style:'1',locale:'es',allow_symbol_change:true,hide_top_toolbar:false,hide_side_toolbar:true,hide_volume:true,calendar:false,details:false,save_image:false,backgroundColor:'#0f1420',gridColor:'rgba(151,163,188,0.08)',support_host:'https://www.tradingview.com'});}
+ function calendar(){embed('ftCalendarHost','ftCalendarStatus','https://s3.tradingview.com/external-embedding/embed-widget-events.js',{colorTheme:'dark',isTransparent:false,width:'100%',height:'100%',locale:'es',importanceFilter:'0,1',countryFilter:'us,eu,gb,jp,ca,au,nz,ch'});}
+ market.querySelectorAll('[data-symbol]').forEach(b=>b.onclick=()=>{symbol=b.dataset.symbol;market.querySelectorAll('[data-symbol]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));chart();});
+ market.querySelectorAll('[data-interval]').forEach(b=>b.onclick=()=>{interval=b.dataset.interval;market.querySelectorAll('[data-interval]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));chart();});
+ document.getElementById('ftChartRetry').onclick=chart;document.getElementById('ftCalendarRetry').onclick=calendar;
+ function clock(){document.getElementById('ftLocalClock').textContent='Paraguay · '+new Intl.DateTimeFormat('es-PY',{timeZone:'America/Asuncion',hour:'2-digit',minute:'2-digit',day:'numeric',month:'short'}).format(new Date());}clock();setInterval(clock,60000);
+ function init(){if(!initialized&&document.body.classList.contains('ft-ready')&&document.getElementById('ftPageHome').classList.contains('active')){initialized=true;chart();calendar();}}
+ const readyObserver=new MutationObserver(init);readyObserver.observe(document.body,{attributes:true,attributeFilter:['class']});readyObserver.observe(document.getElementById('ftPageHome'),{attributes:true,attributeFilter:['class']});init();
+ window.addEventListener('online',()=>{if(initialized){chart();calendar();}});
+ window.addEventListener('offline',()=>{for(const [host,id] of [['ftChartHost','ftChartStatus'],['ftCalendarHost','ftCalendarStatus']]){clearTimeout(timers.get(host));status(id,'Sin conexión. El contenido de mercado requiere Internet.');}});
 })();
 </script>
 

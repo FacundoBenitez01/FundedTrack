@@ -1,0 +1,16 @@
+FundedTrack v55 — Inicio profesional
+
+1. Extraé este ZIP.
+2. Abrí tu repositorio FundedTrack en GitHub.
+3. Add file → Upload files: subí index.html y sw.js en la raíz, reemplazando los anteriores.
+4. Confirmá con Commit changes y esperá a que Actions / Pages termine en verde.
+5. Abrí en Safari: https://facundobenitez01.github.io/FundedTrack/?version=55
+6. En Configuración comprobá que dice FundedTrack v55.
+
+No borres el almacenamiento del navegador: puede contener cambios pendientes.
+No hay que ejecutar SQL ni cambiar Supabase.
+
+Incluye resumen real de la cuenta, gráfico oficial TradingView con selector de XAUUSD/EURUSD/BTCUSD y cuatro intervalos, calendario económico TradingView y enlace al calendario oficial Forex Factory. Forex Factory abre en otra pestaña; no se importa su calendario. Los proveedores pueden indicar cotizaciones retrasadas o mercados no disponibles.
+Los widgets requieren conexión. Login, cuentas y sincronización usan el código existente. La reparación móvil v54 se conserva: campos desplazables y Guardar separado de los campos.
+
+Verificación: pruebas simuladas de cambio de símbolo e intervalo, navegación, estados sin conexión, carga del widget y guardado/sincronización de operaciones, cuentas y retiros. Pendiente: comprobación visual en Safari/iPhone y carga de los widgets en la publicación real.
