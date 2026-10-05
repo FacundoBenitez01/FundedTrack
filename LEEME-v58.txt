@@ -1,0 +1,8 @@
+FundedTrack v58 — Cabecera limpia
+
+Se retiró de la interfaz la barra antigua de cuenta/fase, PA/Retiros, +Cuenta, Respaldo, Importar, Instalar y +Operación mostrada en la imagen. Las páginas actuales y sus datos se conservan.
+Cambiá de cuenta desde Cuentas → Mis cuentas; agregá cuentas desde esa página, operá desde Operaciones y gestioná los retiros desde Retiros. El respaldo personal sigue en Ajustes. Se corrigió el texto que indicaba seleccionar una cuenta arriba.
+
+Publicación: descomprimí este ZIP y subí todos los archivos de aplicación a la raíz del repositorio FundedTrack, reemplazando los anteriores. Si ya publicaste v57, solo cambiaron index.html y sw.js. Confirmá Commit changes y esperá a GitHub Pages. Cerrá y abrí la app; Ajustes debe mostrar v58. No requiere SQL ni borrar datos del navegador.
+
+Se comprobó con Chromium a cuatro tamaños de pantalla que la barra ya no está visible, el cambio de cuenta funciona desde Mis cuentas, el formulario de alta abre, las páginas Operaciones/Retiros/Ajustes siguen accesibles y el respaldo personal permanece en Ajustes. Se verificaron también acceso, registro, recuperación y guardado con Supabase simulado. No se ha publicado desde aquí ni probado en un iPhone real.
