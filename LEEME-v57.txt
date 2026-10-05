@@ -1,0 +1,28 @@
+FundedTrack v57 — Identidad visual y acceso
+
+Basado en las tres imágenes de referencia: nuevo ícono con monograma y vela, pantalla de apertura con logo e indicador, login oscuro con velas y volumen decorativos, marca blanca/violeta, pestañas de acceso/registro, controles con íconos, recuperación y mostrar/ocultar contraseña.
+
+PUBLICAR
+1. Descomprimí el ZIP.
+2. En tu repositorio FundedTrack de GitHub, Add file → Upload files.
+3. Subí estos nueve archivos directamente en la raíz (sin una carpeta contenedora):
+   index.html
+   sw.js
+   manifest.webmanifest
+   brand-icon.svg
+   auth-market.svg
+   icon-192.png
+   icon-512.png
+   icon-maskable-512.png
+   apple-touch-icon.png
+4. Confirmá Commit changes y esperá a que GitHub Pages publique.
+5. Cerrá y abrí la app. En Ajustes debe decir FundedTrack v57.
+No requiere cambios SQL en Supabase. No borres datos del navegador.
+
+IPHONE
+El ícono de una instalación anterior puede conservarse. Si continúa el anterior, primero verificá en Ajustes que tus cambios están sincronizados y exportá un respaldo. Luego quitá el acceso anterior y agregá nuevamente la URL desde Safari con Compartir → Agregar a pantalla de inicio. La pantalla animada está implementada dentro de la web; la pantalla de inicio propia de iOS la controla el sistema y no se ha probado en un iPhone real.
+
+CONSERVACIÓN Y PRUEBAS
+Mantiene el catálogo y las reglas de v56 sin cambios, además de las cuentas, operaciones y sincronización existentes. Los gráficos del fondo son decorativos: no representan cotizaciones en vivo.
+Verificado en Chromium sin interfaz, a 1440×900, 390×844, 320×568 y 844×390: ausencia de desbordamiento horizontal, registro, login, recuperación por correo, visibilidad de contraseña, catálogo de diez modelos, carga/guardado con Supabase simulado y cierre de sesión. También se comprobó el formulario de recuperación de contraseña. Sin errores de ejecución en estas pruebas.
+La publicación real y el aspecto final en Safari/iPhone se verifican después de subir los archivos.
