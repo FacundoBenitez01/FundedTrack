@@ -1,0 +1,39 @@
+FUNDEDTRACK v66 — PROTECCIÓN DE DATOS
+Base: v65 con sesiones y v64 con alertas ya configuradas.
+
+INSTALAR
+1. Extraé el ZIP.
+2. GitHub → FundedTrack → Add file → Upload files.
+3. Subí index.html y sw.js en la raíz, reemplazando los actuales.
+4. Commit changes. Esperá que Actions quede verde y recargá la app.
+No necesita Supabase, SQL, claves nuevas, cron ni PowerShell.
+Los demás archivos públicos del ZIP son los mismos íconos, fondos y manifest de v65.
+
+LAS TRES MEJORAS
+1. NOTAS SEGURAS
+Notas, activo, RR y estado en las vistas antiguas se muestran como texto. No se ejecutan etiquetas HTML ingresadas en notas. El texto original sigue guardado y se conserva en el respaldo.
+
+2. IMPORTACIÓN CON PROTECCIÓN
+Ajustes → Mi cuenta → Importar respaldo.
+Admite respaldos FundedTrack con accounts y los archivos antiguos que contienen directamente la lista de cuentas. Valida identificadores únicos, capitales, fechas, resultados, fases, operaciones, retiros y estructura de reglas. Rechaza archivos vacíos, campos inválidos, claves no permitidas y archivos superiores a 20 MB; máximo 200 cuentas y 100.000 operaciones.
+La vista previa muestra cuántas cuentas, operaciones y retiros entrarán y cuáles se reemplazarán. Podés cancelar sin cambios. Al confirmar, guarda primero una copia local y recién después reemplaza las cuentas y programa su sincronización.
+Si no hay espacio para guardar la copia o los datos cambiaron mientras revisabas, se detiene sin reemplazarlos.
+Las preferencias externas de notificaciones y las suscripciones push no forman parte de la importación. Las preferencias incluidas en las cuentas sí se restauran.
+
+3. CONFLICTOS ENTRE DISPOSITIVOS
+La app mantiene la comprobación de versión antes de escribir en Supabase.
+Si PC y teléfono guardaron cambios diferentes, aparece un aviso en Ajustes. Tocá Comparar y recuperar. También podés abrirlo desde Cargar versión de la nube.
+Muestra un resumen de ambas versiones, sus cuentas y saldos desplegables y el último guardado de nube. Podés descargar ambas antes de elegir:
+• Usar versión de la nube: reemplaza los datos locales.
+• Conservar este dispositivo: reemplaza los datos de nube por los del dispositivo.
+Ambas opciones guardan copias de las dos versiones y piden confirmación. Si otro dispositivo vuelve a cambiar la nube, la sesión cambia, o la conexión falla, no se descartan los datos locales automáticamente. Reabrí la comparación cuando lo indique.
+No combina operaciones automáticamente: elegir una versión reemplaza TODO el conjunto de cuentas, operaciones, retiros y preferencias de las cuentas. Revisá ambas antes de confirmar.
+
+RECUPERAR UNA COPIA
+Ajustes → Mi cuenta → Copias de protección en este dispositivo.
+Conserva las últimas 3 copias para el usuario actual en ese navegador. Pulsá Descargar; para restaurarla, usá Importar respaldo.
+Las copias de protección son locales: borrar datos del navegador o desinstalar puede eliminarlas. Descargá las importantes para conservarlas fuera del dispositivo. No equivalen a un historial de versiones en la nube.
+
+VALIDACIÓN
+Pruebas de notas con etiquetas, respaldos válidos y antiguos, archivos incorrectos y cancelación, copia previa, falta de espacio, conflictos, nube modificada durante la comparación, selección de ambas versiones y fallo de conexión, en 1440/390/320 px.
+Pruebas de cuentas, operaciones, retiros, saldos, login, recuperación de contraseña, paletas y navegación con Supabase simulado. No se publicó automáticamente en tu GitHub ni se probaron conflictos en tu Supabase real.
