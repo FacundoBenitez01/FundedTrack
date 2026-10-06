@@ -1,0 +1,36 @@
+FundedTrack v70 — Multicuentas
+
+ACTUALIZAR
+1. Extraé el ZIP en tu PC.
+2. GitHub → tu repositorio FundedTrack → Add file → Upload files.
+3. Subí index.html y sw.js de este paquete para reemplazar los anteriores.
+4. Confirmá con Commit changes y esperá el último despliegue verde en Actions.
+5. Recargá la web. En el teléfono cerrá y volvé a abrir la app instalada.
+No hay que ejecutar SQL, cambiar claves ni volver a desplegar las funciones de notificaciones.
+
+CREAR TU GRUPO
+Cuentas → Crear grupo. Poné un nombre, elegí al menos dos cuentas existentes y guardá. Podés darles nombres como Cuenta 01, Cuenta 02. Cada cuenta pertenece a un grupo; puede tener distinto capital, programa o fase. Agregá las cuentas que falten desde Individuales → Agregar cuenta antes de agruparlas.
+
+REGISTRAR UNA OPERACIÓN
+Grupos → elegí el grupo → Operación multicuentas. Elegí fecha, activo y riesgo. Aplicá un porcentaje del capital inicial de cada cuenta o un importe USD por cuenta. Revisá la vista previa y ajustá cada importe según el resultado real. Desmarcá las cuentas donde no se ejecutó. Guardar escribe los registros individuales en un único cambio de tu diario.
+Ejemplo: seis cuentas de $6.000 con +1% generan +$60 en cada una y +$360 conjuntos, equivalentes al 1% de $36.000.
+El P&L ingresado debe ser neto de comisiones y swaps. Se calculan los resultados por cuenta; la app no ejecuta operaciones reales ni se conecta a MT4/MT5 como copiador.
+
+BALANCES Y OBJETIVOS
+Los totales se calculan a partir de las cuentas reales. El P&L principal del grupo suma sus etapas actuales. Los historiales del grupo incluyen también las etapas anteriores. Al avanzar de fase se aplica el reinicio de balance de esa etapa según el motor existente. Cada cuenta conserva sus propios requisitos, días y límites. Una ganancia en otra cuenta no compensa un incumplimiento.
+Objetivos → Grupos permite configurar una meta diaria personal por cuenta; la meta del grupo es su suma. Las metas personales no cambian las reglas de la firma.
+El encabezado muestra los resultados conjuntos mientras estás en una de las cuatro vistas de grupo; en Inicio y Ajustes conserva la referencia de la cuenta activa.
+
+RETIROS
+Retiros → Grupos → Registrar retiro multicuentas. Solo aparecen cuentas en PA. Elegí las cuentas y revisá los importes recibidos y el descuento real del balance por separado. Por defecto ambos coinciden; podés registrar un descuento distinto o cero. Los totales y balances se actualizan en las cuatro vistas. El registro de un retiro no representa una solicitud ni aprobación ante la firma.
+
+EDITAR Y ELIMINAR
+Ver muestra el detalle de cada cuenta. Editar y Eliminar actúan sobre los registros vinculados que aparecen en el grupo. Corregir resultados recalcula los saldos; las fases ya alcanzadas no se revierten automáticamente. Revisá la etapa de la cuenta si corregís registros históricos. También podés editar individualmente desde las vistas anteriores: el grupo refleja esos cambios.
+Editar grupo permite cambiar su nombre y sus miembros. Disolver conserva todas las cuentas y registros.
+
+NUBE Y RESPALDOS
+Los grupos y registros vinculados se guardan dentro del workspace existente, con la misma sincronización y protección de conflictos. Se incluyen al exportar respaldos. La selección visual de grupo se elige en cada dispositivo; el grupo en sí está sincronizado. Un formulario viejo se bloquea si cambian los datos o la sesión. Si falla el almacenamiento local, no se modifica parcialmente el conjunto.
+
+COMPROBACIÓN
+Probado localmente en PC y teléfonos pequeños con Supabase simulado: grupos, operación en seis cuentas, resultados diferentes, retiros parciales y descuentos, objetivos, fases individuales, edición, exportación y carga desde otro navegador. Login con Google y las ventanas de logros/límites también se comprobaron. No se publicó ni se operó tu proyecto Supabase real.
+Después de publicar, usá dos cuentas de prueba agrupadas: registrá un resultado, verificá cada balance y abrí la misma sesión en el otro dispositivo para confirmar la sincronización real.
