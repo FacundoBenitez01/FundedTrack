@@ -1,0 +1,28 @@
+FUNDEDTRACK v65 — SESIONES DE MERCADO
+
+REQUISITO: v64 y su actualización de Supabase ya instalada.
+Este paquete conserva el index completo de v64 y agrega únicamente el panel de sesiones en Inicio. El Service Worker cambia de caché a v65. No cambia el backend, los datos, el login, las alertas ni los cálculos de cuentas/retiros.
+
+CÓMO INSTALAR
+1. Extraé el ZIP.
+2. GitHub → FundedTrack → Add file → Upload files.
+3. Subí index.html y sw.js en la raíz, reemplazando los actuales. El paquete también incluye los mismos íconos y fondos de v64; podés subirlos si lo necesitás.
+4. Commit changes. Esperá que la última publicación en Actions quede verde.
+5. Abrí o recargá la app: Inicio → Sesiones de mercado.
+No necesitas PowerShell, SQL ni nuevas claves. No vuelvas a ejecutar el cron.
+
+EL PANEL
+Cuatro sesiones Forex orientativas, estado abierta/cerrada, horarios convertidos, tiempo hasta apertura/cierre, línea del día con indicador Ahora y próxima apertura.
+Predeterminado: Paraguay. Podés elegir Argentina, Colombia, México, España o UTC. Esta selección se guarda en este navegador; no cambia la zona de las alertas ni la de las cuentas.
+Se actualiza cada 15 segundos al estar visible y al volver a la app. Funciona sin conexión usando el reloj y las zonas horarias del dispositivo. Mantené correcta la fecha/hora de tu teléfono.
+Utiliza las reglas IANA/Intl disponibles en el navegador para horario de verano de cada ciudad. La duración de la línea se adapta a días de 23/25 horas.
+
+REFERENCIAS Y LÍMITES
+Ventanas convencionales en hora de cada ciudad: Sídney 08–17, Tokio 09–18, Londres 08–17, Nueva York 08–17. Se intersectan con la semana Forex orientativa: domingo 17:00 a viernes 17:00 en Nueva York.
+No consulta feriados ni cambios del bróker. No corresponde a horarios bursátiles, disponibilidad de XAUUSD, CFD específicos ni criptomonedas. No genera nuevas alertas push: conserva las de v64.
+Fuente contextual: https://www.oanda.com/us-en/skills-and-insights/education/trading-asset-classes/forex/when-is-the-best-time-for-forex-trading/
+
+VALIDACIÓN
+Pruebas de cambios de verano/invierno Londres, Nueva York y Sídney, apertura dominical, cierre viernes, sábado cerrado, día de 25 horas y límites de barras.
+Navegadores simulados 1440, 390 y 320 px: tarjetas, selector, reloj, paletas y ausencia de desbordamiento/errores.
+Regresión de saldos, retiros, operaciones y aislamiento de cuentas con Supabase simulado. No se publicó en tu GitHub desde aquí.
