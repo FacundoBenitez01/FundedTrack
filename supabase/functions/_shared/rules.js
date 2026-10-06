@@ -74,7 +74,8 @@ function groupDays(ts){const out={};for(const t of ts){if(!t.date)continue;out[t
 function dayStats(ts,capital,threshold=0){const grouped=groupDays(ts);return {grouped,tradingDays:Object.keys(grouped).length,profitableDays:Object.values(grouped).filter(n=>n>0&&n+1e-8>=capital*threshold/100).length,pnl:Object.values(grouped).reduce((s,n)=>s+n,0),bestDay:Math.max(0,...Object.values(grouped))};}
 function progress(a){const r=a.ruleSnapshot?.evaluation||evalRules(a.targets,a.dailyPct,a.maxPct,a.days);const ts=a.phases?.[Math.max(0,(a.phase||1)-1)]?.trades||[],s=dayStats(ts,a.capital,r.dayProfitPct),target=Number(a.capital)*Number(r.targets[(a.phase||1)-1]||0)/100;const days=r.dayProfitPct>0?s.profitableDays:s.tradingDays;return {...s,target,days,requiredDays:Number(r.days||0),dayProfitPct:Number(r.dayProfitPct||0),eligible:s.pnl+1e-8>=target&&days>=Number(r.days||0)};}
 function effective(a){const p=a.ruleSnapshot;if(!p)return {dailyPct:a.dailyPct,maxPct:a.maxPct,riskPct:a.riskPct,drawdown:'static',dailyBasis:'initial',days:a.days};return a.status==='Funded'||p.count===0?p.funded:p.evaluation;}
-function transactions(a){const ts=a.status==='Funded'?a.pa?.trades||[]:a.phases?.[(a.phase||1)-1]?.trades||[];const out=ts.map((t,i)=>({date:t.date,order:t.recordedAt||i,amount:Number(t.pnl||0),type:'trade'}));if(a.status==='Funded')for(const w of a.pa?.withdrawals||[])if(Number(w.accountDebit)>0)out.push({date:w.date,order:w.recordedAt||1e15,amount:-Number(w.accountDebit),type:'withdrawal'});return out.sort((x,y)=>String(x.date).localeCompare(String(y.date))||x.order-y.order);}
+function withdrawalDebit(w){const value=w.accountDebit==null||w.accountDebit===''?w.amount:w.accountDebit;return Math.max(0,Math.round((Number(value)||0)*100)/100);}
+function transactions(a){const ts=a.status==='Funded'?a.pa?.trades||[]:a.phases?.[(a.phase||1)-1]?.trades||[];const out=ts.map((t,i)=>({date:t.date,order:t.recordedAt||i,amount:Number(t.pnl||0),type:'trade'}));if(a.status==='Funded')for(const w of a.pa?.withdrawals||[])if(withdrawalDebit(w)>0)out.push({date:w.date,order:w.recordedAt||1e15,amount:-withdrawalDebit(w),type:'withdrawal'});return out.sort((x,y)=>String(x.date).localeCompare(String(y.date))||x.order-y.order);}
 function risk(a,date){const r=effective(a),capital=Number(a.capital),events=transactions(a).filter(e=>e.date<=date);let balance=capital,peak=capital,floor=capital*(1-Number(r.maxPct||0)/100),gap=capital*Number(r.maxPct||0)/100,minBalance=capital;
 for(const e of events){balance+=e.amount;minBalance=Math.min(minBalance,balance);if(r.drawdown==='trailing-balance'&&e.type==='withdrawal'){gap=Math.max(0,balance-floor);peak=balance;}else {peak=Math.max(peak,balance);if(r.drawdown.startsWith('trailing'))floor=Math.min(capital,Math.max(floor,peak-gap));}}
 const stage=a.status==='Funded'?'Funded':'Phase'+(a.phase||1),manual=a.ruleRuntime?.[stage]?.[date]||{};
@@ -82,7 +83,8 @@ const before=events.filter(e=>e.date<date).reduce((s,e)=>s+e.amount,capital);con
 const openingBalance=Number.isFinite(manual.openingBalance)?manual.openingBalance:before,openingEquity=Number.isFinite(manual.openingEquity)?manual.openingEquity:openingBalance;
 const baseline=r.dailyBasis==='opening-high'?Math.max(openingBalance,openingEquity):openingBalance;
 const dailyBudget=r.dailyPct==null?null:(r.dailyBasis==='opening-high'?baseline:capital)*Number(r.dailyPct)/100;
-const dailyFloor=dailyBudget==null?null:baseline-dailyBudget;
+const dailyWithdrawals=events.filter(e=>e.date===date&&e.type==='withdrawal').reduce((s,e)=>s-e.amount,0);
+const dailyFloor=dailyBudget==null?null:baseline-dailyBudget-dailyWithdrawals;
 const equity=Number.isFinite(manual.equity)?manual.equity:balance;
 if(r.drawdown==='trailing-equity'&&Number.isFinite(manual.peakEquity))floor=Math.max(floor,Math.min(capital,manual.peakEquity-capital*Number(r.maxPct)/100));
 if(Number.isFinite(manual.floor))floor=Math.max(floor,manual.floor);
@@ -92,7 +94,8 @@ if(r.rollingDays){const lo=new Date(today+'T12:00:00Z');lo.setUTCDate(lo.getUTCD
 const stats=dayStats(ts,a.capital,r.dayProfitPct),profit=stats.pnl,consistency=profit>0?stats.bestDay/profit*100:Infinity;
 let elapsed=0;const startDate=new Date(start+'T12:00:00Z'),endDate=new Date(today+'T12:00:00Z');if(r.businessDays){for(let d=new Date(startDate);d<endDate;d.setUTCDate(d.getUTCDate()+1)){const wd=d.getUTCDay();if(wd!==0&&wd!==6)elapsed++;}}else elapsed=Math.max(0,Math.floor((endDate-startDate)/86400000));
 const wait=pa.rewardCount>0?Number(r.laterDays??r.days):Number(r.days),neededDays=Math.max(Number(r.profitableDays||0),pa.concentrationApplied?4:0),threshold=pa.concentrationApplied?Math.max(.5,Number(r.dayProfitPct||0)):Number(r.dayProfitPct||0),pdays=dayStats(dayTrades,a.capital,threshold).profitableDays;
-const available=r.bufferPct?Math.max(0,risk(a,today).balance-a.capital-a.capital*r.bufferPct/100):profit;
+const paid=(pa.withdrawals||[]).filter(w=>w.date>=start&&w.date<=today).reduce((s,w)=>s+withdrawalDebit(w),0);
+const available=r.bufferPct?Math.max(0,risk(a,today).balance-a.capital-a.capital*r.bufferPct/100):Math.max(0,Math.min(profit-paid,risk(a,today).balance-a.capital));
 const checks=[{label:'Beneficio mínimo para solicitar',value:available,need:a.capital*Number(r.minProfitPct||0)/100,ok:available>0&&available+1e-8>=a.capital*Number(r.minProfitPct||0)/100}];
 if(wait>0)checks.push({label:r.businessDays?'Días hábiles del ciclo':'Días del ciclo',value:elapsed,need:wait,ok:elapsed>=wait,unit:'days'});
 if(neededDays)checks.push({label:'Días rentables ≥'+threshold+'%',value:pdays,need:neededDays,ok:pdays>=neededDays,unit:'days'});
@@ -101,7 +104,7 @@ if(r.bufferPct)checks.push({label:'Colchón a conservar',value:risk(a,today).bal
 if(r.biggestLossCheck){const loss=Math.max(0,...ts.map(t=>-Number(t.pnl))),win=Math.max(0,...ts.map(t=>Number(t.pnl)));checks.push({label:'Mayor pérdida ≤ mayor ganancia',value:loss,need:win,ok:loss<=win,unit:'money-max'});}
 const strikes=Number(pa.strikes||0),split=strikes>=3?20:strikes===2?r.split/2:r.split;
 const eligibleProfit=Math.max(0,available);
-return {checks,profit,consistency,start,elapsed,split,eligibleProfit,estimatedReward:eligibleProfit*split/100,eligible:checks.every(x=>x.ok)&&strikes<4&&!risk(a,today).breached,strikes,dayStats:stats};}
-globalThis.FTRules={defs,source,reviewed,profile,copy,groupDays,dayStats,progress,effective,risk,payout};
+return {checks,profit,consistency,start,elapsed,split,eligibleProfit,paid,available,estimatedReward:eligibleProfit*split/100,eligible:checks.every(x=>x.ok)&&strikes<4&&!risk(a,today).breached,strikes,dayStats:stats};}
+globalThis.FTRules={defs,source,reviewed,profile,copy,groupDays,dayStats,progress,effective,risk,payout,withdrawalDebit,transactions};
 })();
 
