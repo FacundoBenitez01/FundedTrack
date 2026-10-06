@@ -1,0 +1,95 @@
+FUNDEDTRACK v68 — CONTINUAR CON GOOGLE
+
+El código ya incluye el botón. Para que funcione, primero configurá Google Cloud y Supabase con estos pasos. No hay que ejecutar SQL ni cambiar el cron, las notificaciones, las reglas o tus claves actuales.
+
+1. CREAR EL PROYECTO EN GOOGLE
+Abrí https://console.cloud.google.com/
+Entrá con tu cuenta de Google. En el selector de proyectos de arriba, elegí Nuevo proyecto. Nombre: FundedTrack. Crealo y seleccionalo.
+Buscá Google Auth Platform. Según la pantalla, también puede aparecer en APIs y servicios → Pantalla de consentimiento OAuth.
+Pulsá Comenzar/Get started si aparece.
+
+2. CONFIGURAR LA APLICACIÓN
+En Branding/Información de la aplicación:
+- Nombre: FundedTrack.
+- Correo de asistencia y contacto: tu correo real.
+En Audience/Público:
+- Elegí External/Externo, para permitir cuentas personales de Google.
+- Al principio dejá Testing/Pruebas.
+- En Test users/Usuarios de prueba agregá el Gmail con el que vas a probar. Agregá también otro Gmail si querés probar una segunda cuenta.
+En Data Access/Acceso a datos:
+- Usá únicamente openid, email y profile (pueden figurar como userinfo.email y userinfo.profile).
+- No necesitás acceso a Gmail, Drive ni contactos.
+Guardá los cambios.
+
+3. CREAR LAS CREDENCIALES
+En Google Auth Platform → Clients/Clientes → Create client/Crear cliente:
+- Tipo de aplicación: Web application/Aplicación web.
+- Nombre: FundedTrack Web.
+En Authorized JavaScript origins/Orígenes autorizados pegá SOLO esto, sin /FundedTrack/:
+https://facundobenitez01.github.io
+En Authorized redirect URIs/URI de redirección autorizados pegá:
+https://ztkthcqjxptsxgtwfcfx.supabase.co/auth/v1/callback
+Pulsá Crear.
+Google mostrará Client ID/ID de cliente y Client Secret/Secreto de cliente. Copialos para el siguiente paso. No los confundas con la publishable key de Supabase.
+El Client Secret NO se sube a GitHub ni se pone en index.html. No hace falta enviármelo.
+
+4. ACTIVAR GOOGLE EN SUPABASE
+Abrí tu proyecto FundedTrack en https://supabase.com/dashboard
+Andá a Authentication → Sign In / Providers → Google.
+Activá Enable sign in with Google.
+Pegá el Client ID y el Client Secret que creó Google en sus campos correspondientes.
+No actives Skip nonce checks si aparece. Guardá.
+La Callback URL que muestra Supabase debe coincidir exactamente con la del paso 3. Copiá la del panel si tenés dudas.
+
+5. REVISAR LAS URL EN SUPABASE
+Authentication → URL Configuration.
+Site URL:
+https://facundobenitez01.github.io/FundedTrack/
+En Redirect URLs agregá la misma dirección si todavía no está:
+https://facundobenitez01.github.io/FundedTrack/
+Guardá. Conservá las otras direcciones que ya utilizabas.
+La URL de Google vuelve primero a Supabase; Supabase luego vuelve a tu app. Son dos direcciones distintas.
+
+6. ACTUALIZAR GITHUB
+Extraé este ZIP.
+En tu repositorio FundedTrack → Add file → Upload files.
+Subí index.html y sw.js, reemplazando los anteriores.
+Confirmá con Commit changes.
+Esperá que el último trabajo de Actions termine en verde.
+Recargá FundedTrack. En Ajustes, el panel de cuenta muestra v68.
+Los demás archivos públicos se incluyen por comodidad y no cambiaron.
+
+7. PROBAR
+Si ya estás adentro de la app, esperá que sincronice y cerrá sesión.
+Tocá Continuar con Google y elegí un Gmail agregado como usuario de prueba.
+Aceptá el acceso. Debe volver a FundedTrack y cargar las cuentas del usuario.
+Probalo primero en el navegador y después desde el teléfono/app instalada. La redirección puede abrir el navegador del teléfono; comprobá allí el regreso antes de probar desde el ícono instalado.
+Usá el mismo correo confirmado de tu cuenta actual si querés conservar ese usuario. Supabase vincula automáticamente identidades con el mismo correo bajo sus comprobaciones de seguridad. Verificá que se carguen tus cuentas antes de registrar nuevos datos.
+Un Gmail diferente corresponde a otro usuario y tendrá sus propios datos. No se fusionan dos correos distintos.
+El ingreso con correo y contraseña sigue disponible. Un usuario creado únicamente con Google no tiene una contraseña de FundedTrack hasta que configure una mediante la recuperación por correo.
+
+8. HABILITARLO PARA TODOS
+Mientras Google esté en Testing/Pruebas, solo funcionará para los usuarios de prueba que agregaste.
+Cuando termines las pruebas, Google Auth Platform → Audience/Público → Publish app/Publicar aplicación (In production/En producción).
+Completá los requisitos que Google muestre para tu aplicación. La verificación de nombre/logo, dominio y otras condiciones depende de tu configuración; no es lo mismo que pagar una licencia. Si Google pide política de privacidad o condiciones, usá páginas reales de FundedTrack, no enlaces inventados.
+
+SI FALLA
+- "Provider not enabled" o mensaje de Google no activado: revisá el paso 4.
+- "redirect_uri_mismatch": revisá la URI completa del paso 3, especialmente /auth/v1/callback.
+- "Access blocked" en pruebas: agregá ese Gmail en Usuarios de prueba.
+- Si vuelve a otra página: revisá el paso 5.
+- Si cancelás Google: podés intentarlo de nuevo o entrar con correo.
+- Si Google muestra el identificador de Supabase en el consentimiento: la personalización de marca se configura en Google; no indica por sí sola que el login esté roto.
+
+QUÉ CAMBIÓ
+Botón Continuar con Google en Iniciar sesión y Crear cuenta. No aparece durante recuperación de contraseña ni mientras se carga un usuario con sesión. Solicita elegir cuenta de Google y vuelve a la URL actual de FundedTrack. Usa el manejo de sesiones existente de Supabase y el workspace asociado al user_id autenticado; no toma un correo escrito a mano para cargar datos.
+No se añadieron secretos al código ni permisos para leer Gmail.
+Se mantiene v67: paletas, sesiones de mercado, avisos, respaldos y sincronización.
+
+VALIDACIÓN
+Pruebas automatizadas con Supabase simulado: botón, doble clic, error de proveedor, desconexión, callback cancelado, sesión devuelta, recuperación de contraseña y acceso con correo. Vista de PC y teléfonos de 390 y 320 px. La conexión real con Google requiere los pasos anteriores; no se configuró tu cuenta de Google Cloud ni tu proveedor de Supabase desde este paquete.
+
+DOCUMENTACIÓN OFICIAL
+https://supabase.com/docs/guides/auth/social-login/auth-google
+https://supabase.com/docs/guides/auth/auth-identity-linking
+https://developers.google.com/identity/branding-guidelines
