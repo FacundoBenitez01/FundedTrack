@@ -1,0 +1,76 @@
+FUNDEDTRACK v75 — HERRAMIENTAS CONECTADAS CON OPERACIONES
+
+NOVEDADES
+1. Usar un cálculo en Nueva operación.
+2. Guardar las especificaciones de instrumentos por cuenta y moneda.
+Se conservan las cinco calculadoras, lotaje, MOLESTO, RR manual, capturas, multicuentas, paletas, login y notificaciones existentes.
+
+ACTUALIZAR GITHUB
+Extraé el ZIP.
+Entrá a tu repositorio FundedTrack → Add file → Upload files.
+Subí JUNTOS en la raíz estos cinco archivos:
+index.html
+sw.js
+tools.css
+tools-engine.js
+tools.js
+Pulsá Commit changes y esperá que la publicación de Pages termine en verde.
+Recargá la app y comprobá que Ajustes muestre v75.
+No subas el ZIP como archivo. Los demás recursos del paquete son los que la app ya utiliza.
+Estas dos mejoras NO requieren SQL, PowerShell, claves ni cambios en las funciones de Supabase.
+ACTIVAR-CAPTURAS.sql se incluye solo para quien todavía no activó las capturas de v73; no se usa para estas novedades.
+
+1. USAR EN NUEVA OPERACIÓN
+Entrá a Herramientas → Lotaje y riesgo.
+Elegí la cuenta, instrumento, dirección, riesgo, entrada y Stop Loss.
+Ahora podés ingresar un Take Profit opcional. Si lo ingresás, se calcula también el RR con los costos indicados.
+Pulsá Calcular lotaje y luego Usar en nueva operación.
+Se abre la operación individual de ESA cuenta, con:
+• Activo.
+• Lotaje sugerido.
+• Riesgo estimado, expresado como porcentaje del balance del diario de la cuenta.
+• RR cuando se ingresó un Take Profit. Si no hay TP, queda vacío para completarlo manualmente.
+• Nota con dirección, entrada, SL, TP si existe y riesgo estimado.
+El resultado (Win/Loss/BE) y la ganancia/pérdida quedan VACÍOS.
+Al cerrar el trade, elegí su resultado e ingresá el importe REAL. Después guardá.
+Calcular o abrir el formulario no agrega una operación ni modifica el balance. Los cambios se reflejan al guardar el resultado real.
+El botón también está en Stop Loss / Take Profit cuando el cálculo es válido.
+El traspaso se ofrece para cálculos en USD, porque el diario está expresado en USD.
+Si cambian la cuenta, etapa, balance o datos del cálculo, recalculá antes de usarlo.
+Una cuenta quemada o finalizada no admite un nuevo registro mediante este botón.
+En una cuenta de un grupo, el traspaso es individual; no replica registros en las otras cuentas.
+
+2. GUARDAR TU INSTRUMENTO
+En Herramientas, seleccioná la cuenta, instrumento y moneda.
+Abrí Especificaciones.
+Ingresá el nombre del bróker/plataforma si querés identificar la configuración.
+Revisá contrato, tamaño del pip, tick, paso de lotaje, lote mínimo y máximo, y costos de apertura/cierre.
+Si usás el método Valor del tick, ingresá el valor por 1 lote en la moneda del cálculo.
+Pulsá Guardar instrumento para esta cuenta.
+La app guarda las especificaciones y costos para ESA cuenta + instrumento + moneda.
+Al volver a seleccionar el instrumento, se recupera su configuración.
+Se sincroniza con el diario y está incluida en sus respaldos. Esperá la confirmación de sincronización para usarla desde otro dispositivo.
+La cabecera de Especificaciones indica Guardadas o Cambios sin guardar.
+Los precios, tipos de cambio, balance y lotaje de la operación NO se guardan como especificaciones. Así no se reutiliza una cotización antigua.
+Si calculás en otra moneda, configurá sus costos y conversiones correspondientes.
+
+INSTRUMENTOS PERSONALIZADOS
+Elegí Otro instrumento y escribí un símbolo, por ejemplo GER40.
+Completá sus especificaciones y guardalo. Aparecerá en la lista de instrumentos de esa cuenta.
+Podés agregar varios símbolos personalizados. Elegí nuevamente Otro instrumento para crear uno distinto.
+Hasta 50 configuraciones por cuenta, contando las variantes por moneda.
+Restaurar referencia elimina la configuración guardada seleccionada y vuelve a usar la referencia editable; no borra operaciones.
+
+EJEMPLO
+Cuenta: 6.000 USD. XAUUSD. Compra. Riesgo: 1%.
+Entrada 2650, Stop Loss 2640, Take Profit 2670.
+Contrato 100 unidades por lote, paso 0,01, costos en cero.
+Resultado: 0,06 lotes, riesgo al stop 60 USD, RR 1:2.
+Usar en nueva operación carga esos datos. El resultado y P&L siguen vacíos hasta que ingreses lo que ocurrió realmente.
+Si agregás comisiones, el lotaje y RR pueden cambiar: se calculan después de los costos ingresados.
+Los precios del ejemplo son ilustrativos, no cotizaciones actuales.
+
+VALIDACIÓN
+Pruebas locales con Supabase simulado: guardado/sincronización de configuraciones, recuperación por cuenta y moneda, instrumentos personalizados, traspaso desde lotaje y SL/TP, resultado pendiente, pérdida real con signo automático, edición normal y limpieza al cerrar sesión.
+También se verificaron multicuentas y avisos de riesgo.
+La publicación en tu GitHub y la sincronización real se comprueban después de actualizar.

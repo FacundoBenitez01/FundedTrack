@@ -4,3 +4,4 @@
 @media(max-width:380px){.ft74-fields{grid-template-columns:1fr}.ft74-full{grid-column:auto}.ft74-tool{padding:10px 8px}.ft74-result dl>div{gap:10px}.ft74-panel{padding:16px 12px}}
 @media(min-width:701px) and (max-width:1100px){.ft74-layout{display:block}.ft74-menu{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:18px}.ft74-tool{min-height:80px}}
 @media(max-width:700px){.ft74-fields{grid-template-columns:1fr}.ft74-full{grid-column:auto}.ft74-actions>.primary{flex:1 1 100%}}
+#ft75UseOperation{width:100%;min-height:48px;margin-top:18px}.ft75-plan{padding:14px;border:1px solid var(--accent2);background:color-mix(in srgb,var(--accent) 8%,var(--surface));border-radius:12px;gap:8px!important;font-size:13px;line-height:1.6}.ft75-plan strong{color:var(--accent2)}.ft75-plan span,.ft75-plan small{overflow-wrap:anywhere}.ft75-plan small{color:var(--muted)}.ft75-plan[hidden]{display:none!important}
