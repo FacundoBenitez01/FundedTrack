@@ -1,0 +1,75 @@
+FUNDEDTRACK v74 — HERRAMIENTAS PARA PC Y CELULAR
+
+QUÉ SE AGREGÓ
+Herramientas aparece antes de Ajustes/Configuración, en PC y teléfono.
+Las opciones son:
+1. Lotaje y riesgo: unifica lotaje, riesgo y tamaño de posición.
+2. Valor del pip.
+3. Beneficio y pérdida.
+4. Stop Loss / Take Profit.
+5. Margen requerido.
+
+CÓMO ACTUALIZAR
+1. Extraé el ZIP.
+2. Entrá a GitHub → tu repositorio FundedTrack → Add file → Upload files.
+3. Subí JUNTOS estos CINCO archivos, en la raíz del repositorio:
+   index.html
+   sw.js
+   tools.css
+   tools-engine.js
+   tools.js
+4. Pulsá Commit changes. No subas el ZIP como archivo.
+5. Esperá que el despliegue de GitHub Pages termine en verde en Actions.
+6. Recargá FundedTrack. En el teléfono, cerrá y volvé a abrir la app instalada. Comprobá que Ajustes muestre v74.
+Los otros recursos del paquete son los de la app; conservá los que ya tenés publicados.
+Para Herramientas NO necesitás SQL, PowerShell, nuevas claves ni volver a desplegar notificaciones.
+Si todavía no activaste las capturas de v73, podés ejecutar ACTIVAR-CAPTURAS.sql en Supabase → SQL Editor. Es opcional para Herramientas y se puede repetir.
+
+PRIMER CÁLCULO — EJEMPLO
+Herramientas → Lotaje y riesgo.
+Elegí una cuenta con balance de 6.000 USD.
+Instrumento: XAUUSD. Dirección: Compra.
+Riesgo: 1%. Entrada: 2650. Stop Loss: 2640.
+Con contrato de 100 unidades por lote, paso de 0,01 y costos en cero:
+Resultado: 0,06 lotes. Pérdida estimada al stop: 60 USD.
+Los precios de este ejemplo son ilustrativos, no cotizaciones actuales.
+
+CÓMO USARLA
+• Seleccioná la cuenta de referencia. Su balance incluye el P&L y los descuentos de retiros registrados, según el diario.
+• Cada cálculo utiliza UNA cuenta de referencia, aunque pertenezca a un grupo. No usa la suma del capital de todas las cuentas del grupo.
+• Podés desmarcar “Usar balance de esta cuenta automáticamente” e ingresar otro balance.
+• Si elegís otra moneda, ingresá el balance en esa moneda; no se convierte el balance USD automáticamente.
+• Escribí decimales con coma o punto. No uses separadores de miles: 6000, no 6.000 para seis mil.
+• En Especificaciones del instrumento podés ajustar contrato, pip, tick, paso y límites de lote.
+• Los presets son valores de referencia EDITABLES. Oro, plata, índices y cripto pueden tener contratos distintos según bróker o plataforma. Consultá tu especificación.
+• Los precios y tipos de cambio se ingresan manualmente. No se conecta a cotizaciones en vivo.
+• Si la moneda cotizada difiere de la moneda del cálculo, ingresá cuánto vale UNA unidad de la moneda cotizada. Ejemplo: JPY→USD a 150 JPY por USD se ingresa aproximadamente 0,00666667 USD por JPY.
+• Podés usar “Valor del tick del bróker” en lugar de contrato × precio. El valor debe corresponder a 1 lote y estar expresado en la moneda del cálculo.
+• Comisión por lote: costo total de apertura Y cierre. Costo fijo: importe adicional de la posición. Se incluyen en riesgo, resultado y SL/TP. No se incluyen swaps ni deslizamiento automáticamente.
+
+REGLA PERSONAL DE RIESGO
+Elegí porcentaje del balance o importe fijo y pulsá Guardar esta regla de riesgo.
+Se guarda para esa cuenta y se sincroniza con el diario. No cambia las reglas de la firma ni las otras cuentas.
+Al volver a seleccionar esa cuenta se carga su regla guardada. Si una regla fija usa otra moneda, revisá la moneda antes de aplicarla.
+El lotaje se redondea hacia abajo al paso permitido. Si el lote mínimo excede tu presupuesto, la app muestra que no existe un lote válido.
+En USD, avisa si la pérdida calculada supera el margen diario o máximo restante del diario.
+Calcular no registra una operación, no cambia el balance ni ejecuta órdenes en el bróker.
+
+LAS OTRAS HERRAMIENTAS
+Valor del pip: muestra el valor de un pip por lote y para tu posición, y el valor de la cantidad de pips ingresada.
+Beneficio y pérdida: ingresá entrada, salida, dirección y lotaje. Muestra bruto, costos y neto.
+SL/TP: usá precios existentes para revisar el riesgo-beneficio, o dinero para obtener precios de salida. En modo dinero se ajustan al tick para respetar la pérdida y cubrir la ganancia elegida.
+Margen: podés usar nominal/apalancamiento, porcentaje del nominal o margen fijo por lote. Es una estimación de apertura para una posición independiente; no incorpora coberturas, posiciones abiertas ni tramos de margen del bróker. Usá el método de tu especificación.
+Los métodos de contrato y tick son cálculos lineales con los valores ingresados. Para condiciones variables o instrumentos diferentes, verificá el resultado en la plataforma.
+
+VALIDACIÓN
+Pruebas locales de fórmulas: oro, Forex, JPY, tick, comisiones, signos, redondeo, mínimo/máximo de lotaje, SL/TP, margen y entradas inválidas.
+Pruebas de navegador: PC, celular de 390 px, pantalla de 320 px y horizontal. Balance vinculado, retiros, reglas por cuenta, sincronización simulada, navegación, paletas y sesión.
+También se verificaron operaciones, multicuentas, avisos de riesgo y las vistas existentes.
+No se publicó esta versión en tu GitHub ni se conectó a un bróker real. La sincronización fue probada con Supabase simulado.
+
+REFERENCIAS DE LOS MÉTODOS
+Especificaciones de instrumentos en MetaTrader:
+https://www.metatrader5.com/es/terminal/help/trading/market_watch
+Cálculos de margen:
+https://www.metatrader5.com/es/terminal/help/trading_advanced/margin_forex
