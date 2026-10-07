@@ -1,0 +1,55 @@
+FundedTrack v79 — Eliminar cuentas y disolver grupos
+
+ACTUALIZAR DESDE v78
+Extraé el ZIP. Subí juntos a la raíz del repositorio estos CINCO archivos:
+index.html
+sw.js
+accounts-overview.css
+accounts-overview.js
+account-delete.js
+
+Guardá en un mismo Commit changes y esperá el despliegue verde de GitHub Pages.
+Cerrá y reabrí la app o recargá. No borres los datos del navegador.
+Si venís de una versión anterior a v76, subí también los archivos de herramientas y resumen semanal.
+Todos los recursos de la app actual están incluidos en este ZIP.
+No se necesita SQL, nuevas claves ni desplegar funciones de Supabase.
+ACTIVAR-CAPTURAS.sql es la activación opcional de capturas de v73, no hace falta ejecutarlo para v79.
+
+BORRAR LAS CUENTAS SUELTAS QUE YA QUEDARON
+1. Cuentas → Elegir cuenta, en la ficha del challenge/monto correspondiente.
+2. Cada fila tiene Eliminar para borrar una cuenta.
+3. Para limpiar varias, marcá sus casillas y pulsá Eliminar seleccionadas.
+4. Seleccionar sin grupo y sin registros marca solo cuentas sueltas sin operaciones ni retiros.
+   No marca cuentas agrupadas ni cuentas con historial.
+5. Revisá el listado y los totales de cuentas, operaciones y retiros antes de confirmar.
+6. Eliminación definitiva quita las cuentas seleccionadas de tus datos y sincroniza el cambio.
+
+DISOLVER UN GRUPO
+Grupos → elegí el grupo → Editar grupo.
+- Desagrupar y conservar cuentas: quita solamente la agrupación, conserva todos los registros.
+- Disolver y eliminar cuentas: abre la confirmación para borrar todas las cuentas del grupo,
+  incluyendo las originales seleccionadas al crearlo, sus operaciones y sus retiros.
+No borra cuentas de otros grupos ni cuentas ajenas al grupo.
+Ver datos individuales conserva su funcionamiento.
+
+ALCANCE Y RESPALDO
+La app muestra exactamente los nombres y cuántas cuentas, operaciones y retiros se borrarán.
+No elimina el catálogo ni los programas disponibles de FundedNext/FundingPips.
+Antes de confirmar se guarda un respaldo local con los datos previos de tu usuario.
+Los respaldos locales usan el sistema existente: se conservan los tres últimos en este navegador.
+Exportá un respaldo desde Ajustes si necesitás una copia independiente.
+La eliminación se sincroniza con tu usuario cuando hay conexión; revisá el estado de sincronización.
+Los archivos de capturas siguen en el almacenamiento privado para preservar referencias de respaldos.
+La app aún necesita al menos una cuenta de referencia: bloquea eliminar la última.
+Si un grupo contiene todas tus cuentas, creá otra fuera del grupo antes de eliminarlo.
+Si los datos cambian mientras está abierta la confirmación, la eliminación se bloquea y hay que volver a seleccionar.
+Si la sincronización está ocupada o en conflicto, se debe esperar o resolver el conflicto.
+No se borran cuentas reales de la firma ni operaciones de tu broker: se eliminan registros de FundedTrack.
+
+VALIDACIÓN
+Pruebas locales con Supabase simulado: eliminación de grupo de diez, cuentas ajenas conservadas,
+confirmación/cancelación, respaldo previo, cambio de cuenta activa, sincronización simulada,
+desagrupar conservando, selección de cuentas sueltas vacías, historial no seleccionado conservado,
+eliminación individual, protección de última cuenta y de datos cambiados, PC/móvil.
+También pasaron las pruebas de multicuentas, resumen semanal y herramientas.
+No se realizaron eliminaciones en tu Supabase real ni se publicó desde aquí.
