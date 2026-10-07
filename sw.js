@@ -1,4 +1,4 @@
-const CACHE='fundedtrack-v79';
+const CACHE='fundedtrack-v80';
 const SHELL=['./account-delete.js','./accounts-overview.css','./accounts-overview.js','./weekly.css','./weekly.js','./tools.css','./tools-engine.js','./tools.js','./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png','./brand-icon.svg','./auth-market.svg','./operations-scene.png','./accounts-scene.png','./withdrawals-scene.png','./objectives-scene.png','./settings-scene.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('fundedtrack-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
