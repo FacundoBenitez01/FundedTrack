@@ -1,0 +1,13 @@
+/* JourFund: short, composited motion. Never used for financial calculations. */
+.jf96-nav{isolation:isolate}
+.jf96-nav-indicator{position:absolute;left:0;top:0;pointer-events:none;z-index:-1;border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);border-radius:17px;background:color-mix(in srgb,var(--accent) 15%,var(--surface));box-sizing:border-box;transition:transform 380ms cubic-bezier(.22,1,.36,1),width 280ms ease,height 280ms ease,opacity 180ms ease;opacity:0}
+.sidebar .jf96-nav-indicator{border-left:3px solid var(--accent);border-radius:12px}
+.jf96-nav > button,.jf96-nav .side-btn{position:relative;z-index:1}
+.jf96-nav .side-btn.ft-nav-current,.jf96-nav > button.ft-nav-current{background:transparent!important;box-shadow:none!important;border-color:transparent!important}
+.jf96-nav .side-btn.ft-nav-current{border-left-color:transparent!important}
+.jf96-nav button svg{transition:color 220ms ease,transform 280ms cubic-bezier(.22,1,.36,1)}
+.jf96-nav button.ft-nav-current svg{color:var(--accent2);transform:translateY(-1px) scale(1.08)}
+.jf96-count-source{color:transparent!important;text-shadow:none!important}
+.jf96-count-overlay{position:fixed;pointer-events:none;white-space:pre;z-index:2;margin:0;padding:0;border:0;font-variant-numeric:tabular-nums}
+#ftPages button:active,.top button:active{scale:.975}
+@media(prefers-reduced-motion:reduce){.jf96-nav-indicator,.jf96-nav button svg{transition:none!important}#ftPages button:active,.top button:active{scale:1}}
