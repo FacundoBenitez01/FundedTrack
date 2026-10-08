@@ -12,4 +12,5 @@ const pub=decode(s.keys?.p256dh),auth=decode(s.keys?.auth);if(pub.length!==65||p
 export function prefs(input:any){const out:any={};for(const key of ['daily','maximum','progress','payout','reminder','enabled'])out[key]=!!input[key];if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(input.time||''))throw Error('Horario inválido');new Intl.DateTimeFormat('en',{timeZone:input.timezone});out.time=input.time;out.timezone=input.timezone;return out;}
 export async function send(subscription:any,payload:any){validSubscription(subscription);const details=webpush.generateRequestDetails(subscription,JSON.stringify(payload),{TTL:3600,urgency:'normal',contentEncoding:'aes128gcm',vapidDetails:{subject:Deno.env.get('VAPID_SUBJECT')!,publicKey:Deno.env.get('VAPID_PUBLIC_KEY')!,privateKey:Deno.env.get('VAPID_PRIVATE_KEY')!}});
 const response=await fetch(details.endpoint,{method:details.method,headers:details.headers,body:new Uint8Array(details.body),redirect:'error',signal:AbortSignal.timeout(12000)});await response.body?.cancel();return response.status;}
-export function lockPayload(event:any){return {title:'FundedTrack · '+event.title,body:event.body,tag:event.event_key,page:event.page,accountId:event.account_id};}
+export function lockPayload(event:any){return {title:'JourFund · '+event.title,body:event.body,tag:event.event_key,page:event.page,accountId:event.account_id};}
+

@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "FundedTrack",
-  "short_name": "FundedTrack",
+  "name": "JourFund",
+  "short_name": "JourFund",
   "description": "Tus cuentas de fondeo, operaciones y objetivos.",
   "lang": "es",
   "start_url": "./",
@@ -11,19 +11,19 @@
   "theme_color": "#080918",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "./icon-192.png?v=92",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icon-512.png",
+      "src": "./icon-512.png?v=92",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icon-maskable-512.png",
+      "src": "./icon-maskable-512.png?v=92",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

@@ -17,7 +17,7 @@
   if(!splash.isConnected)return;
   const animations=[];const visibility=()=>animations.forEach(a=>document.hidden?a.pause():a.play());document.addEventListener('visibilitychange',visibility);
   function part(selector,transform,delay,duration){const e=splash.querySelector(selector);if(!e)return;animations.push(e.animate([{opacity:0,transform},{opacity:1,transform:'none'}],{delay,duration,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'}));}
-  part('.ft86-tile','scale(.75)',180,600);part('.ft86-stem','translateY(170px)',370,720);part('.ft86-top','translateX(160px)',510,680);part('.ft86-middle','translateX(-170px)',660,680);part('.ft86-trend','translate(-110px,110px) rotate(-12deg)',810,690);part('.ft86-wick-white','scaleY(0)',970,500);part('.ft86-candle-white','translateY(120px)',1060,600);part('.ft86-wick-purple','scaleY(0)',1090,580);part('.ft86-candle-purple','translateY(-120px)',1190,620);part('.ft86-word','translateY(12px)',1700,600);part('.ft86-tag','translateY(8px)',1900,600);
+  part('.ft86-tile','scale(.82)',180,600);part('.ft86-stem','translateY(65px)',370,720);part('.ft86-top','translateX(-50px)',510,680);part('.ft86-middle','translateY(70px)',660,680);part('.ft86-trend','translateX(55px)',810,690);part('.ft86-wick-white','scaleY(0)',970,500);part('.ft86-candle-white','translateY(45px)',1060,600);part('.ft86-wick-purple','scaleY(0)',1090,580);part('.ft86-candle-purple','translateY(-45px)',1190,620);part('.ft86-word','translateY(12px)',1700,600);part('.ft86-tag','translateY(8px)',1900,600);
   await Promise.all(animations.map(a=>a.finished.catch(()=>{})));
   await new Promise(resolve=>setTimeout(resolve,450));
   document.removeEventListener('visibilitychange',visibility);
@@ -40,3 +40,4 @@
  window.ft87AccessSuccess=async()=>{gate.classList.add('ft87-success');gate.querySelector('.ft86-load-title').textContent='Acceso confirmado';gate.querySelector('.ft86-load-sub').textContent='Entrando a tu espacio';await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));await new Promise(resolve=>setTimeout(resolve,reduced?100:750));};
  const start=()=>entrance().catch(()=>document.getElementById('ft57Splash')?.remove());if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
+
