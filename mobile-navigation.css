@@ -1,0 +1,79 @@
+#ft82More, #ft82Overlay { display: none; }
+@media (max-width: 700px) {
+  :root { --ft82-nav-height: 70px; --ft82-nav-bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
+  html { scroll-padding-bottom: calc(var(--ft82-nav-height) + var(--ft82-nav-bottom) + 24px); }
+  .wrap { padding-bottom: calc(var(--ft82-nav-height) + var(--ft82-nav-bottom) + 30px) !important; }
+  #app { padding-bottom: 0 !important; }
+  .mobile-nav.ft82-navigation {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    grid-auto-rows: auto !important;
+    gap: 2px !important;
+    position: fixed;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: var(--ft82-nav-bottom) !important;
+    width: auto !important;
+    padding: 6px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 24px !important;
+    background: color-mix(in srgb, var(--bg) 97%, var(--surface)) !important;
+    box-shadow: 0 8px 26px #0005;
+    box-sizing: border-box;
+    z-index: 82;
+  }
+  .mobile-nav.ft82-navigation .ft82-overflow-item { display: none !important; }
+  .mobile-nav.ft82-navigation > button {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    min-width: 0;
+    min-height: 56px;
+    padding: 6px 1px !important;
+    font-size: clamp(8px, 2.35vw, 10px) !important;
+    font-weight: 500;
+    line-height: 1.2;
+    grid-row: auto !important;
+    grid-column: auto !important;
+    white-space: nowrap;
+    border-radius: 17px !important;
+  }
+  .mobile-nav.ft82-navigation > button > span { display: grid; place-items: center; height: 22px; line-height: 1; margin-bottom: 0 !important; }
+  .mobile-nav.ft82-navigation svg { width: 22px; height: 22px; }
+  .mobile-nav.ft82-navigation .ft82-overflow-item { display: none !important; }
+  body.ft82-keyboard .mobile-nav.ft82-navigation { display: none !important; }
+  body.ft-dialog-open .mobile-nav.ft82-navigation { visibility: hidden !important; }
+  body.ft82-menu-open { overflow: hidden; }
+  body.ft82-menu-open #ft67Toast { z-index: 80 !important; pointer-events: none; }
+  #ft82Overlay:not([hidden]) { display: block; position: fixed; inset: 0; z-index: 81; }
+  #ft82Overlay[hidden] { display: none !important; }
+  .ft82-backdrop { position: absolute; inset: 0; background: #0008; backdrop-filter: blur(3px); }
+  #ft82Sheet {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: calc(var(--ft82-nav-bottom) + var(--ft82-nav-height) + 10px);
+    max-height: calc(100dvh - var(--ft82-nav-bottom) - var(--ft82-nav-height) - 28px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 10px 14px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 23px;
+    box-shadow: 0 16px 50px #0005;
+    box-sizing: border-box;
+  }
+  .ft82-handle { width: 38px; height: 4px; margin: 0 auto 10px; border-radius: 4px; background: var(--muted, #99a4b8); opacity: .55; }
+  #ft82Sheet header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  #ft82Sheet h3 { font-size: 19px; margin: 0; color: var(--text); }
+  #ft82Sheet .ft82-close { width: 44px; height: 44px; background: transparent; border: 0; color: var(--muted, #99a4b8); font-size: 28px; cursor: pointer; }
+  .ft82-items { display: grid; gap: 7px; }
+  .ft82-items button { display: flex; align-items: center; gap: 13px; min-height: 55px; width: 100%; padding: 12px 14px; background: var(--surface2); border: 1px solid var(--border); color: var(--text); border-radius: 13px; font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+  .ft82-items button[aria-current=page] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface2)); color: var(--accent2); }
+  .ft82-menu-icon { display: grid; place-items: center; width: 24px; }
+  .ft82-menu-icon svg { width: 22px; height: 22px; }
+  .ft82-chevron { margin-left: auto; font-size: 24px; color: var(--muted, #99a4b8); }
+  #ft82Sheet button:focus-visible, .ft82-navigation button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+}
