@@ -1,0 +1,3 @@
+insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types) values ('fundedtrack-trade-images','fundedtrack-trade-images',false,1000000,array['image/jpeg']) on conflict (id) do nothing;
+create policy jourfund_trade_images_insert_own on storage.objects for insert to authenticated with check (bucket_id = 'fundedtrack-trade-images' and (select auth.uid())::text = (storage.foldername(name))[1] and storage.extension(name) = 'jpg');
+create policy jourfund_trade_images_select_own on storage.objects for select to authenticated using (bucket_id = 'fundedtrack-trade-images' and (select auth.uid())::text = (storage.foldername(name))[1]);
