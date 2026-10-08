@@ -21,6 +21,8 @@
 #ft57Splash.ft85-splash-exit{background:transparent;pointer-events:none}
 #ftCloudGate.ft85-intro .ft85-auth-hero{animation:ft85Header .8s cubic-bezier(.22,1,.36,1) both}
 #ftCloudGate.ft85-intro .ft-cloud-box> :not(.ft85-auth-hero){animation:ft85Form .65s cubic-bezier(.22,1,.36,1) .25s both}
+#ftCloudGate.ft85-intro .ft85-auth-hero .ft57-brand{animation:ft85Brand .18s .6s both}
+@keyframes ft85Brand{from{opacity:0}to{opacity:1}}
 #ftCloudGate.ft85-intro #ft68GoogleAccess{animation-delay:.32s}
 #ftCloudGate.ft85-intro #ftAuthForm{animation-delay:.4s}
 #app.ft85-app-enter{animation:ft85App .55s cubic-bezier(.22,1,.36,1) both}

@@ -19,10 +19,11 @@
    if(!splash.isConnected)return;
    if(document.body.classList.contains('ft-ready')){splash.classList.add('ft57-done');setTimeout(()=>splash.remove(),350);return;}
    const logo=splash.querySelector('.ft57-brand'),target=gate.querySelector('.ft57-brand');
-   const a=logo.getBoundingClientRect(),b=target.getBoundingClientRect();
+   const a=logo.getBoundingClientRect(),mark=target.querySelector('img').getBoundingClientRect(),word=target.querySelector('.ft57-word').getBoundingClientRect();
+   const b={x:mark.x,y:Math.min(mark.y,word.y),width:word.right-mark.x,height:Math.max(mark.bottom,word.bottom)-Math.min(mark.y,word.y)};
    gate.classList.add('ft85-intro');splash.classList.add('ft85-splash-exit');
    if(logo.animate){
-    const animation=logo.animate([{transform:'none',opacity:1},{transform:`translate(${b.x+b.width/2-a.x-a.width/2}px,${b.y+b.height/2-a.y-a.height/2}px) scale(${Math.min(b.height/a.height,b.width/a.width)})`,opacity:0}],{duration:750,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+    const animation=logo.animate([{transform:'none',opacity:1},{offset:.8,opacity:1},{transform:`translate(${b.x+b.width/2-a.x-a.width/2}px,${b.y+b.height/2-a.y-a.height/2}px) scale(${Math.min(b.height/a.height,b.width/a.width)})`,opacity:0}],{duration:750,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
     animation.finished.catch(()=>{}).finally(()=>splash.remove());
    }else{splash.remove();}
    setTimeout(()=>{gate.classList.remove('ft85-intro');splash.remove();},1100);
