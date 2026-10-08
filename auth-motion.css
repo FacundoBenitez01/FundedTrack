@@ -32,3 +32,46 @@
 @media(max-width:600px){#ftCloudGate{padding:0;align-items:flex-start}#ftCloudGate .ft-cloud-box{width:100%;min-height:100dvh;border:0;border-radius:0;padding:0 26px max(20px,env(safe-area-inset-bottom));box-shadow:none}.ft85-auth-hero{margin:0 -26px 20px;padding:calc(42px + env(safe-area-inset-top)) 26px 74px}#ftCloudGate .ft85-auth-hero .ft57-brand{font-size:30px}#ftCloudGate .ft85-auth-hero .ft57-brand img{width:48px;height:48px}#ftCloudGate #ftAuthMsg{margin-bottom:0}#ftCloudGate .ft-cloud-box>h2{font-size:25px}}
 @media(max-height:650px){.ft85-auth-hero{padding-top:24px;padding-bottom:56px;margin-bottom:14px}#ftCloudGate .ft85-auth-hero p{margin-top:8px}.ft85-auth-curve{height:48px}}
 @media(prefers-reduced-motion:reduce){#ftCloudGate *,#ft57Splash,#app.ft85-app-enter{animation:none!important;transition:none!important}}
+/* v86 — real logo assembly followed by the approved rounded access panel. */
+#ftCloudGate .ft-cloud-box{background:var(--bg)}
+#ftCloudGate .ft85-auth-hero{background:none;margin-bottom:0;padding-bottom:26px}
+#ftCloudGate .ft85-auth-hero .ft57-brand{font-size:28px}
+#ftCloudGate .ft85-auth-hero p{margin-left:66px;font-size:12px;margin-top:6px}
+#ftCloudGate h2,#ftCloudGate #ftGateIntro{text-align:left}
+#ftCloudGate h2{margin-top:12px}
+#ftCloudGate #ftGateIntro{margin-bottom:0}
+.ft86-login-panel{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface));margin:26px -32px -22px;padding:24px 32px 26px;border-radius:30px 30px 0 0;border-top:1px solid color-mix(in srgb,var(--accent) 40%,var(--border));box-shadow:0 -12px 38px #0002}
+#ftCloudGate .ft-cloud-tabs{margin-top:0;margin-bottom:22px}
+#ftCloudGate #ft68GoogleAccess{margin-top:20px}
+#ftCloudGate #ft68GoogleAccess .ft68-divider{display:none}
+#ftCloudGate #ft80GateResetLocal{display:none!important}
+#ft57Splash{display:block;background:radial-gradient(ellipse at 50% 43%,color-mix(in srgb,var(--accent) 17%,transparent),transparent 48%),var(--bg)}
+.ft86-intro-mark{position:absolute;top:calc(50% - 140px);left:calc(50% - 56px);width:112px;height:112px;filter:hue-rotate(var(--art-hue)) drop-shadow(0 0 18px color-mix(in srgb,var(--accent) 18%,transparent))}
+.ft86-intro-mark svg{width:100%;height:100%;overflow:visible}
+.ft86-piece,.ft86-tile{transform-box:fill-box;transform-origin:center}
+.ft86-word{position:absolute;top:calc(50% + 0px);left:0;width:100%;font-size:34px;font-weight:800;letter-spacing:-1.3px;text-align:center}
+.ft86-word span{color:var(--accent)}
+.ft86-tag{position:absolute;top:calc(50% + 53px);left:0;width:100%;margin:0;text-align:center;color:var(--muted);font-size:15px}
+#ft57Splash.ft86-out{background:transparent;pointer-events:none}
+.ft86-load-screen{display:none;text-align:center;gap:15px;align-items:center;justify-content:center;flex-direction:column;padding:40px 20px}
+.ft86-load-screen img{filter:hue-rotate(var(--art-hue));margin-bottom:8px}
+.ft86-load-screen strong{font-size:30px;letter-spacing:-1px}
+.ft86-load-screen strong span{color:var(--accent)}
+.ft86-load-title{font-size:16px;margin:14px 0 0}.ft86-load-sub{font-size:13px;color:var(--muted);margin:0;line-height:1.5}
+.ft86-load-spinner{width:23px;height:23px;border:2px solid color-mix(in srgb,var(--accent) 20%,transparent);border-top-color:var(--accent);border-radius:50%;animation:ft57spin .8s linear infinite;margin-top:16px}
+#ftCloudGate:is([data-state=checking],[data-state=loading]) .ft-cloud-box{border:0;box-shadow:none;background:none}
+#ftCloudGate:is([data-state=checking],[data-state=loading]) .ft-cloud-box>:not(.ft86-load-screen){display:none!important}
+#ftCloudGate:is([data-state=checking],[data-state=loading]) .ft86-load-screen{display:flex;min-height:70dvh}
+#ftCloudGate[data-state=error] .ft-cloud-box{display:flex;flex-direction:column}
+#ftCloudGate[data-state=error] .ft-cloud-box>.ft85-auth-hero,#ftCloudGate[data-state=error] .ft-cloud-box>h2,#ftCloudGate[data-state=error] .ft-cloud-box>#ftGateIntro{display:none}
+#ftCloudGate[data-state=error] .ft86-load-screen{display:flex;order:0;padding:48px 15px 24px}
+#ftCloudGate[data-state=error] .ft86-load-screen img{width:72px;height:72px}
+#ftCloudGate[data-state=error] .ft86-load-spinner{display:none}
+#ftCloudGate[data-state=error] .ft86-login-panel{order:1;margin-top:0}
+#ftCloudGate.ft86-reveal .ft86-login-panel{animation:ft86Panel .85s cubic-bezier(.22,1,.36,1) both}
+#ftCloudGate.ft86-reveal h2,#ftCloudGate.ft86-reveal #ftGateIntro{animation:ft85Form .6s .1s both}
+#ftCloudGate.ft86-reveal .ft85-auth-hero .ft57-brand{animation:ft85Brand .2s .65s both}
+@keyframes ft86Panel{from{transform:translateY(50vh);opacity:0}to{transform:none;opacity:1}}
+@media(max-width:600px){.ft86-login-panel{margin-left:-26px;margin-right:-26px;padding:24px 26px max(26px,env(safe-area-inset-bottom));min-height:calc(100dvh - 278px)}#ftCloudGate .ft85-auth-hero{padding-top:calc(40px + env(safe-area-inset-top));padding-bottom:24px}#ftCloudGate .ft85-auth-hero p{margin-left:60px}#ftCloudGate:is([data-state=checking],[data-state=loading]) .ft86-load-screen{min-height:100dvh}#ftCloudGate[data-state=error] .ft86-login-panel{min-height:0}}
+@media(max-height:650px){#ftCloudGate .ft85-auth-hero{padding-top:24px;padding-bottom:16px}.ft86-login-panel{margin-top:20px}.ft86-intro-mark{top:calc(50% - 120px);width:88px;height:88px;left:calc(50% - 44px)}.ft86-word{font-size:30px;top:calc(50% - 8px)}.ft86-tag{top:calc(50% + 37px)}}
+@media(prefers-reduced-motion:reduce){.ft86-load-spinner{animation:none!important}#ftCloudGate.ft86-reveal *{animation:none!important}}
