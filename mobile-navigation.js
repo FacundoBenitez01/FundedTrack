@@ -4,6 +4,7 @@
   if (!nav) return;
   const mobile = window.matchMedia('(max-width: 700px)');
   const overflow = [
+    ['ftPageMyAccount', 'Mi cuenta'],
     ['ftPageWithdrawals', 'Retiros'],
     ['ftPageObjectives', 'Objetivos'],
     ['ftPageSettings', 'Ajustes']
@@ -119,3 +120,4 @@
   document.addEventListener('focusout', () => requestAnimationFrame(viewport));
   viewport();
 })();
+

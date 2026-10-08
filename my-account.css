@@ -1,0 +1,31 @@
+#ftPageMyAccount .ft-page-head>div{position:relative;padding-left:30px}
+.ft94-back{position:absolute;left:0;top:0;background:none;border:0;color:var(--muted);font-size:32px;cursor:pointer;min-height:44px}
+.ft94-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.ft94-grid>.ft-quick-card{margin:0;padding:22px;min-width:0;border:1px solid var(--border);border-radius:20px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 6%,var(--surface)),var(--surface))}
+.ft94-grid h3{margin:0 0 16px;font-size:18px}
+.ft94-profile{display:flex;flex-wrap:wrap;gap:18px;align-items:center;grid-column:1/-1}
+#ftPageMyAccount .ft61-profile-avatar{margin:0;flex:0 0 220px;gap:10px}
+#ftPageMyAccount .ft61-profile-avatar>span{width:80px;height:80px;flex:0 0 80px}
+#ftPageMyAccount .ft61-profile-avatar button{font-size:12px;min-height:40px}
+.ft94-identity{min-width:0;flex:1}
+#ft94Name{font-size:23px;margin-bottom:8px;overflow-wrap:anywhere}
+#ft94Email{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+#ftPageMyAccount #ft81OwnerIdentity{margin:10px 0 0;padding:0;border:0;background:none}
+#ftPageMyAccount #ft81OwnerName,#ftPageMyAccount #ft81OwnerIdentity>small{display:none}
+#ftPageMyAccount .ft94-name-form{display:grid;gap:10px}
+#ftPageMyAccount .ft94-name-form input{width:100%;min-width:0;box-sizing:border-box;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface2);color:var(--text);font:inherit;font-size:16px}
+#ftPageMyAccount .ft94-name-form h3{margin-bottom:0}
+#ftPageMyAccount #ftCloudPanel{margin:0!important}
+#ftPageMyAccount #ftCloudUser,#ftPageMyAccount #ft81AccountOwner{display:none}
+#ftPageMyAccount #ftCloudPanel .label{font-size:12px;color:var(--muted);line-height:1.5}
+#ftPageMyAccount #ftCloudSyncMsg{font-size:14px;line-height:1.5}
+#ftPageMyAccount .ft-action-row,.ft94-backup-actions{display:grid;grid-template-columns:1fr;gap:10px}
+#ftPageMyAccount .btn{min-height:44px;white-space:normal}
+.ft94-data{grid-column:1/-1}
+.ft94-backup-actions{grid-template-columns:1fr 1fr}
+.ft94-recovery{margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+.ft94-recovery summary,.ft66-backups summary{cursor:pointer;min-height:34px;font-size:13px;color:var(--muted)}
+.ft94-recovery .btn{width:100%;margin-top:10px}
+.ft94-signout{grid-column:1/-1;width:100%;color:var(--red)!important;background:transparent!important;border-color:color-mix(in srgb,var(--red) 60%,var(--border))!important}
+@media(max-width:700px){.ft94-grid{grid-template-columns:1fr;gap:14px}.ft94-grid>.ft-quick-card{padding:18px}.ft94-profile{gap:14px}#ftPageMyAccount .ft61-profile-avatar{flex:0 0 100%;display:flex;flex-wrap:wrap}#ftPageMyAccount .ft61-profile-avatar>span{width:70px;height:70px;flex:0 0 70px}#ftPageMyAccount .ft-page-head h2{font-size:27px}.ft94-identity{width:100%}.ft94-grid h3{font-size:17px}.ft94-backup-actions{grid-template-columns:1fr}}
+@media(max-width:700px){body:has(#ftPageMyAccount.active) #app .top>.ft59-session{display:none}}
