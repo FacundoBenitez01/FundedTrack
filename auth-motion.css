@@ -75,3 +75,16 @@
 @media(max-width:600px){.ft86-login-panel{margin-left:-26px;margin-right:-26px;padding:24px 26px max(26px,env(safe-area-inset-bottom));min-height:calc(100dvh - 278px)}#ftCloudGate .ft85-auth-hero{padding-top:calc(40px + env(safe-area-inset-top));padding-bottom:24px}#ftCloudGate .ft85-auth-hero p{margin-left:60px}#ftCloudGate:is([data-state=checking],[data-state=loading]) .ft86-load-screen{min-height:100dvh}#ftCloudGate[data-state=error] .ft86-login-panel{min-height:0}}
 @media(max-height:650px){#ftCloudGate .ft85-auth-hero{padding-top:24px;padding-bottom:16px}.ft86-login-panel{margin-top:20px}.ft86-intro-mark{top:calc(50% - 120px);width:88px;height:88px;left:calc(50% - 44px)}.ft86-word{font-size:30px;top:calc(50% - 8px)}.ft86-tag{top:calc(50% + 37px)}}
 @media(prefers-reduced-motion:reduce){.ft86-load-spinner{animation:none!important}#ftCloudGate.ft86-reveal *{animation:none!important}}
+/* v87 — hide unassembled artwork at first paint and confirm real access. */
+.ft87-access-progress{display:grid;place-items:center;width:76px;height:56px;margin-top:15px;border-radius:32px;background:linear-gradient(110deg,var(--accent),color-mix(in srgb,var(--accent) 85%,black));color:white;transition:background .25s,box-shadow .25s}
+.ft87-access-progress .ft86-load-spinner{margin:0;border-color:#ffffff50;border-top-color:white}
+.ft87-check{display:none;width:28px;height:28px}
+#ftCloudGate.ft87-success .ft87-access-progress{background:#238568;box-shadow:0 0 24px #2ad49b20}
+#ftCloudGate.ft87-success .ft86-load-spinner{display:none}
+#ftCloudGate.ft87-success .ft87-check{display:block;animation:ft87Check .32s cubic-bezier(.22,1,.36,1) both}
+#ftCloudGate[data-state=error] .ft87-access-progress{display:none}
+#ftCloudGate #ft68Google:disabled{width:76px;min-width:76px;margin:0 auto;border-radius:32px;opacity:1;position:relative;transition:width .3s,border-radius .3s}
+#ftCloudGate #ft68Google:disabled svg,#ftCloudGate #ft68Google:disabled span{display:none}
+#ftCloudGate #ft68Google:disabled::after{content:'';display:block;width:20px;height:20px;border:2px solid #4285f450;border-top-color:#4285f4;border-radius:50%;animation:ft57spin .7s linear infinite}
+@keyframes ft87Check{from{opacity:0;transform:scale(.65)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ft87-access-progress,.ft87-check,#ftCloudGate #ft68Google:disabled::after{animation:none!important;transition:none!important}}
