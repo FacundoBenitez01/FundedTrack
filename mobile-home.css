@@ -1,0 +1,44 @@
+/* JourFund v93: compact mobile header and home. Desktop rules stay untouched. */
+.ft93-role,.ft93-sync-text{display:none}
+@media(max-width:700px){
+#app .top{display:grid!important;grid-template-columns:minmax(0,1fr) 40px 70px!important;gap:18px 8px!important;padding:4px 0 14px!important;margin-bottom:8px!important;align-items:start!important}
+#app .top>.brand{grid-column:1;grid-row:1;min-width:0;align-self:center;gap:8px}
+#app .top .brand h1{font-size:clamp(19px,5.4vw,25px)!important}
+#app .top>#ft62Bell{grid-column:2;grid-row:1;width:40px;height:40px;align-self:start;margin-top:2px;border-radius:13px}
+#app .top>#ft59Profile{grid-column:3;grid-row:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;width:70px;max-width:70px;min-height:62px;padding:0;gap:4px;border:0;background:none;box-shadow:none;border-radius:12px;text-align:center}
+#app #ft59Profile .ft59-avatar{width:42px;height:42px;flex:0 0 42px;font-size:15px;overflow:visible}
+#app #ft59Avatar img{border-radius:50%}
+#app #ft59Profile .ft59-profile-copy{display:flex;flex:none;align-items:center;justify-content:center;gap:0;width:100%}
+#app #ft59ProfileName,#app #ft59Sync,#app #ft59Profile>span:last-child{display:none!important}
+#app #ft59Profile .ft81-owner-badge{font-size:8px;padding:2px 0;margin:0;border:0;background:none;gap:3px;white-space:nowrap;color:var(--accent2)}
+#app #ft59Profile .ft81-owner-badge svg{width:10px;height:10px}
+#app #ft59Profile .ft93-role{display:block;font-size:9px;color:var(--muted);line-height:1.3}
+#app #ft59Profile:has(.ft81-owner-badge:not([hidden])) .ft93-role{display:none}
+#app .top>.ft59-session{grid-column:1/-1;grid-row:2;display:block;min-width:0;max-width:none;padding:11px 12px;border-radius:14px}
+#app .ft59-session .ft59-today{display:none}
+#app #ft59GoalLink{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 12px;min-height:36px;width:100%;align-items:center}
+#app #ft59GoalLink .ft59-label{font-size:10px;margin:0;line-height:1.3}
+#app #ft59GoalAmount{font-size:12px;text-align:right;font-weight:650;max-width:190px}
+#app #ft59GoalAmount:after{content:' ›';color:var(--accent2)}
+#app #ft59GoalLink .ft59-progress{grid-column:1/-1;height:5px;margin:0;background:color-mix(in srgb,var(--accent) 18%,var(--surface2))}
+#app #ft59GoalPercent{display:none}
+#ftPageHome .ft-page-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;margin:4px 0 18px;padding:8px 0 0;border:0}
+#ftPageHome .ft-page-head h2{font-size:clamp(23px,6.3vw,29px);line-height:1.25;letter-spacing:-.7px;overflow-wrap:anywhere}
+#ftPageHome .ft-page-head p{font-size:12px;margin-top:7px}
+#ft59Date{display:none!important}
+#ftPageHome #ft67SyncRow{margin:3px 0 0;max-width:112px;align-self:start}
+#ftPageHome #ft67SyncBadge{padding:4px 0;background:none;border:0;border-radius:6px;font-size:10px;min-height:28px;gap:5px}
+#ftPageHome #ft67SyncText{display:none}
+#ftPageHome .ft93-sync-text{display:inline;overflow-wrap:anywhere}
+#ftPageHome .ft-home-overview{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px;margin:0 0 16px}
+#ftPageHome .ft-home-overview-main{padding:16px 14px;grid-column:1/-1}
+#ftPageHome .ft-home-title{font-size:17px;line-height:1.35}
+#ftPageHome .ft-home-sub{font-size:11px}
+#ftPageHome .ft-home-mini{padding:14px 10px;min-width:0}
+#ftPageHome .ft-home-mini span{font-size:9px;line-height:1.45}
+#ftPageHome .ft-home-mini strong{font-size:clamp(17px,5.3vw,23px)!important;overflow-wrap:anywhere}
+#ftPageHome .ft-home-action{grid-column:1/-1;padding:3px 0!important}
+#ftPageHome .ft-home-action .btn{min-height:48px;font-size:15px}
+}
+@media(max-width:360px){#ftPageHome .ft-page-head{grid-template-columns:1fr}#ftPageHome #ft67SyncRow{margin:0;max-width:100%}#ftPageHome #ft67SyncBadge{min-height:20px}}
+@media(max-width:700px){#ftPageHome .ft-home-title{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;padding-right:20px}#ftPageHome .ft-home-overview-main{min-height:90px}#app .top{border-bottom:0}}

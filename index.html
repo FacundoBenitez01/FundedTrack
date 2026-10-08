@@ -824,7 +824,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  const legacy=localStorage.getItem('fundedtrack_v5');
  if(legacy){el('ftLegacyBackup').hidden=false;el('ftLegacyBackup').onclick=()=>{try{download('JourFund-respaldo-anterior.json',JSON.parse(legacy));}catch(e){msg('El respaldo anterior no tiene un formato válido.',true);}};}
  const panel=document.createElement('div');panel.id='ftCloudPanel';panel.className='ft-quick-card ft-cloud-panel';
- panel.innerHTML='<div class="label">Mi cuenta · JourFund v92</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
+ panel.innerHTML='<div class="label">Mi cuenta · JourFund v93</div><p id="ftCloudUser"></p><p id="ftCloudSyncMsg" role="status"></p><div class="ft-action-row"><button class="btn" id="ftSync">Sincronizar ahora</button><button class="btn" id="ftExportMine">Exportar respaldo</button><button class="btn" id="ftReload">Cargar versión de la nube</button><button class="btn" id="ftSignOut">Cerrar sesión</button></div><p class="sub">Los cambios pendientes se conservan para tu usuario en este navegador. Si hay un conflicto, exportá un respaldo antes de cargar la versión de la nube.</p>';
  el('ftPageSettings')?.appendChild(panel);
  
  const P=window.FTProtection;
@@ -1849,4 +1849,4 @@ window.FTMultiAccounts={groups,totals,batches,openIndividual(id,page){if(!accoun
 .side-brand-mark{background:none!important;width:38px;height:38px}
 .side-brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
 .brand h1,.side-brand-name,.ft57-word,.ft86-word,.ft86-load-screen strong{font-weight:800;letter-spacing:-.045em}
-</style></body></html>
+</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script></body></html>
