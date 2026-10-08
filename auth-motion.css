@@ -1,0 +1,32 @@
+/* FundedTrack — logo-to-header entrance, using the real authentication form. */
+#ftCloudGate{padding:28px 20px;background:radial-gradient(ellipse at 50% 0%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 65%),var(--bg);overflow-x:hidden}
+#ftCloudGate .ft-cloud-box{width:min(500px,100%);padding:0 32px 22px;overflow:hidden;border-radius:28px;background:var(--surface);max-height:none}
+.ft85-auth-hero{position:relative;margin:0 -32px 24px;padding:42px 32px 74px;background:radial-gradient(ellipse at 80% 10%,color-mix(in srgb,var(--accent) 25%,transparent),transparent 75%),var(--bg);isolation:isolate}
+#ftCloudGate .ft85-auth-hero .ft57-brand{justify-content:flex-start;margin:0;gap:12px;font-size:32px;letter-spacing:-1.3px}
+#ftCloudGate .ft85-auth-hero .ft57-brand img{width:54px;height:54px}
+#ftCloudGate .ft85-auth-hero p{margin:14px 0 0;color:var(--muted);font-size:14px}
+.ft85-auth-curve{position:absolute;bottom:-1px;left:0;width:100%;height:70px;fill:var(--surface);pointer-events:none}
+#ftCloudGate h2{font-size:25px;letter-spacing:-.6px}
+#ftCloudGate #ftGateIntro{font-size:14px;margin:10px 0 20px;line-height:1.5}
+#ftCloudGate .ft-cloud-tabs{margin:16px 0}
+#ftCloudGate .ft-cloud-form input{font-size:16px;min-width:0}
+#ftCloudGate .ft-cloud-actions:has(#ftAuthSubmit){justify-content:center;min-height:58px}
+#ftCloudGate #ftAuthSubmit{transition:width .3s cubic-bezier(.22,1,.36,1),border-radius .3s,box-shadow .3s;overflow:hidden;white-space:nowrap}
+#ftCloudGate #ftAuthSubmit:disabled{width:76px;min-width:76px;padding:0;border-radius:32px;font-size:0;opacity:1;box-shadow:0 0 24px color-mix(in srgb,var(--accent) 20%,transparent)}
+#ftAuthSubmit:disabled::after{content:'';display:block;width:20px;height:20px;border:2px solid #ffffff55;border-top-color:white;border-radius:50%;margin:auto;animation:ft57spin .7s linear infinite}
+#ft57Splash{background:var(--bg);transition:opacity .35s;overflow:hidden}
+#ft57Splash .ft57-brand{flex-direction:row;gap:14px;font-size:36px}
+#ft57Splash .ft57-brand img{width:64px;height:64px}
+#ft57Splash .ft57-loader{display:none}
+#ft57Splash.ft85-splash-exit{background:transparent;pointer-events:none}
+#ftCloudGate.ft85-intro .ft85-auth-hero{animation:ft85Header .8s cubic-bezier(.22,1,.36,1) both}
+#ftCloudGate.ft85-intro .ft-cloud-box> :not(.ft85-auth-hero){animation:ft85Form .65s cubic-bezier(.22,1,.36,1) .25s both}
+#ftCloudGate.ft85-intro #ft68GoogleAccess{animation-delay:.32s}
+#ftCloudGate.ft85-intro #ftAuthForm{animation-delay:.4s}
+#app.ft85-app-enter{animation:ft85App .55s cubic-bezier(.22,1,.36,1) both}
+@keyframes ft85Header{from{transform:translateY(-55px);opacity:0}to{transform:none;opacity:1}}
+@keyframes ft85Form{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes ft85App{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:600px){#ftCloudGate{padding:0;align-items:flex-start}#ftCloudGate .ft-cloud-box{width:100%;min-height:100dvh;border:0;border-radius:0;padding:0 26px max(20px,env(safe-area-inset-bottom));box-shadow:none}.ft85-auth-hero{margin:0 -26px 20px;padding:calc(42px + env(safe-area-inset-top)) 26px 74px}#ftCloudGate .ft85-auth-hero .ft57-brand{font-size:30px}#ftCloudGate .ft85-auth-hero .ft57-brand img{width:48px;height:48px}#ftCloudGate #ftAuthMsg{margin-bottom:0}#ftCloudGate .ft-cloud-box>h2{font-size:25px}}
+@media(max-height:650px){.ft85-auth-hero{padding-top:24px;padding-bottom:56px;margin-bottom:14px}#ftCloudGate .ft85-auth-hero p{margin-top:8px}.ft85-auth-curve{height:48px}}
+@media(prefers-reduced-motion:reduce){#ftCloudGate *,#ft57Splash,#app.ft85-app-enter{animation:none!important;transition:none!important}}
