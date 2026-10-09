@@ -742,8 +742,8 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  }
  function schedule(){clearTimeout(timer);timer=setTimeout(flush,500);}
  async function flush(){
-  if(busy||!user||!ready||conflict)return;
-  const uid=user.id,token=epoch,rev=revision,wasDirty=dirty;
+  if(busy||!user||!ready||conflict||(!dirty&&document.hidden))return;
+  const uid=user.id,token=epoch,rev=revision;
   busy=true;
   try{
    if(dirty){
@@ -757,13 +757,19 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
     if(!response.data){conflict=true;throw Error('Hay cambios en otro dispositivo. Exportá tus cambios pendientes y cargá la nube.');}
     version=response.data.updated_at;if(revision===rev)dirty=false;persist();status(dirty?'Guardando…':'Sincronizado');
    }else{
-    const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',uid).maybeSingle();
-    if(error)throw error;if(token!==epoch||dirty||revision!==rev)return;
-    if(data&&data.updated_at!==version){applyData(data.accounts,activeId);version=data.updated_at;persist();}
+    // Check only the version: unchanged workspaces must not resend trade history or screenshots.
+    const {data:head,error:headError}=await client.from('fundedtrack_workspaces').select('updated_at').eq('user_id',uid).maybeSingle();
+    if(headError)throw headError;if(token!==epoch||dirty||revision!==rev)return;
+    if(head&&head.updated_at!==version){
+     const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',uid).maybeSingle();
+     if(error)throw error;if(token!==epoch||dirty||revision!==rev)return;
+     if(!data)throw Error('La versión de nube cambió durante la consulta. Volvé a sincronizar.');
+     applyData(data.accounts,activeId);version=data.updated_at;persist();
+    }
     status('Sincronizado');
    }
   }catch(e){if(token===epoch)status('Sincronización pendiente: '+errorText(e),true);}
-  finally{busy=false;if(token===epoch&&dirty&&!conflict&&wasDirty&&revision!==rev)schedule();}
+  finally{busy=false;if(token===epoch&&dirty&&!conflict&&revision!==rev)schedule();}
  }
  window.save=function(){
   if(!user||!ready)throw Error('Iniciá sesión y esperá a que se carguen tus datos.');
@@ -887,7 +893,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  window.addEventListener('online',()=>{status('Comprobando conexión…');flush();});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)flush();});
  window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
- setInterval(flush,20000);
+ setInterval(()=>{if(!document.hidden)flush();},20000);
 })();
 </script>
 
@@ -1859,5 +1865,5 @@ window.FTMultiAccounts={groups,totals,batches,openIndividual(id,page){if(!window
 .side-brand-mark{background:none!important;width:38px;height:38px}
 .side-brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
 .brand h1,.side-brand-name,.ft57-word,.ft86-word,.ft86-load-screen strong{font-weight:800;letter-spacing:-.045em}
-</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=101"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=100"></script><script src="./language.js?v=97"></script>
+</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=102"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=100"></script><script src="./language.js?v=97"></script>
 </body></html>
