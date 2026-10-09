@@ -217,6 +217,24 @@ Londres|London|Londres
 Nueva York|New York|Nova York
 Tokio|Tokyo|Tóquio
 Sídney|Sydney|Sydney
+Información personal|Personal information|Informações pessoais
+Información|Information|Informações
+Acceso|Access|Acesso
+Personalización|Personalization|Personalização
+Preferencias|Preferences|Preferências
+Idioma|Language|Idioma
+A tu manera.|Your way.|Do seu jeito.
+Tu espacio, siempre con vos.|Your workspace, always with you.|Seu espaço, sempre com você.
+Datos y sincronización|Data and sync|Dados e sincronização
+Correo de acceso|Sign-in email|E-mail de acesso
+Foto de perfil|Profile photo|Foto de perfil
+Cambiar foto|Change photo|Alterar foto
+Quitar foto|Remove photo|Remover foto
+Tu perfil en JourFund|Your JourFund profile|Seu perfil no JourFund
+Sin conexión|Offline|Sem conexão
+Revisar cambios|Review changes|Revisar alterações
+Más opciones|More options|Mais opções
+Cerrar menú|Close menu|Fechar menu
 Tu centro de control diario, mercados, noticias y progreso.|Your daily hub for markets, news and progress.|Seu centro de controle diário, mercados, notícias e progresso.
 Tu ejecución, tu historia.|Your execution, your story.|Sua execução, sua história.
 Elegí tu cuenta. Conocé tus reglas.|Choose your account. Know your rules.|Escolha sua conta. Conheça suas regras.
@@ -247,7 +265,7 @@ Completada|Completed|Concluída
 Límite diario|Daily limit|Limite diário
 Objetivo alcanzado|Target reached|Meta alcançada
 Cuenta quemada|Account breached|Conta violada
-Cuenta y sincronización · JourFund v97|Account and sync · JourFund v97|Conta e sincronização · JourFund v97`;
+Cuenta y sincronización · JourFund v98|Account and sync · JourFund v98|Conta e sincronização · JourFund v98`;
 const uppercase=new Map();
 for(const row of rows.split('\n')){const [es,en,pt]=row.split('|');dictionary.set(es,{es,en,'pt-BR':pt});uppercase.set(es.toUpperCase(),es);}
 let language='es',selected='es',editorUser=null,lastButton=null;
