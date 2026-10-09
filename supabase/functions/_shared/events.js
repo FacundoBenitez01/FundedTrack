@@ -5,7 +5,7 @@ function clock(now,tz){const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA
 function events(accounts,prefs={},now=new Date(),reminders=true){const p={...defaults,...prefs},out=[],R=globalThis.FTRules;if(!R)return out;
  const local=clock(now,p.timezone);const add=(a,key,kind,title,body,page)=>out.push({event_key:key,kind,title,body,page,account_id:a?.id||null});
  for(const a of accounts||[]){if(!a?.id||!(Number(a.capital)>0))continue;try{
- const day=new Date(now.getTime()+Number(a.serverOffset??3)*3600000).toISOString().slice(0,10),stage=a.status==='Funded'?'funded':String(a.phase||1),base=a.id+':'+stage+':'+(a.phaseStartedOn||a.fundedOn||a.createdOn||'initial'),risk=R.risk(a,day),effective=R.effective(a);
+ const day=R.accountDay(a,now),stage=a.status==='Funded'?'funded':String(a.phase||1),base=a.id+':'+stage+':'+(a.phaseStartedOn||a.fundedOn||a.createdOn||'initial'),risk=R.risk(a,day),effective=R.effective(a);
  const alert=(kind,remaining,budget,key,page)=>{if(!(budget>0)||!Number.isFinite(remaining))return;const used=1-remaining/budget;const level=used>=1-1e-8?100:used>=.9-1e-8?90:used>=.7-1e-8?70:0;if(!level)return;add(a,key+':'+level,kind,level===100?'Revisá el límite de pérdida':level+'% del límite utilizado',kind==='daily'?'Tu registro alcanza un umbral del límite diario. Revisá el riesgo antes de operar.':'Tu registro alcanza un umbral de la pérdida máxima. Revisá las reglas de la cuenta.',page);};
  if(p.daily)alert('daily',risk.dailyRemaining,risk.dailyBudget,base+':daily:'+day,'ftPageOps');
  if(p.maximum)alert('maximum',risk.maxRemaining,Number(a.capital)*Number(effective.maxPct||0)/100,base+':maximum','ftPageAccounts');

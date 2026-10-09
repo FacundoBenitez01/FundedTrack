@@ -11,6 +11,9 @@ const fpMonthly=()=>reward('monthly','Mensual · 30 días · 100%',100,{days:30,
 const evalRules=(targets,daily,max,days,extra={})=>({targets,dailyPct:daily,maxPct:max,days,dayProfitPct:0,drawdown:'static',riskPct:null,dailyBasis:'initial',...extra});
 const fundedRules=(daily,max,extra={})=>({dailyPct:daily,maxPct:max,drawdown:'static',riskPct:null,dailyBasis:'initial',days:0,...extra});
 const defs=[
+{id:'ftmo-1-standard',firm:'FTMO',name:'Challenge 1-Step · Standard',count:1,sizes:[10000,25000,50000,100000,200000],timezone:'Europe/Prague',evaluation:evalRules([10],3,10,0,{drawdown:'trailing-eod',bestDayPct:50}),funded:fundedRules(3,10,{drawdown:'trailing-eod',bestDayPct:50}),rewards:[reward('standard','Desde el día 14 · 90%',90,{days:13,bestDayPct:50}),reward('wire','Transferencia bancaria · desde el día 14 · 90%',90,{days:13,bestDayPct:50,minProfitAmount:20}),reward('crypto','Criptomonedas · desde el día 14 · 90%',90,{days:13,bestDayPct:50,minProfitAmount:50})],source:'https://ftmo.com/en/trading-objectives/'},
+...['standard','swing'].map(type=>({id:'ftmo-2-'+type,firm:'FTMO',name:'Challenge 2-Step · '+(type==='swing'?'Swing':'Standard'),count:2,sizes:[10000,25000,50000,100000,200000],timezone:'Europe/Prague',evaluation:evalRules([10,5],5,10,4),funded:fundedRules(5,10),rewards:[reward('standard','Desde el día 14 · 80%',80,{days:13}),reward('scaled','Scaling / Premium confirmado · desde el día 14 · 90%',90,{days:13}),reward('wire','Transferencia bancaria · desde el día 14 · 80%',80,{days:13,minProfitAmount:20}),reward('crypto','Criptomonedas · desde el día 14 · 80%',80,{days:13,minProfitAmount:50})],source:'https://ftmo.com/en/trading-objectives/'})),
+
 {id:'fn-stellar-1',firm:FN,name:'Stellar 1-Step',count:1,sizes:[6000,15000,25000,50000,100000,200000],evaluation:evalRules([10],3,6,2),funded:fundedRules(3,6,{riskPct:3}),rewards:[reward('weekly','Cada 5 días hábiles · 80%',80,{days:5,businessDays:true})],source:source.fn1},
 {id:'fn-stellar-2',firm:FN,name:'Stellar 2-Step',count:2,sizes:[6000,15000,25000,50000,100000,200000],evaluation:evalRules([8,5],5,10,5),funded:fundedRules(5,10,{riskPct:3}),rewards:fnRewards,source:source.fn2},
 {id:'fn-stellar-lite',firm:FN,name:'Stellar Lite',count:2,sizes:[5000,10000,25000,50000,100000,200000],evaluation:evalRules([8,4],4,8,5),funded:fundedRules(4,8,{riskPct:3}),rewards:fnRewards,source:source.fnLite},
@@ -26,6 +29,26 @@ function profile(id,options={}){
 const found=defs.find(x=>x.id===id);if(!found)throw Error('Programa no encontrado');const d=copy(found);
 const legacy=d.firm===FP&&options.edition==='legacy',v=options.variant||'base',cycle=options.rewardId||d.rewards[0].id;
 d.edition=legacy?'legacy':'current';d.editionLabel=d.firm===FP?(legacy?'Compra anterior al 28/09/2026':'Compra/reset desde el 28/09/2026'):'Reglas consultadas 04/10/2026';d.reviewed=reviewed;d.schemaVersion=1;d.notes=[];d.warnings=[];d.options=copy(options);
+
+if(d.firm==='FTMO'){
+ d.reviewed='2026-10-09';d.editionLabel='FTMO CFD · reglas verificadas 09/10/2026';
+ d.reward=copy(d.rewards.find(x=>x.id===cycle)||d.rewards[0]);d.schemaVersion=2;
+ d.notes.push('Reinicio diario a las 00:00 CE(S)T (Europa/Praga), con cambio automático de horario de verano. El importe diario es un porcentaje fijo del capital inicial, descontado del balance al empezar el día.');
+ d.notes.push('Los límites oficiales incluyen flotantes, comisiones y swaps. El diario estima con P&L neto de operaciones cerradas; no valida posiciones abiertas ni órdenes pendientes.');
+ d.notes.push('Sin plazo máximo de evaluación. Para avanzar: cerrar posiciones, cumplir objetivos y obtener aprobación/KYC/acuerdo de FTMO.');
+ d.notes.push('Días de trading: FTMO cuenta días en que se abre una posición. En el diario se estiman desde la fecha registrada; revisá Account MetriX si una operación abarca varios días.');
+ if(d.count===1){
+  d.notes.push('1-Step: pérdida máxima trailing de cierre diario, 10% del capital inicial por debajo del mayor balance de días previos. No se congela al llegar al balance inicial.');
+  d.notes.push('Best Day ≤50% de la suma del P&L neto de los días positivos, en evaluación y financiada. Superarlo no quema la cuenta: seguí operando hasta cumplir la proporción.');
+  d.notes.push('Reward 90%; no hay rollover. Al registrar un retiro y recibir una nueva cuenta, informá el descuento total del balance y marcá el reinicio de cuenta para volver al piso inicial.');
+ }else d.notes.push('2-Step: objetivos 10% / 5%, mínimo 4 días por fase; financiada sin objetivo ni días mínimos. Split base 80%, 90% solo si FTMO aprobó Scaling/Premium. Fee reembolsable con el primer Reward según contrato.');
+ if(d.id==='ftmo-2-swing')d.notes.push('Swing: noticias, overnight y fin de semana permitidos; apalancamiento hasta 1:30. No se puede cambiar Standard a Swing después de comprar.');
+ else d.notes.push('Standard: evaluación sin restricción específica de noticias/overnight. Financiada: no abrir/cerrar en instrumentos afectados ±2 min de noticias seleccionadas; incluye SL/TP/órdenes. Cerrar antes del fin de semana o pausas de mercado >2 h. Apalancamiento hasta 1:100 según instrumento.');
+ d.notes.push('Retiros desde el día 14 contado desde la primera operación del ciclo; todas las posiciones y órdenes deben estar cerradas. Transferencia bancaria exige beneficio cerrado ≥$20; cripto ≥$50.');
+ d.notes.push('Asignación total antes de escalado: hasta $400.000 por trader/estrategia entre 1-Step y 2-Step. Plataformas MT4, MT5, cTrader y TradingView; son cuentas simuladas.');
+ d.warnings.push('La app no verifica flotantes, restricciones de noticias ni aprobación de la firma. Confirmá el contrato y Account MetriX.');
+ return d;
+}
 if(legacy){d.source=source.fpLegacy;d.editionLabel+=' · confirmar contrato';}
 if(d.id==='fp-1-flex'){
  if(v==='daily2'){d.evaluation.dailyPct=2;d.funded.dailyPct=2;}
@@ -72,12 +95,26 @@ return d;
 }
 function groupDays(ts){const out={};for(const t of ts){if(!t.date)continue;out[t.date]=(out[t.date]||0)+Number(t.pnl||0);}return out;}
 function dayStats(ts,capital,threshold=0){const grouped=groupDays(ts);return {grouped,tradingDays:Object.keys(grouped).length,profitableDays:Object.values(grouped).filter(n=>n>0&&n+1e-8>=capital*threshold/100).length,pnl:Object.values(grouped).reduce((s,n)=>s+n,0),bestDay:Math.max(0,...Object.values(grouped))};}
-function progress(a){const r=a.ruleSnapshot?.evaluation||evalRules(a.targets,a.dailyPct,a.maxPct,a.days);const ts=a.phases?.[Math.max(0,(a.phase||1)-1)]?.trades||[],s=dayStats(ts,a.capital,r.dayProfitPct),target=Number(a.capital)*Number(r.targets[(a.phase||1)-1]||0)/100;const days=r.dayProfitPct>0?s.profitableDays:s.tradingDays;return {...s,target,days,requiredDays:Number(r.days||0),dayProfitPct:Number(r.dayProfitPct||0),eligible:s.pnl+1e-8>=target&&days>=Number(r.days||0)};}
+function progress(a){const r=a.ruleSnapshot?.evaluation||evalRules(a.targets,a.dailyPct,a.maxPct,a.days);const ts=a.phases?.[Math.max(0,(a.phase||1)-1)]?.trades||[],s=dayStats(ts,a.capital,r.dayProfitPct),target=Number(a.capital)*Number(r.targets[(a.phase||1)-1]||0)/100;const days=r.dayProfitPct>0?s.profitableDays:s.tradingDays,positiveProfit=Object.values(s.grouped).filter(n=>n>0).reduce((sum,n)=>sum+n,0),bestDayRatio=positiveProfit>0?s.bestDay/positiveProfit*100:null,bestDayOK=r.bestDayPct==null||(bestDayRatio!=null&&bestDayRatio<=r.bestDayPct+1e-8);return {...s,target,days,requiredDays:Number(r.days||0),dayProfitPct:Number(r.dayProfitPct||0),positiveProfit,bestDayRatio,bestDayPct:r.bestDayPct??null,bestDayOK,eligible:s.pnl+1e-8>=target&&days>=Number(r.days||0)&&bestDayOK};}
+function accountDay(a,now=new Date()){if(a?.ruleSnapshot?.timezone==='Europe/Prague'){const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Prague',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now).map(p=>[p.type,p.value]));return parts.year+'-'+parts.month+'-'+parts.day;}return new Date(now.getTime()+Number(a?.serverOffset??3)*3600000).toISOString().slice(0,10);}
 function effective(a){const p=a.ruleSnapshot;if(!p)return {dailyPct:a.dailyPct,maxPct:a.maxPct,riskPct:a.riskPct,drawdown:'static',dailyBasis:'initial',days:a.days};return a.status==='Funded'||p.count===0?p.funded:p.evaluation;}
 function withdrawalDebit(w){const value=w.accountDebit==null||w.accountDebit===''?w.amount:w.accountDebit;return Math.max(0,Math.round((Number(value)||0)*100)/100);}
-function transactions(a){const ts=a.status==='Funded'?a.pa?.trades||[]:a.phases?.[(a.phase||1)-1]?.trades||[];const out=ts.map((t,i)=>({date:t.date,order:t.recordedAt||i,amount:Number(t.pnl||0),type:'trade'}));if(a.status==='Funded')for(const w of a.pa?.withdrawals||[])if(withdrawalDebit(w)>0)out.push({date:w.date,order:w.recordedAt||1e15,amount:-withdrawalDebit(w),type:'withdrawal'});return out.sort((x,y)=>String(x.date).localeCompare(String(y.date))||x.order-y.order);}
+function transactions(a){const ts=a.status==='Funded'?a.pa?.trades||[]:a.phases?.[(a.phase||1)-1]?.trades||[];const out=ts.map((t,i)=>({date:t.date,order:t.recordedAt||i,amount:Number(t.pnl||0),type:'trade'}));if(a.status==='Funded')for(const w of a.pa?.withdrawals||[])if(withdrawalDebit(w)>0)out.push({date:w.date,order:w.recordedAt||1e15,amount:-withdrawalDebit(w),type:'withdrawal',newAccount:w.ftmoNewAccount===true});return out.sort((x,y)=>String(x.date).localeCompare(String(y.date))||x.order-y.order);}
 function personalRisk(a,date){const ts=(a.pa?.trades||[]).filter(t=>t.date<=date),pnl=ts.reduce((s,t)=>s+Number(t.pnl||0),0),dayPnl=ts.filter(t=>t.date===date).reduce((s,t)=>s+Number(t.pnl||0),0),deposits=(a.deposits||[]).filter(d=>d.date<=date).reduce((s,d)=>s+Number(d.amount||0),0),debits=(a.pa?.withdrawals||[]).filter(w=>w.date<=date).reduce((s,w)=>s+withdrawalDebit(w),0),capital=Number(a.capital),balance=capital+pnl+deposits-debits,dailyBudget=a.dailyPct==null?null:capital*a.dailyPct/100,maxBudget=a.maxPct==null?null:capital*a.maxPct/100;return {balance,equity:balance,floor:maxBudget==null?-Infinity:capital-maxBudget,peak:capital,dailyBudget,dailyFloor:dailyBudget==null?null:balance-dayPnl-dailyBudget,dailyRemaining:dailyBudget==null?null:dailyBudget+dayPnl,maxRemaining:maxBudget==null?Infinity:maxBudget+pnl,dayPnl,openingBalance:balance-dayPnl,openingEquity:balance-dayPnl,manual:false,drawdown:'static',breached:false,softDaily:dailyBudget!=null&&dailyBudget+dayPnl<=0};}
-function risk(a,date){if(a.accountType==='personal')return personalRisk(a,date);const r=effective(a),capital=Number(a.capital),events=transactions(a).filter(e=>e.date<=date);let balance=capital,peak=capital,floor=capital*(1-Number(r.maxPct||0)/100),gap=capital*Number(r.maxPct||0)/100,minBalance=capital;
+function eodRisk(a,date){
+ const r=effective(a),capital=Number(a.capital),gap=capital*Number(r.maxPct)/100,stage=a.status==='Funded'?'Funded':'Phase'+(a.phase||1),manual=a.ruleRuntime?.[stage]?.[date]||{},events=transactions(a).filter(e=>e.date<=date);
+ let balance=capital,peak=capital,floor=capital-gap,currentDay=null,dayStart=capital,dayPnl=0,withdrawals=0;
+ for(const e of events){
+  if(currentDay!==e.date){if(currentDay!=null&&currentDay<date){peak=Math.max(peak,balance);floor=Math.max(floor,peak-gap);}currentDay=e.date;dayStart=balance;dayPnl=0;withdrawals=0;}
+  balance+=e.amount;if(e.type==='trade')dayPnl+=e.amount;else withdrawals-=e.amount;
+  if(e.type==='withdrawal'&&e.newAccount){peak=capital;floor=capital-gap;dayStart=balance;dayPnl=0;withdrawals=0;}
+ }
+ if(currentDay!==date){if(currentDay!=null){peak=Math.max(peak,balance);floor=Math.max(floor,peak-gap);}dayStart=balance;dayPnl=0;withdrawals=0;}
+ const openingBalance=Number.isFinite(manual.openingBalance)?manual.openingBalance:dayStart,openingEquity=Number.isFinite(manual.openingEquity)?manual.openingEquity:openingBalance,dailyBudget=capital*Number(r.dailyPct)/100,dailyFloor=openingBalance-dailyBudget-withdrawals,equity=Number.isFinite(manual.equity)?manual.equity:balance;
+ if(Number.isFinite(manual.floor))floor=Math.max(floor,manual.floor);
+ return {balance,equity,floor,peak,dailyBudget,dailyFloor,dailyRemaining:equity-dailyFloor,maxRemaining:equity-floor,dayPnl,openingBalance,openingEquity,manual:!!Object.keys(manual).length,drawdown:r.drawdown,breached:equity<floor-1e-8||equity<dailyFloor-1e-8,softDaily:false};
+}
+function risk(a,date){if(effective(a).drawdown==='trailing-eod')return eodRisk(a,date);if(a.accountType==='personal')return personalRisk(a,date);const r=effective(a),capital=Number(a.capital),events=transactions(a).filter(e=>e.date<=date);let balance=capital,peak=capital,floor=capital*(1-Number(r.maxPct||0)/100),gap=capital*Number(r.maxPct||0)/100,minBalance=capital;
 for(const e of events){balance+=e.amount;minBalance=Math.min(minBalance,balance);if(r.drawdown==='trailing-balance'&&e.type==='withdrawal'){gap=Math.max(0,balance-floor);peak=balance;}else {peak=Math.max(peak,balance);if(r.drawdown.startsWith('trailing'))floor=Math.min(capital,Math.max(floor,peak-gap));}}
 const stage=a.status==='Funded'?'Funded':'Phase'+(a.phase||1),manual=a.ruleRuntime?.[stage]?.[date]||{};
 const before=events.filter(e=>e.date<date).reduce((s,e)=>s+e.amount,capital);const dayPnl=events.filter(e=>e.date===date&&e.type==='trade').reduce((s,e)=>s+e.amount,0);
@@ -90,22 +127,24 @@ const equity=Number.isFinite(manual.equity)?manual.equity:balance;
 if(r.drawdown==='trailing-equity'&&Number.isFinite(manual.peakEquity))floor=Math.max(floor,Math.min(capital,manual.peakEquity-capital*Number(r.maxPct)/100));
 if(Number.isFinite(manual.floor))floor=Math.max(floor,manual.floor);
 return {balance,equity,floor,peak,dailyBudget,dailyFloor,dailyRemaining:dailyFloor==null?null:equity-dailyFloor,maxRemaining:equity-floor,dayPnl,openingBalance,openingEquity,manual:!!Object.keys(manual).length,drawdown:r.drawdown,breached:equity<=floor+1e-8||(dailyFloor!=null&&equity<=dailyFloor+1e-8&&!r.dailySoft),softDaily:dailyFloor!=null&&equity<=dailyFloor+1e-8&&!!r.dailySoft};}
-function payout(a,today){if(a.accountType==='personal')return null;const p=a.ruleSnapshot;if(!p||a.status!=='Funded')return null;const r=p.reward,pa=a.pa||{},all=pa.trades||[],start=pa.cycleStart||all.map(t=>t.date).sort()[0]||today;const ts=all.filter(t=>t.date>=start&&t.date<=today);let dayTrades=ts;
+function payout(a,today){if(a.accountType==='personal')return null;const p=a.ruleSnapshot;if(!p||a.status!=='Funded')return null;const r=p.reward,pa=a.pa||{},history=pa.trades||[],reset=p.id==='ftmo-1-standard'?(pa.withdrawals||[]).filter(w=>w.ftmoNewAccount===true&&w.date<=today).sort((a,b)=>String(b.date).localeCompare(String(a.date))||Number(b.recordedAt||0)-Number(a.recordedAt||0))[0]:null,all=reset?history.filter(t=>t.date>reset.date||(t.date===reset.date&&Number(t.recordedAt||0)>Number(reset.recordedAt||0))):history,start=reset?(all.map(t=>t.date).sort()[0]||today):(pa.cycleStart||all.map(t=>t.date).sort()[0]||today);const ts=all.filter(t=>t.date>=start&&t.date<=today);let dayTrades=ts;
 if(r.rollingDays){const lo=new Date(today+'T12:00:00Z');lo.setUTCDate(lo.getUTCDate()-r.rollingDays+1);dayTrades=ts.filter(t=>t.date>=lo.toISOString().slice(0,10));}
 const stats=dayStats(ts,a.capital,r.dayProfitPct),profit=stats.pnl,consistency=profit>0?stats.bestDay/profit*100:Infinity;
 let elapsed=0;const startDate=new Date(start+'T12:00:00Z'),endDate=new Date(today+'T12:00:00Z');if(r.businessDays){for(let d=new Date(startDate);d<endDate;d.setUTCDate(d.getUTCDate()+1)){const wd=d.getUTCDay();if(wd!==0&&wd!==6)elapsed++;}}else elapsed=Math.max(0,Math.floor((endDate-startDate)/86400000));
 const wait=pa.rewardCount>0?Number(r.laterDays??r.days):Number(r.days),neededDays=Math.max(Number(r.profitableDays||0),pa.concentrationApplied?4:0),threshold=pa.concentrationApplied?Math.max(.5,Number(r.dayProfitPct||0)):Number(r.dayProfitPct||0),pdays=dayStats(dayTrades,a.capital,threshold).profitableDays;
-const paid=(pa.withdrawals||[]).filter(w=>w.date>=start&&w.date<=today).reduce((s,w)=>s+withdrawalDebit(w),0);
+const paid=(pa.withdrawals||[]).filter(w=>w.date>=start&&w.date<=today&&(!reset||w!==reset&&(w.date>reset.date||Number(w.recordedAt||0)>Number(reset.recordedAt||0)))).reduce((s,w)=>s+withdrawalDebit(w),0);
 const available=r.bufferPct?Math.max(0,risk(a,today).balance-a.capital-a.capital*r.bufferPct/100):Math.max(0,Math.min(profit-paid,risk(a,today).balance-a.capital));
 const checks=[{label:'Beneficio mínimo para solicitar',value:available,need:a.capital*Number(r.minProfitPct||0)/100,ok:available>0&&available+1e-8>=a.capital*Number(r.minProfitPct||0)/100}];
 if(wait>0)checks.push({label:r.businessDays?'Días hábiles del ciclo':'Días del ciclo',value:elapsed,need:wait,ok:elapsed>=wait,unit:'days'});
 if(neededDays)checks.push({label:'Días rentables ≥'+threshold+'%',value:pdays,need:neededDays,ok:pdays>=neededDays,unit:'days'});
+if(r.bestDayPct!=null){const positiveProfit=Object.values(stats.grouped).filter(n=>n>0).reduce((s,n)=>s+n,0),ratio=positiveProfit>0?stats.bestDay/positiveProfit*100:Infinity;checks.push({label:'Best Day / días positivos',value:ratio,need:r.bestDayPct,ok:ratio<=r.bestDayPct+1e-8,unit:'percent-max'});}
+if(Number(r.minProfitAmount)>0)checks.push({label:'Beneficio cerrado mínimo del método',value:available,need:Number(r.minProfitAmount),ok:available+1e-8>=Number(r.minProfitAmount)});
 if(r.consistencyPct!=null)checks.push({label:'Consistencia (mejor día / beneficio neto)',value:consistency,need:r.consistencyPct,ok:consistency<=r.consistencyPct+1e-8,unit:'percent-max'});
 if(r.bufferPct)checks.push({label:'Colchón a conservar',value:risk(a,today).balance-a.capital,need:a.capital*r.bufferPct/100,ok:risk(a,today).balance-a.capital>=a.capital*r.bufferPct/100});
 if(r.biggestLossCheck){const loss=Math.max(0,...ts.map(t=>-Number(t.pnl))),win=Math.max(0,...ts.map(t=>Number(t.pnl)));checks.push({label:'Mayor pérdida ≤ mayor ganancia',value:loss,need:win,ok:loss<=win,unit:'money-max'});}
 const strikes=Number(pa.strikes||0),split=strikes>=3?20:strikes===2?r.split/2:r.split;
 const eligibleProfit=Math.max(0,available);
 return {checks,profit,consistency,start,elapsed,split,eligibleProfit,paid,available,estimatedReward:eligibleProfit*split/100,eligible:checks.every(x=>x.ok)&&strikes<4&&!risk(a,today).breached,strikes,dayStats:stats};}
-globalThis.FTRules={defs,source,reviewed,profile,copy,groupDays,dayStats,progress,effective,risk,payout,withdrawalDebit,transactions};
+globalThis.FTRules={defs,source,reviewed,profile,copy,groupDays,dayStats,progress,effective,risk,payout,withdrawalDebit,transactions,accountDay};
 })();
 
