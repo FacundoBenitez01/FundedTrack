@@ -1,7 +1,7 @@
 (function(){
 'use strict';
-const $=id=>document.getElementById(id),R=window.FTRules,card=$('riskStatus')?.closest('.card');
-if(!card||!R)return;
+const $=id=>document.getElementById(id),R=window.FTRules,L=window.FTLedger,card=$('riskStatus')?.closest('.card');
+if(!card||!R||!L)return;
 card.id='jf106Risk';
 const grid=document.createElement('div');grid.className='jf106-limits';card.querySelector('.stats').before(grid);
 for(const id of ['dailyRiskText','maxRiskText'])$(id)?.closest('.stat')?.setAttribute('hidden','');
@@ -34,7 +34,7 @@ function refresh(){
  const lang=window.JourFundI18n?.language||'es',w=words[lang]||words.es;
  const fmt=n=>new Intl.NumberFormat(lang==='en'?'en-US':lang==='pt-BR'?'pt-BR':'es-PY',{style:'currency',currency:'USD',maximumFractionDigits:2}).format(n);
  const pct=n=>new Intl.NumberFormat(lang==='en'?'en-US':lang==='pt-BR'?'pt-BR':'es-PY',{maximumFractionDigits:1}).format(n);
- const v=R.risk(a,today()),r=R.effective(a),s=state(a,v,r);
+ const v=R.risk(a,L.day(a)),r=R.effective(a),s=state(a,v,r);
  card.querySelector('h2').textContent=w[0];
  grid.innerHTML=[s.daily,s.max].map((m,i)=>'<article class="jf106-limit" data-tone="'+m.tone+'"><div class="jf106-limit-head"><span>'+w[i+1]+'</span><span class="jf106-percent">'+(m.enabled?pct(m.percent)+'%':'—')+'</span></div><div class="jf106-amount">'+(m.enabled?fmt(m.used):'—')+'<small>'+(m.enabled?' / '+fmt(m.budget):w[5])+'</small></div><div class="jf106-meter" role="progressbar" aria-label="'+w[i+1]+'" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+m.width+'" aria-valuetext="'+(m.enabled?pct(m.percent)+'% '+w[6]:w[5])+'"><span style="width:'+m.width+'%"></span></div><div class="jf106-available"><span>'+w[4]+'</span><strong>'+(m.enabled?fmt(m.remaining):'—')+'</strong></div>'+(i===1&&m.enabled&&Number.isFinite(v.floor)?'<div class="jf106-floor">'+w[7]+': '+fmt(v.floor)+' · '+w[8]+': '+fmt(v.equity)+'</div>':'')+'</article>').join('');
  const status=$('riskStatus');status.textContent=w[s.status];status.dataset.tone=s.tone;status.style.color='';
