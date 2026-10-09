@@ -1,10 +1,9 @@
 (function () {
   'use strict';
-  // Presentation only. Never use this allowlist to authorize server actions.
-  const owners = new Set(['bfacundo393@gmail.com', 'kueblerisaias@gmail.com']);
+  // Presentation only. Server-managed app_metadata identifies this badge.
   const $ = id => document.getElementById(id);
   function isOwner(user) {
-    return !!user?.id && typeof user.email === 'string' && owners.has(user.email.trim().toLowerCase());
+    return !!user?.id && user.app_metadata?.jourfund_role === 'owner';
   }
   function role(user) {
     if (!user?.id || typeof user.email !== 'string') return '';
@@ -59,3 +58,4 @@
   if ($('ft59ProfileName')) new MutationObserver(update).observe($('ft59ProfileName'), { childList: true, characterData: true, subtree: true });
   update();
 })();
+
