@@ -27,7 +27,7 @@ let note=host.querySelector('.ft77-overview-note');if(!note){note=document.creat
 const tab=$('ftPageAccounts').querySelector('[data-scope="individual"]');if(tab)tab.textContent='Cuentas';
 // Keep the full original catalogue close to the challenge overview, ahead of individual rule details.
 const catalog=$('ftProgramCatalogue');if(catalog&&host.parentElement===catalog.parentElement&&host.nextElementSibling!==catalog)host.after(catalog);
-let link=host.querySelector('#ft78CatalogueLink');if(!link){link=document.createElement('button');link.type='button';link.id='ft78CatalogueLink';link.className='btn';link.textContent='Ver catálogo completo';link.onclick=()=>catalog?.scrollIntoView({behavior:'smooth',block:'start'});host.querySelector('.ft-rule-heading').insertBefore(link,$('ftAddPresetAccount'));}
+let link=host.querySelector('#ft78CatalogueLink');if(!link){link=document.createElement('button');link.type='button';link.id='ft78CatalogueLink';link.className='btn';link.textContent='Ver catálogo completo';link.onclick=()=>{const fold=$('jf99Catalogue');if(fold){fold.open=true;const summary=fold.querySelector('summary');summary?.focus({preventScroll:true});fold.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}else catalog?.scrollIntoView({behavior:'smooth',block:'start'});};host.querySelector('.ft-rule-heading').insertBefore(link,$('ftAddPresetAccount'));}
 if(dialog.open){const current=buckets().find(b=>b.key===dialogKey);if(!current||current.accounts.length!==$('ft78AccountChoices').children.length)dialog.close();}
 }
 const render=window.render;window.render=function(){const result=render.apply(this,arguments);paint();return result;};
