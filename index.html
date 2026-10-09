@@ -692,9 +692,27 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
 
  function gate(){el('ftCloudGate').classList.remove('ft87-success');document.body.classList.remove('ft-ready');el('ftCloudGate').classList.add('show');ready=false;document.querySelectorAll('.modal.show').forEach(e=>e.classList.remove('show'));el('achievement')?.classList.add('hide');}
  function reveal(){accessStage('ready');ready=true;document.body.classList.add('ft-ready');el('ftCloudGate').classList.remove('show');el('app').style.display='block';el('app').classList.remove('hide');}
+ // Profile photos are shared across accounts. Keep one copy on the wire, expand in memory.
+ // Ambiguous legacy profiles (different photos in one workspace) are preserved unchanged.
+ function workspaceAvatar(list){
+  const values=list.map(a=>a?.preferences?.avatar).filter(v=>v!==undefined&&v!==null&&v!=='');
+  return values.length&&values.every(v=>typeof v==='string'&&v===values[0])?values[0]:null;
+ }
+ function packWorkspace(list){
+  const result=clone(list),avatar=workspaceAvatar(result);
+  if(!avatar)return result;
+  let kept=false;
+  for(const a of result){if(a?.preferences?.avatar===avatar){if(kept)delete a.preferences.avatar;else kept=true;}}
+  return result;
+ }
+ function unpackWorkspace(list){
+  const result=clone(list),avatar=workspaceAvatar(result);
+  if(avatar)for(const a of result){if(a&&typeof a==='object'&&!Array.isArray(a)){a.preferences={...(a.preferences||{}),avatar};}}
+  return result;
+ }
  function applyData(list,selected){
   if(!Array.isArray(list))throw Error('Formato de datos inválido.');
-  accounts=list.length?clone(list):fresh();
+  accounts=list.length?unpackWorkspace(list):fresh();
   activeId=accounts.some(a=>a.id===selected)?selected:accounts[0].id;
   window.render();
  }
@@ -748,7 +766,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
   try{
    if(dirty){
     status('Guardando…');
-    const payload={accounts:clone(accounts),updated_at:new Date(Math.max(Date.now(),(Date.parse(version||'')||0)+1)).toISOString()};
+    const payload={accounts:packWorkspace(accounts),updated_at:new Date(Math.max(Date.now(),(Date.parse(version||'')||0)+1)).toISOString()};
     let response;
     if(version){response=await client.from('fundedtrack_workspaces').update(payload).eq('user_id',uid).eq('updated_at',version).select('updated_at').maybeSingle();}
     else{response=await client.from('fundedtrack_workspaces').insert({...payload,user_id:uid}).select('updated_at').single();}
@@ -838,7 +856,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  function backup(list,label){if(!user)throw Error('Iniciá sesión primero.');const k='ft66_backups_'+user.id;let old=[];try{old=JSON.parse(localStorage.getItem(k)||'[]');if(!Array.isArray(old))old=[];}catch{}const item={app:'JourFund',version:66,createdAt:new Date().toISOString(),label,accounts:clone(list)};localStorage.setItem(k,JSON.stringify([item,...old].slice(0,3)));return item;}
  function snapshot(){if(!user||!ready)throw Error('Esperá a que se carguen tus datos.');return {userId:user.id,revision,version,activeId,conflict,dirty,busy,accounts:clone(accounts)};}
  function assertOwner(state){if(!user||!ready||user.id!==state.userId||revision!==state.revision||version!==state.version)throw Error('Los datos cambiaron. Cerrá esta ventana y volvé a abrirla.');if(busy)throw Error('Esperá a que termine la sincronización.');}
- function storeCandidate(list,selected,nextVersion,nextDirty){const id=list.some(a=>a.id===selected)?selected:list[0].id;localStorage.setItem(key(user.id),JSON.stringify({accounts:clone(list),activeId:id,dirty:nextDirty,version:nextVersion}));accounts=clone(list);activeId=id;version=nextVersion;dirty=nextDirty;revision++;window.render();}
+ function storeCandidate(list,selected,nextVersion,nextDirty){list=unpackWorkspace(list);const id=list.some(a=>a.id===selected)?selected:list[0].id;localStorage.setItem(key(user.id),JSON.stringify({accounts:clone(list),activeId:id,dirty:nextDirty,version:nextVersion}));accounts=clone(list);activeId=id;version=nextVersion;dirty=nextDirty;revision++;window.render();}
  function selectAccount(id){
   if(!user||!ready||!accounts.some(a=>a.id===id))return false;
   const previous=activeId;activeId=id;
@@ -847,11 +865,11 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  window.ftProtectionCloud={snapshot,backup,selectAccount,backupList(){if(!user)return [];try{return JSON.parse(localStorage.getItem('ft66_backups_'+user.id)||'[]');}catch{return [];}},
   commit(list,state){assertOwner(state);if(conflict)throw Error('Resolvé primero el conflicto de sincronización.');const valid=P.validate(list);storeCandidate(valid,state.activeId,version,true);status('Guardando…');schedule();},
   import(list,state){assertOwner(state);if(conflict)throw Error('Resolvé primero el conflicto de sincronización.');const valid=P.validate(list);backup(accounts,'Antes de importar');storeCandidate(valid,state.activeId,version,true);status('Guardando…');schedule();},
-  async remote(){const state=snapshot();if(busy)throw Error('Esperá a que termine la sincronización.');const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',state.userId).maybeSingle();if(error)throw error;assertOwner(state);if(!data||!Array.isArray(data.accounts)||!data.accounts.length)throw Error('No hay una versión de nube disponible.');return {state,accounts:clone(data.accounts),version:data.updated_at};},
+  async remote(){const state=snapshot();if(busy)throw Error('Esperá a que termine la sincronización.');const {data,error}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',state.userId).maybeSingle();if(error)throw error;assertOwner(state);if(!data||!Array.isArray(data.accounts)||!data.accounts.length)throw Error('No hay una versión de nube disponible.');return {state,accounts:unpackWorkspace(data.accounts),version:data.updated_at};},
   async resolve(choice,view){assertOwner(view.state);const validLocal=P.validate(accounts);const validRemote=P.validate(view.accounts);backup(validLocal,'Dispositivo antes de resolver');backup(validRemote,'Nube antes de resolver');const uid=user.id,token=epoch,rev=revision;busy=true;clearTimeout(timer);
    try{const {data:current,error:readError}=await client.from('fundedtrack_workspaces').select('accounts,updated_at').eq('user_id',uid).maybeSingle();if(readError)throw readError;if(token!==epoch)throw Error('La sesión cambió.');if(revision!==rev||current?.updated_at!==view.version)throw Error('La versión cambió. Cerrá y volvé a comparar las versiones.');
     if(choice==='cloud'){storeCandidate(validRemote,activeId,view.version,false);conflict=false;status('Sincronizado');}
-    else if(choice==='local'){const payload={accounts:validLocal,updated_at:new Date(Math.max(Date.now(),(Date.parse(view.version)||0)+1)).toISOString()};const {data,error}=await client.from('fundedtrack_workspaces').update(payload).eq('user_id',uid).eq('updated_at',view.version).select('updated_at').maybeSingle();if(token!==epoch)throw Error('La sesión cambió.');if(error)throw error;if(!data)throw Error('Otro dispositivo guardó nuevos cambios. Volvé a comparar.');version=data.updated_at;conflict=false;dirty=revision!==rev;persist();status(dirty?'Guardando…':'Sincronizado');}
+    else if(choice==='local'){const payload={accounts:packWorkspace(validLocal),updated_at:new Date(Math.max(Date.now(),(Date.parse(view.version)||0)+1)).toISOString()};const {data,error}=await client.from('fundedtrack_workspaces').update(payload).eq('user_id',uid).eq('updated_at',view.version).select('updated_at').maybeSingle();if(token!==epoch)throw Error('La sesión cambió.');if(error)throw error;if(!data)throw Error('Otro dispositivo guardó nuevos cambios. Volvé a comparar.');version=data.updated_at;conflict=false;dirty=revision!==rev;persist();status(dirty?'Guardando…':'Sincronizado');}
     else throw Error('Opción inválida.');
    }finally{busy=false;if(token===epoch&&dirty&&!conflict)schedule();}
   }
@@ -1865,5 +1883,5 @@ window.FTMultiAccounts={groups,totals,batches,openIndividual(id,page){if(!window
 .side-brand-mark{background:none!important;width:38px;height:38px}
 .side-brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
 .brand h1,.side-brand-name,.ft57-word,.ft86-word,.ft86-load-screen strong{font-weight:800;letter-spacing:-.045em}
-</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=102"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=100"></script><script src="./language.js?v=97"></script>
+</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=103"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=100"></script><script src="./language.js?v=97"></script>
 </body></html>
