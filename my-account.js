@@ -9,7 +9,7 @@ const grid=page.querySelector('.ft94-grid'),hero=page.querySelector('.ft94-profi
 hero.prepend(form.querySelector('.ft61-profile-avatar'));
 if($('ft81OwnerIdentity'))identity.append($('ft81OwnerIdentity'));
 form.querySelector('h3').textContent='Nombre para mostrar';form.classList.add('ft94-name-form');grid.insertBefore(form,page.querySelector('.ft94-data'));
-cloud.querySelector('.label').textContent='Cuenta y sincronización · JourFund v108';grid.insertBefore(cloud,page.querySelector('.ft94-data'));
+cloud.querySelector('.label').textContent='Cuenta y sincronización · JourFund v109';grid.insertBefore(cloud,page.querySelector('.ft94-data'));
 const actions=cloud.querySelector('.ft-action-row'),data=page.querySelector('.ft94-data'),backupActions=data.querySelector('.ft94-backup-actions');
 backupActions.append($('ftExportMine'));
 const importer=[...actions.querySelectorAll('button')].find(b=>b.textContent==='Importar respaldo');if(importer)backupActions.append(importer);
