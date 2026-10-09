@@ -2,7 +2,22 @@
 (function(){
 'use strict';
 const supported=['es','en','pt-BR'], names={es:'Español',en:'English','pt-BR':'Português (Brasil)'}, dictionary=new Map();
-const rows=`Inicio|Home|Início
+const rows=`Capital propio|Personal capital|Capital próprio
+Agregar cuenta|Add account|Adicionar conta
+Cuenta de fondeo|Funded account|Conta de avaliação
+Guardar cuenta|Save account|Salvar conta
+Registrar depósito|Record deposit|Registrar depósito
+Depósitos|Deposits|Depósitos
+Metas personales|Personal goals|Metas pessoais
+Metas y límites personales|Personal goals and limits|Metas e limites pessoais
+Explorar catálogo|Explore catalogue|Explorar catálogo
+Ver operaciones|View trades|Ver operações
+Usar esta cuenta|Use this account|Usar esta conta
+Editar cuenta|Edit account|Editar conta
+Eliminar cuenta|Delete account|Excluir conta
+Multicuentas|Multiple accounts|Multicontas
+Mis cuentas|My accounts|Minhas contas
+Inicio|Home|Início
 Operaciones|Trades|Operações
 Cuentas|Accounts|Contas
 Retiros|Withdrawals|Saques
