@@ -314,4 +314,7 @@ dialog.querySelector('form').onsubmit=e=>{e.preventDefault();const error=dialog.
 function refresh(){const user=window.ftCloudSession?.user?.id||null;if(dialog.open&&user!==editorUser)close();if(user){try{const state=window.ftProtectionCloud.snapshot();const preference=state.accounts.map(a=>a.preferences).filter(p=>supported.includes(p?.language)).sort((a,b)=>(Date.parse(b.languageChangedAt)||0)-(Date.parse(a.languageChangedAt)||0))[0];const next=preference?.language||'es';if(next!==language)apply(next);}catch{/* Data not ready: do not write or replace a pending preference. */}}else{let next='es';try{next=localStorage.getItem('jourfund_login_language')||'es';}catch{}if(next!==language)apply(next);}}
 window.addEventListener('pagehide',()=>observer.disconnect());window.addEventListener('pageshow',observe);
 window.JourFundI18n={t:translate,get language(){return language;},refresh};window.addEventListener('ft67SyncStatus',refresh);apply('es');refresh();
+// Locale for Intl/toLocale* calls; undefined in Spanish so each call keeps its own es-* format.
+window.jfLocale=()=>({en:'en-US','pt-BR':'pt-BR'})[language];
+window.addEventListener('jfLanguageChanged',()=>{if(document.body.classList.contains('ft-ready'))window.render?.();});
 })();

@@ -77,3 +77,8 @@
   .ft82-chevron { margin-left: auto; font-size: 24px; color: var(--muted, #99a4b8); }
   #ft82Sheet button:focus-visible, .ft82-navigation button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
 }
+
+/* iOS zooms into any field under 16px when it gets focus; keep every field at 16px on phones. */
+@media (max-width: 700px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea { font-size: 16px !important; }
+}
