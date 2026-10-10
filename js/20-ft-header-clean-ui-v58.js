@@ -1,0 +1,1 @@
+(function(){const old=document.querySelector('.top > .phase');if(!old)return;const internal=document.createElement('div');internal.id='ftLegacyControls';internal.hidden=true;internal.inert=true;internal.setAttribute('aria-hidden','true');while(old.firstChild)internal.appendChild(old.firstChild);document.body.appendChild(internal);old.remove();})();
