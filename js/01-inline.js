@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){var splash=document.getElementById("ft57Splash");if(splash&&!splash.dataset.managed)splash.remove()},15000)},{once:true});

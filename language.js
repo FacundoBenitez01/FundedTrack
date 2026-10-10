@@ -58,6 +58,7 @@ Cuenta activa|Active account|Conta ativa
 CUENTA ACTIVA|ACTIVE ACCOUNT|CONTA ATIVA
 Balance|Balance|Saldo
 BALANCE|BALANCE|SALDO
+Saltar al contenido|Skip to content|Pular para o conteúdo
 Pérdida diaria disponible|Daily loss allowance|Limite de perda diária disponível
 PÉRDIDA DIARIA DISPONIBLE|DAILY LOSS ALLOWANCE|LIMITE DE PERDA DIÁRIA DISPONÍVEL
 Riesgo|Risk|Risco

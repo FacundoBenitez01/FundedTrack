@@ -21,7 +21,7 @@ The app is cached by the service worker (`sw.js`) and by the browser.
 
 ## 3. Rules that must stay in sync
 
-- Prop-firm rules live twice: `supabase/functions/_shared/rules.js` (server, ends `globalThis.FTRules=`) and the inline `<script id="ft-rules-catalogue-v56">` in `index.html` (browser, ends `window.FTRules=`). Edit both identically. A test fails if they differ.
+- Prop-firm rules live twice: `supabase/functions/_shared/rules.js` (server, ends `globalThis.FTRules=`) and `js/17-ft-rules-catalogue-v56.js` (browser, ends `window.FTRules=`). Edit both identically. A test fails if they differ.
 - Dates and numbers: use `window.jfLocale?.()||'es-ES'` (or the file's existing `es-*`) as the locale, never a fixed locale.
 - Form fields: every `<label>` gets `for="<field id>"`; icon-only buttons get `aria-label`.
 
@@ -29,7 +29,7 @@ The app is cached by the service worker (`sw.js`) and by the browser.
 
 - `node --test` from the repo root (rules and money calculations; must stay green).
 - `node --check <file>` for each changed `.js`.
-- Inline scripts in `index.html` have no syntax errors: extract each `<script>` without `src` and run `node --check` on it.
+- No inline JavaScript in `index.html`: the CSP has no `'unsafe-inline'` for scripts, so new code goes in a file under `js/` (added to `sw.js` SHELL) and click handlers use `data-jf-action` (see `js/actions.js`), never `onclick=`.
 - Load the site locally (`python3 -m http.server`) and confirm no `pageerror` in the console, on phone (390px) and desktop widths.
 
 ## 5. Pull request

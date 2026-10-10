@@ -64,9 +64,8 @@ test('FTMO 1-Step: yesterday\'s close already raises today\'s floor', () => {
   assert.equal(R.risk(a, '2026-10-09').floor, 10000);
 });
 
-test('the browser copy in index.html is the same rules code as the server copy', () => {
-  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-  const browser = html.match(/<script id="ft-rules-catalogue-v56">([\s\S]*?)<\/script>/)[1].trim();
+test('the browser copy (js/17-ft-rules-catalogue-v56.js) is the same rules code as the server copy', () => {
+  const browser = fs.readFileSync(path.join(root, 'js/17-ft-rules-catalogue-v56.js'), 'utf8').trim();
   const server = fs.readFileSync(rulesFile, 'utf8').trim();
   assert.equal(browser.replace('window.FTRules=', 'globalThis.FTRules='), server);
 });
