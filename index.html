@@ -688,7 +688,7 @@ if('serviceWorker' in navigator && location.protocol==='https:'){window.addEvent
  'use strict';
  const URL='https://ztkthcqjxptsxgtwfcfx.supabase.co';
  const PUBLIC_KEY='sb_publishable_fqjPJfR-EiAlDwk83M4oPg_A8wnDaSR';
- const SITE='https://facundobenitez01.github.io/FundedTrack/';
+ const SITE=['jourfund.com','www.jourfund.com'].includes(location.hostname)&&location.protocol==='https:'?location.origin+'/':'https://facundobenitez01.github.io/FundedTrack/';
  const el=id=>document.getElementById(id), clone=v=>JSON.parse(JSON.stringify(v));
  let oauthBusy=false,accessTransition=false;
  try{const pending=JSON.parse(sessionStorage.getItem('ft87_access_pending')||'null');if(pending&&Date.now()-pending.at<600000){accessTransition=true;window.ft87InteractiveAccess=true;}sessionStorage.removeItem('ft87_access_pending');}catch{}
@@ -1965,6 +1965,6 @@ window.FTMultiAccounts={groups,totals,batches,openIndividual(id,page){if(!window
 .side-brand-mark{background:none!important;width:38px;height:38px}
 .side-brand-mark img{display:block;width:100%;height:100%;object-fit:contain}
 .brand h1,.side-brand-name,.ft57-word,.ft86-word,.ft86-load-screen strong{font-weight:800;letter-spacing:-.045em}
-</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=111"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=110"></script><script src="./language.js?v=97"></script>
+</style><link rel="stylesheet" href="./mobile-home.css?v=93"><script src="./mobile-home.js?v=93"></script><link rel="stylesheet" href="./my-account.css?v=94"><script src="./my-account.js?v=112"></script><link rel="stylesheet" href="./navigation-motion.css?v=96"><script src="./navigation-motion.js?v=96"></script><link rel="stylesheet" href="./settings-redesign.css?v=98"><script src="./settings-redesign.js?v=98"></script><link rel="stylesheet" href="./accounts-compact.css?v=99"><script src="./accounts-compact.js?v=110"></script><script src="./language.js?v=97"></script>
 <link rel="stylesheet" href="./statistics.css?v=105"><script src="./statistics-engine.js?v=105"></script><script src="./statistics.js?v=105"></script><link rel="stylesheet" href="./risk-redesign.css?v=106"><script src="./risk-redesign.js?v=107"></script></body></html>
 
