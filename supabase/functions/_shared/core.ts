@@ -1,6 +1,6 @@
 import {createClient} from 'npm:@supabase/supabase-js@2.57.4';
 import webpush from 'npm:web-push@3.6.7';
-export const site=Deno.env.get('FT_SITE_URL')||'https://facundobenitez01.github.io/FundedTrack/';
+export const site=Deno.env.get('FT_SITE_URL')||'https://jourfund.com/';
 const origins=new Set(['https://facundobenitez01.github.io','https://jourfund.com','https://www.jourfund.com']);
 export function allowedOrigin(origin:string|null){return origin===null||origins.has(origin);}
 export function corsFor(req:Request){const origin=req.headers.get('Origin');return {'Access-Control-Allow-Headers':'authorization,apikey,content-type','Access-Control-Allow-Methods':'POST,OPTIONS','Vary':'Origin',...(origin&&origins.has(origin)?{'Access-Control-Allow-Origin':origin}:{})};}
@@ -15,4 +15,4 @@ const pub=decode(s.keys?.p256dh),auth=decode(s.keys?.auth);if(pub.length!==65||p
 export function prefs(input:any){return (globalThis as any).FTAlertPlanner.validate(input||{});}
 export async function send(subscription:any,payload:any){validSubscription(subscription);const details=webpush.generateRequestDetails(subscription,JSON.stringify(payload),{TTL:3600,urgency:'normal',contentEncoding:'aes128gcm',vapidDetails:{subject:Deno.env.get('VAPID_SUBJECT')!,publicKey:Deno.env.get('VAPID_PUBLIC_KEY')!,privateKey:Deno.env.get('VAPID_PRIVATE_KEY')!}});
 const response=await fetch(details.endpoint,{method:details.method,headers:details.headers,body:new Uint8Array(details.body),redirect:'error',signal:AbortSignal.timeout(12000)});await response.body?.cancel();return response.status;}
-export function lockPayload(event:any){return {title:'FundedTrack · '+event.title,body:event.body,tag:event.event_key,page:event.page,accountId:event.account_id};}
+export function lockPayload(event:any){return {title:'JourFund · '+event.title,body:event.body,tag:event.event_key,page:event.page,accountId:event.account_id};}
